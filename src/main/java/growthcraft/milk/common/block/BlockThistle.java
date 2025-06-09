@@ -43,6 +43,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
@@ -72,6 +73,16 @@ public class BlockThistle extends BlockBush implements ISpreadablePlant, IGrowab
     public BlockThistle setFireSpreadSpeed(int speed) {
         this.fireSpreadSpeed = speed;
         return this;
+    }
+
+    @Override
+    public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        return flammability;
+    }
+
+    @Override
+    public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
+        return fireSpreadSpeed;
     }
 
     @Override
