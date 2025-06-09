@@ -23,18 +23,16 @@
  */
 package growthcraft.api.cellar.distilling;
 
-import javax.annotation.Nonnull;
-
 import growthcraft.api.core.log.ILogger;
 import growthcraft.api.core.log.NullLogger;
 
-public class DistilleryRegistry implements IDistilleryRegistry
-{
-	private ILogger logger = NullLogger.INSTANCE;
+import javax.annotation.Nonnull;
 
-	@Override
-	public void setLogger(@Nonnull ILogger l)
-	{
-		this.logger = l;
-	}
+public class DistilleryRegistry implements IDistilleryRegistry {
+    private ILogger logger = NullLogger.INSTANCE;
+
+    @Override
+    public void setLogger(@Nonnull ILogger l) {
+        this.logger = l;
+    }
 }

@@ -23,54 +23,46 @@
  */
 package growthcraft.api.milk.cheesepress;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.item.ItemStack;
 
-public class CheesePressRecipe implements ICheesePressRecipe
-{
-	private ItemStack inputStack;
-	private ItemStack outputStack;
-	private int time;
+import javax.annotation.Nonnull;
 
-	public CheesePressRecipe(@Nonnull ItemStack pInputStack, @Nonnull ItemStack pOutputStack, int pTime)
-	{
-		this.inputStack = pInputStack;
-		this.outputStack = pOutputStack;
-		this.time = pTime;
-	}
+public class CheesePressRecipe implements ICheesePressRecipe {
+    private final ItemStack inputStack;
+    private final ItemStack outputStack;
+    private final int time;
 
-	@Override
-	public ItemStack getInputItemStack()
-	{
-		return inputStack;
-	}
+    public CheesePressRecipe(@Nonnull ItemStack pInputStack, @Nonnull ItemStack pOutputStack, int pTime) {
+        this.inputStack = pInputStack;
+        this.outputStack = pOutputStack;
+        this.time = pTime;
+    }
 
-	@Override
-	public ItemStack getOutputItemStack()
-	{
-		return outputStack;
-	}
+    @Override
+    public ItemStack getInputItemStack() {
+        return inputStack;
+    }
 
-	@Override
-	public int getTimeMax()
-	{
-		return time;
-	}
+    @Override
+    public ItemStack getOutputItemStack() {
+        return outputStack;
+    }
 
-	@Override
-	public boolean isMatchingRecipe(@Nonnull ItemStack stack)
-	{
-		if (inputStack.isItemEqual(stack))
-		{
-			return stack.stackSize >= inputStack.stackSize;
-		}
-		return false;
-	}
+    @Override
+    public int getTimeMax() {
+        return time;
+    }
 
-	@Override
-	public String toString()
-	{
-		return String.format("CheesePressRecipe({%s} / %d = {%s})", getOutputItemStack(), time, getInputItemStack());
-	}
+    @Override
+    public boolean isMatchingRecipe(@Nonnull ItemStack stack) {
+        if (inputStack.isItemEqual(stack)) {
+            return stack.stackSize >= inputStack.stackSize;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("CheesePressRecipe({%s} / %d = {%s})", getOutputItemStack(), time, getInputItemStack());
+    }
 }

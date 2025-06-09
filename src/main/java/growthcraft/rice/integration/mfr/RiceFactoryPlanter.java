@@ -24,24 +24,20 @@
 package growthcraft.rice.integration.mfr;
 
 import growthcraft.core.integration.mfr.AbstractFactoryPlantable;
-import growthcraft.rice.common.block.BlockRice;
 import growthcraft.rice.GrowthCraftRice;
+import growthcraft.rice.common.block.BlockRice;
 import growthcraft.rice.util.RiceBlockCheck;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class RiceFactoryPlanter extends AbstractFactoryPlantable<BlockRice>
-{
-	public RiceFactoryPlanter()
-	{
-		super(GrowthCraftRice.items.rice.getItem(), GrowthCraftRice.blocks.riceBlock.getBlock());
-	}
+public class RiceFactoryPlanter extends AbstractFactoryPlantable<BlockRice> {
+    public RiceFactoryPlanter() {
+        super(GrowthCraftRice.items.rice.getItem(), GrowthCraftRice.blocks.riceBlock.getBlock());
+    }
 
-	@Override
-	public boolean canBePlantedHere(World world, int x, int y, int z, ItemStack stack)
-	{
-		return super.canBePlantedHere(world, x, y, z, stack) &&
-			RiceBlockCheck.isPaddyWithWater(world, x, y - 1, z, GrowthCraftRice.getConfig().paddyFieldMax);
-	}
+    @Override
+    public boolean canBePlantedHere(World world, int x, int y, int z, ItemStack stack) {
+        return super.canBePlantedHere(world, x, y, z, stack) &&
+            RiceBlockCheck.isPaddyWithWater(world, x, y - 1, z, GrowthCraftRice.getConfig().paddyFieldMax);
+    }
 }

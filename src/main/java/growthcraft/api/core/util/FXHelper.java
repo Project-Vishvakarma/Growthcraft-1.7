@@ -23,25 +23,23 @@
  */
 package growthcraft.api.core.util;
 
-import growthcraft.api.core.client.particle.EntityFXDropParticle;
-
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import growthcraft.api.core.client.particle.EntityFXDropParticle;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.world.World;
 
-public class FXHelper
-{
-	private FXHelper() {}
+public class FXHelper {
+    private FXHelper() {
+    }
 
-	@SideOnly(Side.CLIENT)
-	public static void dropParticle(World world, double px, double py, double pz, int color)
-	{
-		final float particleRed = ((color >> 16) & 0xFF) / 255.0f;
-		final float particleGreen = ((color >> 8) & 0xFF) / 255.0f;
-		final float particleBlue = (color & 0xFF) / 255.0f;
-		final EntityFX fx = new EntityFXDropParticle(world, px, py, pz, particleRed, particleGreen, particleBlue);
-		FMLClientHandler.instance().getClient().effectRenderer.addEffect(fx);
-	}
+    @SideOnly(Side.CLIENT)
+    public static void dropParticle(World world, double px, double py, double pz, int color) {
+        final float particleRed = ((color >> 16) & 0xFF) / 255.0f;
+        final float particleGreen = ((color >> 8) & 0xFF) / 255.0f;
+        final float particleBlue = (color & 0xFF) / 255.0f;
+        final EntityFX fx = new EntityFXDropParticle(world, px, py, pz, particleRed, particleGreen, particleBlue);
+        FMLClientHandler.instance().getClient().effectRenderer.addEffect(fx);
+    }
 }

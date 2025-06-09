@@ -23,38 +23,34 @@
  */
 package growthcraft.core.integration.minecraft;
 
-import java.util.Locale;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-public enum EnumMinecraftWoodType
-{
-	OAK,
-	SPRUCE,
-	BIRCH,
-	JUNGLE,
-	ACACIA,
-	DARKOAK;
+import java.util.Locale;
 
-	public static final EnumMinecraftWoodType[] VALUES = values();
+public enum EnumMinecraftWoodType {
+    OAK,
+    SPRUCE,
+    BIRCH,
+    JUNGLE,
+    ACACIA,
+    DARKOAK;
 
-	public final String name;
-	public final int meta;
+    public static final EnumMinecraftWoodType[] VALUES = values();
 
-	private EnumMinecraftWoodType()
-	{
-		this.name = name().toLowerCase(Locale.ENGLISH);
-		this.meta = ordinal();
-	}
+    public final String name;
+    public final int meta;
 
-	public ItemStack asPlanksItemStack(int size)
-	{
-		return new ItemStack(Blocks.planks, size, meta);
-	}
+    EnumMinecraftWoodType() {
+        this.name = name().toLowerCase(Locale.ENGLISH);
+        this.meta = ordinal();
+    }
 
-	public ItemStack asPlanksItemStack()
-	{
-		return asPlanksItemStack(1);
-	}
+    public ItemStack asPlanksItemStack(int size) {
+        return new ItemStack(Blocks.planks, size, meta);
+    }
+
+    public ItemStack asPlanksItemStack() {
+        return asPlanksItemStack(1);
+    }
 }

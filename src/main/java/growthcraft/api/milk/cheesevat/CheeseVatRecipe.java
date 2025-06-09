@@ -23,99 +23,83 @@
  */
 package growthcraft.api.milk.cheesevat;
 
-import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.core.definition.IMultiFluidStacks;
 import growthcraft.api.core.definition.IMultiItemStacks;
 import growthcraft.api.core.fluids.FluidTest;
 import growthcraft.api.core.item.ItemTest;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public class CheeseVatRecipe implements ICheeseVatRecipe
-{
-	private List<FluidStack> outputFluids;
-	private List<ItemStack> outputItems;
-	private List<IMultiFluidStacks> inputFluids;
-	private List<IMultiItemStacks> inputItems;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
 
-	public CheeseVatRecipe(List<FluidStack> pOutputFluids, List<ItemStack> pOutputItems, List<IMultiFluidStacks> pInputFluids, List<IMultiItemStacks> pInputItems)
-	{
-		this.outputFluids = pOutputFluids;
-		this.outputItems = pOutputItems;
-		this.inputFluids = pInputFluids;
-		this.inputItems = pInputItems;
-	}
+public class CheeseVatRecipe implements ICheeseVatRecipe {
+    private final List<FluidStack> outputFluids;
+    private final List<ItemStack> outputItems;
+    private final List<IMultiFluidStacks> inputFluids;
+    private final List<IMultiItemStacks> inputItems;
 
-	@Override
-	public List<FluidStack> getOutputFluidStacks()
-	{
-		return outputFluids;
-	}
+    public CheeseVatRecipe(List<FluidStack> pOutputFluids, List<ItemStack> pOutputItems, List<IMultiFluidStacks> pInputFluids, List<IMultiItemStacks> pInputItems) {
+        this.outputFluids = pOutputFluids;
+        this.outputItems = pOutputItems;
+        this.inputFluids = pInputFluids;
+        this.inputItems = pInputItems;
+    }
 
-	@Override
-	public List<ItemStack> getOutputItemStacks()
-	{
-		return outputItems;
-	}
+    @Override
+    public List<FluidStack> getOutputFluidStacks() {
+        return outputFluids;
+    }
 
-	@Override
-	public List<IMultiFluidStacks> getInputFluidStacks()
-	{
-		return inputFluids;
-	}
+    @Override
+    public List<ItemStack> getOutputItemStacks() {
+        return outputItems;
+    }
 
-	@Override
-	public List<IMultiItemStacks> getInputItemStacks()
-	{
-		return inputItems;
-	}
+    @Override
+    public List<IMultiFluidStacks> getInputFluidStacks() {
+        return inputFluids;
+    }
 
-	@Override
-	public boolean isMatchingRecipe(@Nonnull List<FluidStack> fluids, @Nonnull List<ItemStack> items)
-	{
-		if (!FluidTest.isValidAndExpected(inputFluids, fluids)) return false;
-		if (!ItemTest.containsExpectedItemsUnordered(inputItems, items)) return false;
-		return true;
-	}
+    @Override
+    public List<IMultiItemStacks> getInputItemStacks() {
+        return inputItems;
+    }
 
-	@Override
-	public boolean isFluidIngredient(@Nullable Fluid fluid)
-	{
-		for (IMultiFluidStacks stack : inputFluids)
-		{
-			if (stack.containsFluid(fluid)) return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean isMatchingRecipe(@Nonnull List<FluidStack> fluids, @Nonnull List<ItemStack> items) {
+        if (!FluidTest.isValidAndExpected(inputFluids, fluids)) return false;
+        return ItemTest.containsExpectedItemsUnordered(inputItems, items);
+    }
 
-	@Override
-	public boolean isFluidIngredient(@Nullable FluidStack fluidStack)
-	{
-		for (IMultiFluidStacks stack : inputFluids)
-		{
-			if (stack.containsFluidStack(fluidStack)) return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean isFluidIngredient(@Nullable Fluid fluid) {
+        for (IMultiFluidStacks stack : inputFluids) {
+            if (stack.containsFluid(fluid)) return true;
+        }
+        return false;
+    }
 
-	@Override
-	public boolean isItemIngredient(@Nullable ItemStack itemStack)
-	{
-		for (IMultiItemStacks item : inputItems)
-		{
-			if (item.containsItemStack(itemStack)) return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean isFluidIngredient(@Nullable FluidStack fluidStack) {
+        for (IMultiFluidStacks stack : inputFluids) {
+            if (stack.containsFluidStack(fluidStack)) return true;
+        }
+        return false;
+    }
 
-	@Override
-	public String toString()
-	{
-		return String.format("CheeseVatRecipe(output_fluids: %s, output_items: %s, input_fluids: %s, input_items: %s)", outputFluids, outputItems, inputFluids, inputItems);
-	}
+    @Override
+    public boolean isItemIngredient(@Nullable ItemStack itemStack) {
+        for (IMultiItemStacks item : inputItems) {
+            if (item.containsItemStack(itemStack)) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("CheeseVatRecipe(output_fluids: %s, output_items: %s, input_fluids: %s, input_items: %s)", outputFluids, outputItems, inputFluids, inputItems);
+    }
 }

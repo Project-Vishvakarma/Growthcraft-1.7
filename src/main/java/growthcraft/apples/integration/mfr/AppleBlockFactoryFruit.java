@@ -26,20 +26,16 @@ package growthcraft.apples.integration.mfr;
 import growthcraft.apples.GrowthCraftApples;
 import growthcraft.apples.common.block.BlockApple;
 import growthcraft.core.integration.mfr.AbstractFactoryFruit;
-
 import net.minecraft.world.World;
 
-public class AppleBlockFactoryFruit extends AbstractFactoryFruit<BlockApple>
-{
-	public AppleBlockFactoryFruit()
-	{
-		super();
-		setPlant(GrowthCraftApples.blocks.appleBlock.getBlock());
-	}
+public class AppleBlockFactoryFruit extends AbstractFactoryFruit<BlockApple> {
+    public AppleBlockFactoryFruit() {
+        super();
+        setPlant(GrowthCraftApples.blocks.appleBlock.getBlock());
+    }
 
-	@Override
-	public boolean canBePicked(World world, int x, int y, int z)
-	{
-		return plantBlock.isMature(world, x, y, z);
-	}
+    @Override
+    public boolean canBePicked(World world, int x, int y, int z) {
+        return plantBlock.isMature(world, x, y, z);
+    }
 }

@@ -23,38 +23,32 @@
  */
 package growthcraft.api.core.schema;
 
-import javax.annotation.Nonnull;
-
 import growthcraft.api.cellar.common.Residue;
-
 import net.minecraft.item.ItemStack;
 
-public class ResidueSchema extends ItemKeySchema
-{
-	public float pomace;
+import javax.annotation.Nonnull;
 
-	public ResidueSchema(@Nonnull Residue res)
-	{
-		super(res.residueItem);
-		this.pomace = res.pomaceRate;
-	}
+public class ResidueSchema extends ItemKeySchema {
+    public float pomace;
 
-	public ResidueSchema()
-	{
-		super();
-		this.pomace = 1.0f;
-	}
+    public ResidueSchema(@Nonnull Residue res) {
+        super(res.residueItem);
+        this.pomace = res.pomaceRate;
+    }
 
-	public Residue asResidue()
-	{
-		final ItemStack itemStack = asStack();
-		if (itemStack == null) return null;
-		return new Residue(itemStack, pomace);
-	}
+    public ResidueSchema() {
+        super();
+        this.pomace = 1.0f;
+    }
 
-	@Override
-	public String toString()
-	{
-		return String.format("%s~(pomace: %.4f)", super.toString(), pomace);
-	}
+    public Residue asResidue() {
+        final ItemStack itemStack = asStack();
+        if (itemStack == null) return null;
+        return new Residue(itemStack, pomace);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s~(pomace: %.4f)", super.toString(), pomace);
+    }
 }

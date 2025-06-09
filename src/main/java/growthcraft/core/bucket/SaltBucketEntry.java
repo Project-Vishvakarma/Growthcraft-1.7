@@ -23,49 +23,39 @@
  */
 package growthcraft.core.bucket;
 
-import javax.annotation.Nonnull;
-
-import growthcraft.core.eventhandler.EventHandlerBucketFill.IBucketEntry;
 import growthcraft.core.GrowthCraftCore;
+import growthcraft.core.eventhandler.EventHandlerBucketFill.IBucketEntry;
 import growthcraft.core.stats.CoreAchievement;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 
-public class SaltBucketEntry implements IBucketEntry
-{
-	@Override
-	public ItemStack getItemStack()
-	{
-		return GrowthCraftCore.fluids.saltWater.bucket.asStack();
-	}
+import javax.annotation.Nonnull;
 
-	@Override
-	public boolean matches(@Nonnull World world, @Nonnull MovingObjectPosition pos)
-	{
-		if (Blocks.water.equals(world.getBlock(pos.blockX, pos.blockY, pos.blockZ)))
-		{
-			if (world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) == 0)
-			{
-				final BiomeGenBase biome = world.getBiomeGenForCoords(pos.blockX, pos.blockZ);
-				if (BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.OCEAN))
-				{
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+public class SaltBucketEntry implements IBucketEntry {
+    @Override
+    public ItemStack getItemStack() {
+        return GrowthCraftCore.fluids.saltWater.bucket.asStack();
+    }
 
-	@Override
-	public void commit(@Nonnull EntityPlayer player, @Nonnull World world, @Nonnull MovingObjectPosition pos)
-	{
-		world.setBlockToAir(pos.blockX, pos.blockY, pos.blockZ);
-		CoreAchievement.SALTY_SITUATION.unlock(player);
-	}
+    @Override
+    public boolean matches(@Nonnull World world, @Nonnull MovingObjectPosition pos) {
+        if (Blocks.water.equals(world.getBlock(pos.blockX, pos.blockY, pos.blockZ))) {
+            if (world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) == 0) {
+                final BiomeGenBase biome = world.getBiomeGenForCoords(pos.blockX, pos.blockZ);
+                return BiomeDictionary.isBiomeOfType(biome, BiomeDictionary.Type.OCEAN);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void commit(@Nonnull EntityPlayer player, @Nonnull World world, @Nonnull MovingObjectPosition pos) {
+        world.setBlockToAir(pos.blockX, pos.blockY, pos.blockZ);
+        CoreAchievement.SALTY_SITUATION.unlock(player);
+    }
 }

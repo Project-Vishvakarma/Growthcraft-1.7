@@ -23,36 +23,31 @@
  */
 package growthcraft.api.core.item;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 
-public class WeightedItemStack extends WeightedRandom.Item
-{
-	public final ItemStack itemStack;
-	private ItemKey key;
+import javax.annotation.Nonnull;
 
-	public WeightedItemStack(int weight, @Nonnull ItemStack stack)
-	{
-		super(weight <= 0 ? 1 : weight);
-		this.itemStack = stack;
-		this.key = new ItemKey(itemStack);
-	}
+public class WeightedItemStack extends WeightedRandom.Item {
+    public final ItemStack itemStack;
+    private final ItemKey key;
 
-	@Override
-	public int hashCode()
-	{
-		return key.hashCode();
-	}
+    public WeightedItemStack(int weight, @Nonnull ItemStack stack) {
+        super(weight <= 0 ? 1 : weight);
+        this.itemStack = stack;
+        this.key = new ItemKey(itemStack);
+    }
 
-	@Override
-	public boolean equals(Object other)
-	{
-		if (other instanceof WeightedItemStack)
-		{
-			return hashCode() == other.hashCode();
-		}
-		return false;
-	}
+    @Override
+    public int hashCode() {
+        return key.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof WeightedItemStack) {
+            return hashCode() == other.hashCode();
+        }
+        return false;
+    }
 }

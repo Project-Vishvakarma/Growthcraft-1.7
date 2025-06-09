@@ -23,80 +23,67 @@
  */
 package growthcraft.api.core.item;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.core.definition.IMultiItemStacks;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class OreItemStacks implements IMultiItemStacks
-{
-	public int stackSize;
-	private String oreName;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
-	public OreItemStacks(@Nonnull String name, int amount)
-	{
-		this.oreName = name;
-		this.stackSize = amount;
-	}
+public class OreItemStacks implements IMultiItemStacks {
+    private final String oreName;
+    public int stackSize;
 
-	public OreItemStacks(@Nonnull String name)
-	{
-		this(name, 1);
-	}
+    public OreItemStacks(@Nonnull String name, int amount) {
+        this.oreName = name;
+        this.stackSize = amount;
+    }
 
-	@Override
-	public int getStackSize()
-	{
-		return stackSize;
-	}
+    public OreItemStacks(@Nonnull String name) {
+        this(name, 1);
+    }
 
-	public String getName()
-	{
-		return oreName;
-	}
+    @Override
+    public int getStackSize() {
+        return stackSize;
+    }
 
-	public List<ItemStack> getRawItemStacks()
-	{
-		return OreDictionary.getOres(oreName);
-	}
+    public String getName() {
+        return oreName;
+    }
 
-	@Override
-	public boolean isEmpty()
-	{
-		return getRawItemStacks().isEmpty();
-	}
+    public List<ItemStack> getRawItemStacks() {
+        return OreDictionary.getOres(oreName);
+    }
 
-	@Override
-	public List<ItemStack> getItemStacks()
-	{
-		final List<ItemStack> items = getRawItemStacks();
-		final List<ItemStack> result = new ArrayList<ItemStack>();
-		for (ItemStack stack : items)
-		{
-			final ItemStack newStack = stack.copy();
-			if (newStack.stackSize <= 0) newStack.stackSize = 1;
-			newStack.stackSize *= stackSize;
-			result.add(newStack);
-		}
-		return result;
-	}
+    @Override
+    public boolean isEmpty() {
+        return getRawItemStacks().isEmpty();
+    }
 
-	@Override
-	public boolean containsItemStack(@Nullable ItemStack stack)
-	{
-		if (ItemTest.isValid(stack))
-		{
-			final int oreId = OreDictionary.getOreID(oreName);
-			for (int i : OreDictionary.getOreIDs(stack))
-			{
-				if (i == oreId) return true;
-			}
-		}
-		return false;
-	}
+    @Override
+    public List<ItemStack> getItemStacks() {
+        final List<ItemStack> items = getRawItemStacks();
+        final List<ItemStack> result = new ArrayList<ItemStack>();
+        for (ItemStack stack : items) {
+            final ItemStack newStack = stack.copy();
+            if (newStack.stackSize <= 0) newStack.stackSize = 1;
+            newStack.stackSize *= stackSize;
+            result.add(newStack);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean containsItemStack(@Nullable ItemStack stack) {
+        if (ItemTest.isValid(stack)) {
+            final int oreId = OreDictionary.getOreID(oreName);
+            for (int i : OreDictionary.getOreIDs(stack)) {
+                if (i == oreId) return true;
+            }
+        }
+        return false;
+    }
 }

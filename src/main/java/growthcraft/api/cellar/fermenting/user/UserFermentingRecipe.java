@@ -23,46 +23,42 @@
  */
 package growthcraft.api.cellar.fermenting.user;
 
-import javax.annotation.Nonnull;
-
-import growthcraft.api.core.schema.MultiFluidStackSchema;
 import growthcraft.api.core.schema.FluidStackSchema;
 import growthcraft.api.core.schema.ICommentable;
 import growthcraft.api.core.schema.ItemKeySchema;
+import growthcraft.api.core.schema.MultiFluidStackSchema;
 
-public class UserFermentingRecipe implements ICommentable
-{
-	public String comment = "";
-	public ItemKeySchema item;
-	public MultiFluidStackSchema input_fluid;
-	public FluidStackSchema output_fluid;
-	public int time;
+import javax.annotation.Nonnull;
 
-	public UserFermentingRecipe(@Nonnull ItemKeySchema itemSchema, @Nonnull MultiFluidStackSchema inp_fluid, @Nonnull FluidStackSchema out_fluid, int t)
-	{
-		this.item = itemSchema;
-		this.input_fluid = inp_fluid;
-		this.output_fluid = out_fluid;
-		this.time = t;
-	}
+public class UserFermentingRecipe implements ICommentable {
+    public String comment = "";
+    public ItemKeySchema item;
+    public MultiFluidStackSchema input_fluid;
+    public FluidStackSchema output_fluid;
+    public int time;
 
-	public UserFermentingRecipe() {}
+    public UserFermentingRecipe(@Nonnull ItemKeySchema itemSchema, @Nonnull MultiFluidStackSchema inp_fluid, @Nonnull FluidStackSchema out_fluid, int t) {
+        this.item = itemSchema;
+        this.input_fluid = inp_fluid;
+        this.output_fluid = out_fluid;
+        this.time = t;
+    }
 
-	@Override
-	public String toString()
-	{
-		return String.format("UserFermentingRecipe((`%s` + `%s`) / %d = `%s`)", item, input_fluid, time, output_fluid);
-	}
+    public UserFermentingRecipe() {
+    }
 
-	@Override
-	public void setComment(String comm)
-	{
-		this.comment = comm;
-	}
+    @Override
+    public String toString() {
+        return String.format("UserFermentingRecipe((`%s` + `%s`) / %d = `%s`)", item, input_fluid, time, output_fluid);
+    }
 
-	@Override
-	public String getComment()
-	{
-		return comment;
-	}
+    @Override
+    public String getComment() {
+        return comment;
+    }
+
+    @Override
+    public void setComment(String comm) {
+        this.comment = comm;
+    }
 }

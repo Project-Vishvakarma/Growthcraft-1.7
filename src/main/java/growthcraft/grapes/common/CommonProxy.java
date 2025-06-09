@@ -23,12 +23,10 @@
  */
 package growthcraft.grapes.common;
 
+import cpw.mods.fml.common.SidedProxy;
 import growthcraft.core.common.GrcModuleProxyBase;
 
-import cpw.mods.fml.common.SidedProxy;
-
-public class CommonProxy extends GrcModuleProxyBase
-{
-	@SidedProxy(clientSide="growthcraft.grapes.client.ClientProxy", serverSide="growthcraft.grapes.common.CommonProxy")
-	public static CommonProxy instance;
+public class CommonProxy extends GrcModuleProxyBase {
+    @SidedProxy(clientSide = "growthcraft.grapes.client.ClientProxy", serverSide = "growthcraft.grapes.common.CommonProxy")
+    public static CommonProxy instance;
 }

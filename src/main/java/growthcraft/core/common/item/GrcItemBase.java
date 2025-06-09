@@ -23,33 +23,29 @@
  */
 package growthcraft.core.common.item;
 
-import java.util.List;
-
-import growthcraft.api.core.i18n.GrcI18n;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import growthcraft.api.core.i18n.GrcI18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class GrcItemBase extends Item
-{
-	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool)
-	{
-		super.addInformation(stack, player, list, bool);
-		GrcItemBase.addDescription(this, stack, player, list, bool);
-	}
+import java.util.List;
 
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	public static void addDescription(Item item, ItemStack stack, EntityPlayer player, List list, boolean bool)
-	{
-		final String src = item.getUnlocalizedNameInefficiently(stack) + ".desc";
-		final String tr = ("" + GrcI18n.translate(src)).trim();
-		if (!src.equals(tr)) list.add(tr);
-	}
+public class GrcItemBase extends Item {
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void addDescription(Item item, ItemStack stack, EntityPlayer player, List list, boolean bool) {
+        final String src = item.getUnlocalizedNameInefficiently(stack) + ".desc";
+        final String tr = (GrcI18n.translate(src)).trim();
+        if (!src.equals(tr)) list.add(tr);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+        super.addInformation(stack, player, list, bool);
+        GrcItemBase.addDescription(this, stack, player, list, bool);
+    }
 }

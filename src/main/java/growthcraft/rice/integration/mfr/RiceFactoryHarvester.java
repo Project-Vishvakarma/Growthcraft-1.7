@@ -23,25 +23,21 @@
  */
 package growthcraft.rice.integration.mfr;
 
-import java.util.Map;
-
 import growthcraft.core.integration.mfr.AbstractFactoryHarvestable;
-import growthcraft.rice.common.block.BlockRice;
 import growthcraft.rice.GrowthCraftRice;
-
+import growthcraft.rice.common.block.BlockRice;
 import net.minecraft.world.World;
 
-public class RiceFactoryHarvester extends AbstractFactoryHarvestable<BlockRice>
-{
-	public RiceFactoryHarvester()
-	{
-		super();
-		setPlant(GrowthCraftRice.blocks.riceBlock.getBlock());
-	}
+import java.util.Map;
 
-	@Override
-	public boolean canBeHarvested(World world, Map<String, Boolean> harvesterSettings, int x, int y, int z)
-	{
-		return plantBlock.isMature(world, x, y, z);
-	}
+public class RiceFactoryHarvester extends AbstractFactoryHarvestable<BlockRice> {
+    public RiceFactoryHarvester() {
+        super();
+        setPlant(GrowthCraftRice.blocks.riceBlock.getBlock());
+    }
+
+    @Override
+    public boolean canBeHarvested(World world, Map<String, Boolean> harvesterSettings, int x, int y, int z) {
+        return plantBlock.isMature(world, x, y, z);
+    }
 }

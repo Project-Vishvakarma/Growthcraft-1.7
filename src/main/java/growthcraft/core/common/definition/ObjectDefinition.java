@@ -23,37 +23,32 @@
  */
 package growthcraft.core.common.definition;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.item.ItemStack;
 
-public abstract class ObjectDefinition<T>
-{
-	protected T obj;
+import javax.annotation.Nonnull;
 
-	public ObjectDefinition(@Nonnull T o)
-	{
-		this.obj = o;
-	}
+public abstract class ObjectDefinition<T> {
+    protected T obj;
 
-	@Nonnull
-	public T getObject()
-	{
-		return obj;
-	}
+    public ObjectDefinition(@Nonnull T o) {
+        this.obj = o;
+    }
 
-	@Nonnull
-	public abstract ItemStack asStack(int size, int damage);
+    @Nonnull
+    public T getObject() {
+        return obj;
+    }
 
-	@Nonnull
-	public ItemStack asStack(int size)
-	{
-		return asStack(size, 0);
-	}
+    @Nonnull
+    public abstract ItemStack asStack(int size, int damage);
 
-	@Nonnull
-	public ItemStack asStack()
-	{
-		return asStack(1);
-	}
+    @Nonnull
+    public ItemStack asStack(int size) {
+        return asStack(size, 0);
+    }
+
+    @Nonnull
+    public ItemStack asStack() {
+        return asStack(1);
+    }
 }

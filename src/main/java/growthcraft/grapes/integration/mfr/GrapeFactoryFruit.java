@@ -25,14 +25,11 @@ package growthcraft.grapes.integration.mfr;
 
 import growthcraft.core.integration.mfr.AbstractFactoryFruit;
 import growthcraft.grapes.GrowthCraftGrapes;
-
 import net.minecraft.block.Block;
 
-public class GrapeFactoryFruit extends AbstractFactoryFruit<Block>
-{
-	public GrapeFactoryFruit()
-	{
-		super();
-		setPlant(GrowthCraftGrapes.blocks.grapeBlock.getBlock());
-	}
+public class GrapeFactoryFruit extends AbstractFactoryFruit<Block> {
+    public GrapeFactoryFruit() {
+        super();
+        setPlant(GrowthCraftGrapes.blocks.grapeBlock.getBlock());
+    }
 }

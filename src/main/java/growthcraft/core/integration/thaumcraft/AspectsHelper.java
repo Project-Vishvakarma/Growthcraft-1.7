@@ -23,33 +23,30 @@
  */
 package growthcraft.core.integration.thaumcraft;
 
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.Aspect;
-
 import cpw.mods.fml.common.Optional;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 
 /**
  * Utility class for handling Thaumcraft Aspects and AspectLists
  */
-public class AspectsHelper
-{
-	private AspectsHelper() {}
+public class AspectsHelper {
+    private AspectsHelper() {
+    }
 
-	/**
-	 * @param list - Target AspectList
-	 * @param scale - how much to scale the scale the aspects by
-	 * @param aspects - the aspects to target
-	 * @return list, the list that was provided for method chaining
-	 */
-	@Optional.Method(modid="Thaumcraft")
-	public static AspectList scaleAspects(AspectList list, int scale, Aspect... aspects)
-	{
-		for (Aspect aspect : aspects)
-		{
-			final int a = list.getAmount(aspect) * scale;
-			list.remove(aspect);
-			if (a > 0) list.add(aspect, a);
-		}
-		return list;
-	}
+    /**
+     * @param list    - Target AspectList
+     * @param scale   - how much to scale the scale the aspects by
+     * @param aspects - the aspects to target
+     * @return list, the list that was provided for method chaining
+     */
+    @Optional.Method(modid = "Thaumcraft")
+    public static AspectList scaleAspects(AspectList list, int scale, Aspect... aspects) {
+        for (Aspect aspect : aspects) {
+            final int a = list.getAmount(aspect) * scale;
+            list.remove(aspect);
+            if (a > 0) list.add(aspect, a);
+        }
+        return list;
+    }
 }

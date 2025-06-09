@@ -23,14 +23,12 @@
  */
 package growthcraft.core.common.definition;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 
-public class BlockDefinition extends BlockTypeDefinition<Block>
-{
-	public BlockDefinition(@Nonnull Block block)
-	{
-		super(block);
-	}
+import javax.annotation.Nonnull;
+
+public class BlockDefinition extends BlockTypeDefinition<Block> {
+    public BlockDefinition(@Nonnull Block block) {
+        super(block);
+    }
 }

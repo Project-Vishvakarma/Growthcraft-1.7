@@ -23,52 +23,45 @@
  */
 package growthcraft.core.integration.nei;
 
-import growthcraft.core.client.gui.GrcGuiRenderHelper;
-
-import org.lwjgl.opengl.GL11;
-
 import codechicken.lib.gui.GuiDraw;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import growthcraft.core.client.gui.GrcGuiRenderHelper;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class TemplateRenderHelper
-{
-	public static final int PROGRESS_RIGHT = 0;
-	public static final int PROGRESS_DOWN = 1;
-	public static final int PROGRESS_LEFT = 2;
-	public static final int PROGRESS_UP = 3;
+public class TemplateRenderHelper {
+    public static final int PROGRESS_RIGHT = 0;
+    public static final int PROGRESS_DOWN = 1;
+    public static final int PROGRESS_LEFT = 2;
+    public static final int PROGRESS_UP = 3;
 
-	private TemplateRenderHelper() {}
+    private TemplateRenderHelper() {
+    }
 
-	public static void drawFluid(int x, int y, int w, int h, Fluid fluid, int amount)
-	{
-		if (fluid != null)
-		{
-			final IIcon icon = fluid.getStillIcon();
+    public static void drawFluid(int x, int y, int w, int h, Fluid fluid, int amount) {
+        if (fluid != null) {
+            final IIcon icon = fluid.getStillIcon();
 
-			if (icon != null)
-			{
-				GuiDraw.changeTexture(TextureMap.locationBlocksTexture);
-				final int color = fluid.getColor();
-				final float r = (float)(color >> 16 & 255) / 255.0F;
-				final float g = (float)(color >> 8 & 255) / 255.0F;
-				final float b = (float)(color & 255) / 255.0F;
-				GL11.glColor4f(r, g, b, 1.0f);
-				GrcGuiRenderHelper.drawTexturedModelRectFromIcon(x, y + h - amount, GuiDraw.gui.getZLevel(), icon, w, amount);
-				GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-			}
-		}
-	}
+            if (icon != null) {
+                GuiDraw.changeTexture(TextureMap.locationBlocksTexture);
+                final int color = fluid.getColor();
+                final float r = (float) (color >> 16 & 255) / 255.0F;
+                final float g = (float) (color >> 8 & 255) / 255.0F;
+                final float b = (float) (color & 255) / 255.0F;
+                GL11.glColor4f(r, g, b, 1.0f);
+                GrcGuiRenderHelper.drawTexturedModelRectFromIcon(x, y + h - amount, GuiDraw.gui.getZLevel(), icon, w, amount);
+                GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+            }
+        }
+    }
 
-	public static void drawFluidStack(int x, int y, int w, int h, FluidStack fluidstack, int amountMax)
-	{
-		if (fluidstack == null) return;
-		drawFluid(x, y, w, h, fluidstack.getFluid(), h * fluidstack.amount / amountMax);
-	}
+    public static void drawFluidStack(int x, int y, int w, int h, FluidStack fluidstack, int amountMax) {
+        if (fluidstack == null) return;
+        drawFluid(x, y, w, h, fluidstack.getFluid(), h * fluidstack.amount / amountMax);
+    }
 }

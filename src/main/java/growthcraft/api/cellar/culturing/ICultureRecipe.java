@@ -23,16 +23,19 @@
  */
 package growthcraft.api.cellar.culturing;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public interface ICultureRecipe
-{
-	ItemStack getOutputItemStack();
-	FluidStack getInputFluidStack();
-	float getRequiredHeat();
-	int getTime();
-	boolean matchesRecipe(@Nullable FluidStack fluid, float heat);
+import javax.annotation.Nullable;
+
+public interface ICultureRecipe {
+    ItemStack getOutputItemStack();
+
+    FluidStack getInputFluidStack();
+
+    float getRequiredHeat();
+
+    int getTime();
+
+    boolean matchesRecipe(@Nullable FluidStack fluid, float heat);
 }

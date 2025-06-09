@@ -23,13 +23,10 @@
  */
 package growthcraft.milk.common.item;
 
-import java.util.List;
-
-import growthcraft.milk.GrowthCraftMilk;
-import growthcraft.core.common.item.GrcItemFoodBase;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import growthcraft.core.common.item.GrcItemFoodBase;
+import growthcraft.milk.GrowthCraftMilk;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -37,59 +34,52 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 
-public class ItemCheese extends GrcItemFoodBase
-{
-	@SideOnly(Side.CLIENT)
-	private IIcon[] icons;
+import java.util.List;
 
-	public ItemCheese()
-	{
-		super(2, 0.3F, false);
-		setHasSubtypes(true);
-		setMaxDamage(0);
-		setTextureName("grcmilk:cheese");
-		setUnlocalizedName("grcmilk.Cheese");
-		setCreativeTab(GrowthCraftMilk.creativeTab);
-	}
+public class ItemCheese extends GrcItemFoodBase {
+    @SideOnly(Side.CLIENT)
+    private IIcon[] icons;
 
-	public EnumCheeseType getCheeseType(ItemStack stack)
-	{
-		return EnumCheeseType.VALUES[MathHelper.clamp_int(stack.getItemDamage(), 0, EnumCheeseType.VALUES.length)];
-	}
+    public ItemCheese() {
+        super(2, 0.3F, false);
+        setHasSubtypes(true);
+        setMaxDamage(0);
+        setTextureName("grcmilk:cheese");
+        setUnlocalizedName("grcmilk.Cheese");
+        setCreativeTab(GrowthCraftMilk.creativeTab);
+    }
 
-	@Override
-	public String getUnlocalizedName(ItemStack stack)
-	{
-		return super.getUnlocalizedName(stack) + "." + getCheeseType(stack).name;
-	}
+    public EnumCheeseType getCheeseType(ItemStack stack) {
+        return EnumCheeseType.VALUES[MathHelper.clamp_int(stack.getItemDamage(), 0, EnumCheeseType.VALUES.length)];
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister ir)
-	{
-		this.icons = new IIcon[EnumCheeseType.VALUES.length];
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        return super.getUnlocalizedName(stack) + "." + getCheeseType(stack).name;
+    }
 
-		for (int i = 0; i < EnumCheeseType.VALUES.length; ++i)
-		{
-			this.icons[i] = ir.registerIcon("grcmilk:cheese/" + EnumCheeseType.VALUES[i].name);
-		}
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister ir) {
+        this.icons = new IIcon[EnumCheeseType.VALUES.length];
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamage(int meta)
-	{
-		return icons[MathHelper.clamp_int(meta, 0, icons.length - 1)];
-	}
+        for (int i = 0; i < EnumCheeseType.VALUES.length; ++i) {
+            this.icons[i] = ir.registerIcon("grcmilk:cheese/" + EnumCheeseType.VALUES[i].name);
+        }
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	public void getSubItems(Item item, CreativeTabs ct, List list)
-	{
-		for (EnumCheeseType cheese : EnumCheeseType.VALUES)
-		{
-			list.add(cheese.asStack());
-		}
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamage(int meta) {
+        return icons[MathHelper.clamp_int(meta, 0, icons.length - 1)];
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void getSubItems(Item item, CreativeTabs ct, List list) {
+        for (EnumCheeseType cheese : EnumCheeseType.VALUES) {
+            list.add(cheese.asStack());
+        }
+    }
 }

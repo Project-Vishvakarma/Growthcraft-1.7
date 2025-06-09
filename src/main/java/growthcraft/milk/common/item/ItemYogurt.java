@@ -23,13 +23,10 @@
  */
 package growthcraft.milk.common.item;
 
-import java.util.List;
-
-import growthcraft.core.common.item.GrcItemFoodBase;
-import growthcraft.milk.GrowthCraftMilk;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import growthcraft.core.common.item.GrcItemFoodBase;
+import growthcraft.milk.GrowthCraftMilk;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -37,59 +34,52 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 
-public class ItemYogurt extends GrcItemFoodBase
-{
-	@SideOnly(Side.CLIENT)
-	private IIcon[] icons;
+import java.util.List;
 
-	public ItemYogurt()
-	{
-		super(2, 0.3F, false);
-		setHasSubtypes(true);
-		setMaxDamage(0);
-		setUnlocalizedName("grcmilk.Yogurt");
-		setTextureName("grcmilk:yogurt/yogurt");
-		setCreativeTab(GrowthCraftMilk.creativeTab);
-	}
+public class ItemYogurt extends GrcItemFoodBase {
+    @SideOnly(Side.CLIENT)
+    private IIcon[] icons;
 
-	public EnumYogurt getEnumYogurt(ItemStack stack)
-	{
-		return EnumYogurt.VALUES[MathHelper.clamp_int(stack.getItemDamage(), 0, EnumYogurt.VALUES.length - 1)];
-	}
+    public ItemYogurt() {
+        super(2, 0.3F, false);
+        setHasSubtypes(true);
+        setMaxDamage(0);
+        setUnlocalizedName("grcmilk.Yogurt");
+        setTextureName("grcmilk:yogurt/yogurt");
+        setCreativeTab(GrowthCraftMilk.creativeTab);
+    }
 
-	@Override
-	public String getUnlocalizedName(ItemStack stack)
-	{
-		return super.getUnlocalizedName(stack) + "." + getEnumYogurt(stack).name;
-	}
+    public EnumYogurt getEnumYogurt(ItemStack stack) {
+        return EnumYogurt.VALUES[MathHelper.clamp_int(stack.getItemDamage(), 0, EnumYogurt.VALUES.length - 1)];
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister ir)
-	{
-		this.icons = new IIcon[EnumYogurt.VALUES.length];
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        return super.getUnlocalizedName(stack) + "." + getEnumYogurt(stack).name;
+    }
 
-		for (EnumYogurt yogurt : EnumYogurt.VALUES)
-		{
-			this.icons[yogurt.meta] = ir.registerIcon("grcmilk:yogurt/yogurt_" + yogurt.name);
-		}
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister ir) {
+        this.icons = new IIcon[EnumYogurt.VALUES.length];
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamage(int meta)
-	{
-		return icons[MathHelper.clamp_int(meta, 0, EnumYogurt.VALUES.length - 1)];
-	}
+        for (EnumYogurt yogurt : EnumYogurt.VALUES) {
+            this.icons[yogurt.meta] = ir.registerIcon("grcmilk:yogurt/yogurt_" + yogurt.name);
+        }
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	public void getSubItems(Item item, CreativeTabs ct, List list)
-	{
-		for (EnumYogurt yogurt : EnumYogurt.VALUES)
-		{
-			list.add(yogurt.asStack());
-		}
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamage(int meta) {
+        return icons[MathHelper.clamp_int(meta, 0, EnumYogurt.VALUES.length - 1)];
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void getSubItems(Item item, CreativeTabs ct, List list) {
+        for (EnumYogurt yogurt : EnumYogurt.VALUES) {
+            list.add(yogurt.asStack());
+        }
+    }
 }

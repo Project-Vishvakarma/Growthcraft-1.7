@@ -23,108 +23,86 @@
  */
 package growthcraft.cellar.common.tileentity.component;
 
-import javax.annotation.Nonnull;
-import io.netty.buffer.ByteBuf;
-
 import growthcraft.api.core.nbt.INBTSerializableContext;
 import growthcraft.api.core.stream.IStreamable;
-
+import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileHeatingComponent implements INBTSerializableContext, IStreamable
-{
-	private TileEntity tileEntity;
-	private HeatBlockComponent heatBlockComponent;
-	private float heat;
-	private float heatLoss = 0.01f;
-	private float heatGain = 0.01f;
+import javax.annotation.Nonnull;
 
-	public TileHeatingComponent(@Nonnull TileEntity te, float adjacentHeating)
-	{
-		this.tileEntity = te;
-		this.heatBlockComponent = new HeatBlockComponent(tileEntity, adjacentHeating);
-	}
+public class TileHeatingComponent implements INBTSerializableContext, IStreamable {
+    private final TileEntity tileEntity;
+    private final HeatBlockComponent heatBlockComponent;
+    private final float heatLoss = 0.01f;
+    private final float heatGain = 0.01f;
+    private float heat;
 
-	public void update()
-	{
-		final float heatMul = heatBlockComponent.getHeatMultiplier();
-		if (heatMul > 0)
-		{
-			if (this.heat < heatMul)
-			{
-				this.heat += heatGain * heatMul;
-			}
-			else
-			{
-				this.heat -= heatGain * heatMul;
-			}
-		}
-		else
-		{
-			if (heat > 0)
-				this.heat -= heatLoss;
-		}
-	}
+    public TileHeatingComponent(@Nonnull TileEntity te, float adjacentHeating) {
+        this.tileEntity = te;
+        this.heatBlockComponent = new HeatBlockComponent(tileEntity, adjacentHeating);
+    }
 
-	public TileHeatingComponent setHeatMultiplier(float h)
-	{
-		this.heat = h;
-		return this;
-	}
+    public void update() {
+        final float heatMul = heatBlockComponent.getHeatMultiplier();
+        if (heatMul > 0) {
+            if (this.heat < heatMul) {
+                this.heat += heatGain * heatMul;
+            } else {
+                this.heat -= heatGain * heatMul;
+            }
+        } else {
+            if (heat > 0)
+                this.heat -= heatLoss;
+        }
+    }
 
-	public float getHeatMultiplier()
-	{
-		return heat;
-	}
+    public float getHeatMultiplier() {
+        return heat;
+    }
 
-	public boolean isHeated()
-	{
-		return heat > 0.0f;
-	}
+    public TileHeatingComponent setHeatMultiplier(float h) {
+        this.heat = h;
+        return this;
+    }
 
-	private void readFromNBT(@Nonnull NBTTagCompound tag)
-	{
-		this.heat = tag.getFloat("heat");
-	}
+    public boolean isHeated() {
+        return heat > 0.0f;
+    }
 
-	@Override
-	public void readFromNBT(@Nonnull NBTTagCompound tag, @Nonnull String name)
-	{
-		if (tag.hasKey(name))
-		{
-			readFromNBT(tag.getCompoundTag(name));
-		}
-		else
-		{
-			// WARN
-		}
-	}
+    private void readFromNBT(@Nonnull NBTTagCompound tag) {
+        this.heat = tag.getFloat("heat");
+    }
 
-	private void writeToNBT(@Nonnull NBTTagCompound tag)
-	{
-		tag.setFloat("heat", heat);
-	}
+    @Override
+    public void readFromNBT(@Nonnull NBTTagCompound tag, @Nonnull String name) {
+        if (tag.hasKey(name)) {
+            readFromNBT(tag.getCompoundTag(name));
+        } else {
+            // WARN
+        }
+    }
 
-	@Override
-	public void writeToNBT(@Nonnull NBTTagCompound tag, @Nonnull String name)
-	{
-		final NBTTagCompound target = new NBTTagCompound();
-		writeToNBT(target);
-		tag.setTag(name, target);
-	}
+    private void writeToNBT(@Nonnull NBTTagCompound tag) {
+        tag.setFloat("heat", heat);
+    }
 
-	@Override
-	public boolean readFromStream(ByteBuf stream)
-	{
-		this.heat = stream.readFloat();
-		return false;
-	}
+    @Override
+    public void writeToNBT(@Nonnull NBTTagCompound tag, @Nonnull String name) {
+        final NBTTagCompound target = new NBTTagCompound();
+        writeToNBT(target);
+        tag.setTag(name, target);
+    }
 
-	@Override
-	public boolean writeToStream(ByteBuf stream)
-	{
-		stream.writeFloat(heat);
-		return false;
-	}
+    @Override
+    public boolean readFromStream(ByteBuf stream) {
+        this.heat = stream.readFloat();
+        return false;
+    }
+
+    @Override
+    public boolean writeToStream(ByteBuf stream) {
+        stream.writeFloat(heat);
+        return false;
+    }
 }

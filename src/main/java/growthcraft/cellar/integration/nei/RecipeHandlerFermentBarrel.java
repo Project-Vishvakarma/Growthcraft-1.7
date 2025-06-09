@@ -23,117 +23,100 @@
  */
 package growthcraft.cellar.integration.nei;
 
-import java.util.List;
-import javax.annotation.Nonnull;
-
+import codechicken.lib.gui.GuiDraw;
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import growthcraft.api.cellar.CellarRegistry;
 import growthcraft.api.cellar.fermenting.IFermentationRecipe;
 import growthcraft.api.core.i18n.GrcI18n;
+import growthcraft.cellar.GrowthCraftCellar;
 import growthcraft.cellar.client.gui.GuiFermentBarrel;
 import growthcraft.cellar.client.resource.GrcCellarResources;
-import growthcraft.cellar.GrowthCraftCellar;
 import growthcraft.core.integration.nei.TemplateRenderHelper;
-
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
-import codechicken.lib.gui.GuiDraw;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class RecipeHandlerFermentBarrel extends TemplateRecipeHandler
-{
-	public class CachedFermentationRecipe extends CachedRecipe
-	{
-		public IFermentationRecipe fermentationRecipe;
-		public FluidStack outputFluidStack;
-		public List<FluidStack> inputFluidStacks;
+import javax.annotation.Nonnull;
+import java.util.List;
 
-		protected PositionedStack ingredient;
-		public CachedFermentationRecipe(@Nonnull IFermentationRecipe recipe)
-		{
-			super();
-			this.fermentationRecipe = recipe;
-			this.ingredient = new PositionedStack(fermentationRecipe.getFermentingItemStack().getItemStacks(), 38, 42);
+public class RecipeHandlerFermentBarrel extends TemplateRecipeHandler {
+    @Override
+    public String getGuiTexture() {
+        return GrcCellarResources.INSTANCE.textureGuiFermentBarrel.toString();
+    }
 
-			this.inputFluidStacks = fermentationRecipe.getInputFluidStack().getFluidStacks();
+    @Override
+    public String getRecipeName() {
+        return GrcI18n.translate("grc.recipe_handler.ferment_barrel");
+    }
 
-			this.outputFluidStack = fermentationRecipe.getOutputFluidStack().copy();
-			outputFluidStack.amount = GrowthCraftCellar.getConfig().fermentBarrelMaxCap;
-		}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Class<? extends GuiContainer> getGuiClass() {
+        return GuiFermentBarrel.class;
+    }
 
-		@Override
-		public PositionedStack getResult()
-		{
-			return null;
-		}
+    @Override
+    public void loadUsageRecipes(ItemStack ingredient) {
+        final List<IFermentationRecipe> recipes = CellarRegistry.instance().fermenting().findRecipes(ingredient);
+        for (IFermentationRecipe recipe : recipes) {
+            arecipes.add(new CachedFermentationRecipe(recipe));
+        }
+    }
 
-		@Override
-		public PositionedStack getIngredient()
-		{
-			return ingredient;
-		}
-	}
+    protected void drawOutputFluidStack(CachedRecipe recipe) {
+        if (recipe instanceof CachedFermentationRecipe) {
+            final List<FluidStack> stacks = ((CachedFermentationRecipe) recipe).inputFluidStacks;
+            if (stacks.size() > 0) {
+                final FluidStack stack = stacks.get((stacks.size() * cycleticks / 20) % stacks.size());
+                if (stack != null) {
+                    TemplateRenderHelper.drawFluid(58, 6, 50, 52, stack.getFluid(), 52);
+                }
+                //TemplateRenderHelper.drawFluidStack(58, 6, 50, 52, ((CachedFermentationRecipe)recipe).outputFluidStack, GrowthCraftCellar.getConfig().fermentBarrelMaxCap);
+            }
+        }
+    }
 
-	@Override
-	public String getGuiTexture()
-	{
-		return GrcCellarResources.INSTANCE.textureGuiFermentBarrel.toString();
-	}
+    @Override
+    public void drawExtras(int recipe) {
+        final CachedRecipe crecipe = arecipes.get(recipe);
+        if (crecipe != null) {
+            drawOutputFluidStack(crecipe);
+        }
+        GuiDraw.changeTexture(getGuiTexture());
+        drawProgressBar(34, 10, 188, 0, 9, 29, 240, TemplateRenderHelper.PROGRESS_UP);
+        drawProgressBar(44, 9, 176, 0, 12, 29, 20, TemplateRenderHelper.PROGRESS_UP);
+    }
 
-	@Override
-	public String getRecipeName()
-	{
-		return GrcI18n.translate("grc.recipe_handler.ferment_barrel");
-	}
+    public class CachedFermentationRecipe extends CachedRecipe {
+        public IFermentationRecipe fermentationRecipe;
+        public FluidStack outputFluidStack;
+        public List<FluidStack> inputFluidStacks;
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Class<? extends GuiContainer> getGuiClass()
-	{
-		return GuiFermentBarrel.class;
-	}
+        protected PositionedStack ingredient;
 
-	@Override
-	public void loadUsageRecipes(ItemStack ingredient)
-	{
-		final List<IFermentationRecipe> recipes = CellarRegistry.instance().fermenting().findRecipes(ingredient);
-		for (IFermentationRecipe recipe : recipes)
-		{
-			arecipes.add(new CachedFermentationRecipe(recipe));
-		}
-	}
+        public CachedFermentationRecipe(@Nonnull IFermentationRecipe recipe) {
+            super();
+            this.fermentationRecipe = recipe;
+            this.ingredient = new PositionedStack(fermentationRecipe.getFermentingItemStack().getItemStacks(), 38, 42);
 
-	protected void drawOutputFluidStack(CachedRecipe recipe)
-	{
-		if (recipe instanceof CachedFermentationRecipe)
-		{
-			final List<FluidStack> stacks = ((CachedFermentationRecipe)recipe).inputFluidStacks;
-			if (stacks.size() > 0)
-			{
-				final FluidStack stack = stacks.get((stacks.size() * cycleticks / 20) % stacks.size());
-				if (stack != null)
-				{
-					TemplateRenderHelper.drawFluid(58, 6, 50, 52, stack.getFluid(), 52);
-				}
-				//TemplateRenderHelper.drawFluidStack(58, 6, 50, 52, ((CachedFermentationRecipe)recipe).outputFluidStack, GrowthCraftCellar.getConfig().fermentBarrelMaxCap);
-			}
-		}
-	}
+            this.inputFluidStacks = fermentationRecipe.getInputFluidStack().getFluidStacks();
 
-	@Override
-	public void drawExtras(int recipe)
-	{
-		final CachedRecipe crecipe = arecipes.get(recipe);
-		if (crecipe != null)
-		{
-			drawOutputFluidStack(crecipe);
-		}
-		GuiDraw.changeTexture(getGuiTexture());
-		drawProgressBar(34, 10, 188, 0, 9, 29, 240, TemplateRenderHelper.PROGRESS_UP);
-		drawProgressBar(44, 9, 176, 0, 12, 29, 20, TemplateRenderHelper.PROGRESS_UP);
-	}
+            this.outputFluidStack = fermentationRecipe.getOutputFluidStack().copy();
+            outputFluidStack.amount = GrowthCraftCellar.getConfig().fermentBarrelMaxCap;
+        }
+
+        @Override
+        public PositionedStack getResult() {
+            return null;
+        }
+
+        @Override
+        public PositionedStack getIngredient() {
+            return ingredient;
+        }
+    }
 }

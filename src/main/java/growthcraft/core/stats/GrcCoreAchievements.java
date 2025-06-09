@@ -23,67 +23,59 @@
  */
 package growthcraft.core.stats;
 
-import java.util.Map;
-import java.util.EnumMap;
-
 import growthcraft.api.core.item.EnumSkull;
-import growthcraft.core.common.AchievementPageGrowthcraft;
 import growthcraft.core.GrowthCraftCore;
-
+import growthcraft.core.common.AchievementPageGrowthcraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.stats.Achievement;
 
-public class GrcCoreAchievements
-{
-	private static final Achievement NO_ACHIEVEMENT = (Achievement)null;
+import java.util.EnumMap;
+import java.util.Map;
 
-	private final Map<CoreAchievement, Achievement> achievements = new EnumMap<CoreAchievement, Achievement>(CoreAchievement.class);
+public class GrcCoreAchievements {
+    private static final Achievement NO_ACHIEVEMENT = null;
 
-	public GrcCoreAchievements()
-	{
-		achievements.put(CoreAchievement.TRUSTY_HARDWARE,
-			(new Achievement("grc.achievement.trusty_hardware", "trusty_hardware",
-				-4, 0,
-				GrowthCraftCore.items.crowbar.asStack(),
-				NO_ACHIEVEMENT)
-			).initIndependentStat().registerStat()
-		);
-		achievements.put(CoreAchievement.HALF_LIFE_CONFIRMED,
-			(new Achievement("grc.achievement.half_life_confirmed", "half_life_confirmed",
-				-2, 0,
-				EnumSkull.ZOMBIE.asStack(),
-				achievements.get(CoreAchievement.TRUSTY_HARDWARE))
-			).registerStat()
-		);
-		achievements.put(CoreAchievement.SALTY_SITUATION,
-			(new Achievement("grc.achievement.salty_situation", "salty_situation",
-				2, 0,
-				GrowthCraftCore.items.saltBucket.asStack(),
-				NO_ACHIEVEMENT)
-			).registerStat()
-		);
+    private final Map<CoreAchievement, Achievement> achievements = new EnumMap<CoreAchievement, Achievement>(CoreAchievement.class);
 
-		for (Achievement a : achievements.values())
-		{
-			AchievementPageGrowthcraft.masterList.add(a);
-		}
-	}
+    public GrcCoreAchievements() {
+        achievements.put(CoreAchievement.TRUSTY_HARDWARE,
+            (new Achievement("grc.achievement.trusty_hardware", "trusty_hardware",
+                -4, 0,
+                GrowthCraftCore.items.crowbar.asStack(),
+                NO_ACHIEVEMENT)
+            ).initIndependentStat().registerStat()
+        );
+        achievements.put(CoreAchievement.HALF_LIFE_CONFIRMED,
+            (new Achievement("grc.achievement.half_life_confirmed", "half_life_confirmed",
+                -2, 0,
+                EnumSkull.ZOMBIE.asStack(),
+                achievements.get(CoreAchievement.TRUSTY_HARDWARE))
+            ).registerStat()
+        );
+        achievements.put(CoreAchievement.SALTY_SITUATION,
+            (new Achievement("grc.achievement.salty_situation", "salty_situation",
+                2, 0,
+                GrowthCraftCore.items.saltBucket.asStack(),
+                NO_ACHIEVEMENT)
+            ).registerStat()
+        );
 
-	public void unlock(CoreAchievement a, EntityPlayer player)
-	{
-		final Achievement achievement = achievements.get(a);
-		if (achievement != null)
-		{
-			player.triggerAchievement(achievement);
-		}
-	}
+        for (Achievement a : achievements.values()) {
+            AchievementPageGrowthcraft.masterList.add(a);
+        }
+    }
 
-	public void addStat(CoreAchievement a, EntityPlayer player, int n)
-	{
-		final Achievement achievement = achievements.get(a);
-		if (achievement != null)
-		{
-			player.addStat(achievement, n);
-		}
-	}
+    public void unlock(CoreAchievement a, EntityPlayer player) {
+        final Achievement achievement = achievements.get(a);
+        if (achievement != null) {
+            player.triggerAchievement(achievement);
+        }
+    }
+
+    public void addStat(CoreAchievement a, EntityPlayer player, int n) {
+        final Achievement achievement = achievements.get(a);
+        if (achievement != null) {
+            player.addStat(achievement, n);
+        }
+    }
 }

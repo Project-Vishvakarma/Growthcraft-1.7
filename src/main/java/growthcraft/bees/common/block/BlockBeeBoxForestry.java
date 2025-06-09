@@ -23,8 +23,6 @@
  */
 package growthcraft.bees.common.block;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -35,70 +33,61 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class BlockBeeBoxForestry extends BlockBeeBox
-{
-	private final EnumBeeBoxForestry[] beeboxTypes;
-	private final boolean isFireproofFlag;
-	private final int metaOffset;
-	private final int subIndex;
+import java.util.List;
 
-	public BlockBeeBoxForestry(EnumBeeBoxForestry[] types, int offset, int index, boolean fireproof)
-	{
-		super();
-		this.beeboxTypes = types;
-		this.metaOffset = offset;
-		this.subIndex = index;
-		this.isFireproofFlag = fireproof;
-		setHardness(2f);
-		setBlockName(String.format("grc.BeeBox.Forestry.%d.%s", subIndex, isFireproofFlag ? "Fireproof" : "Normal"));
-	}
+public class BlockBeeBoxForestry extends BlockBeeBox {
+    private final EnumBeeBoxForestry[] beeboxTypes;
+    private final boolean isFireproofFlag;
+    private final int metaOffset;
+    private final int subIndex;
 
-	@Override
-	public String getMetaname(int meta)
-	{
-		if (meta >= 0 && meta < beeboxTypes.length)
-		{
-			return beeboxTypes[meta].name;
-		}
-		return super.getMetaname(meta);
-	}
+    public BlockBeeBoxForestry(EnumBeeBoxForestry[] types, int offset, int index, boolean fireproof) {
+        super();
+        this.beeboxTypes = types;
+        this.metaOffset = offset;
+        this.subIndex = index;
+        this.isFireproofFlag = fireproof;
+        setHardness(2f);
+        setBlockName(String.format("grc.BeeBox.Forestry.%d.%s", subIndex, isFireproofFlag ? "Fireproof" : "Normal"));
+    }
 
-	public EnumBeeBoxForestry getBeeBoxType(World world, int x, int y, int z)
-	{
-		final int meta = world.getBlockMetadata(x, y, z);
-		return beeboxTypes[MathHelper.clamp_int(meta, 0, beeboxTypes.length)];
-	}
+    @Override
+    public String getMetaname(int meta) {
+        if (meta >= 0 && meta < beeboxTypes.length) {
+            return beeboxTypes[meta].name;
+        }
+        return super.getMetaname(meta);
+    }
 
-	@Override
-	public float getBlockHardness(World world, int x, int y, int z)
-	{
-		return getBeeBoxType(world, x, y, z).getHardness();
-	}
+    public EnumBeeBoxForestry getBeeBoxType(World world, int x, int y, int z) {
+        final int meta = world.getBlockMetadata(x, y, z);
+        return beeboxTypes[MathHelper.clamp_int(meta, 0, beeboxTypes.length)];
+    }
 
-	public boolean isFireproof()
-	{
-		return isFireproofFlag;
-	}
+    @Override
+    public float getBlockHardness(World world, int x, int y, int z) {
+        return getBeeBoxType(world, x, y, z).getHardness();
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	public void getSubBlocks(Item block, CreativeTabs tab, List list)
-	{
-		for (EnumBeeBoxForestry type : beeboxTypes)
-		{
-			list.add(new ItemStack(block, 1, type.col));
-		}
-	}
+    public boolean isFireproof() {
+        return isFireproofFlag;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg)
-	{
-		this.icons = new IIcon[4 * beeboxTypes.length];
-		for (EnumBeeBoxForestry type : beeboxTypes)
-		{
-			registerBeeBoxIcons(reg, String.format("/forestry/%s/", type.name), type.col);
-		}
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void getSubBlocks(Item block, CreativeTabs tab, List list) {
+        for (EnumBeeBoxForestry type : beeboxTypes) {
+            list.add(new ItemStack(block, 1, type.col));
+        }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister reg) {
+        this.icons = new IIcon[4 * beeboxTypes.length];
+        for (EnumBeeBoxForestry type : beeboxTypes) {
+            registerBeeBoxIcons(reg, String.format("/forestry/%s/", type.name), type.col);
+        }
+    }
 }

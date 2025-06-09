@@ -23,25 +23,22 @@
  */
 package growthcraft.api.cellar.fermenting.user;
 
+import growthcraft.api.core.schema.ICommentable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import growthcraft.api.core.schema.ICommentable;
+public class UserFermentingRecipes implements ICommentable {
+    public String comment = "";
+    public List<UserFermentingRecipe> data = new ArrayList<UserFermentingRecipe>();
 
-public class UserFermentingRecipes implements ICommentable
-{
-	public String comment = "";
-	public List<UserFermentingRecipe> data = new ArrayList<UserFermentingRecipe>();
+    @Override
+    public String getComment() {
+        return comment;
+    }
 
-	@Override
-	public String getComment()
-	{
-		return comment;
-	}
-
-	@Override
-	public void setComment(String com)
-	{
-		this.comment = com;
-	}
+    @Override
+    public void setComment(String com) {
+        this.comment = com;
+    }
 }

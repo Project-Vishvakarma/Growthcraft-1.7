@@ -23,25 +23,30 @@
  */
 package growthcraft.api.milk.cheesevat;
 
-import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.core.definition.IMultiFluidStacks;
 import growthcraft.api.core.definition.IMultiItemStacks;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public interface ICheeseVatRecipe
-{
-	List<FluidStack> getOutputFluidStacks();
-	List<ItemStack> getOutputItemStacks();
-	List<IMultiFluidStacks> getInputFluidStacks();
-	List<IMultiItemStacks> getInputItemStacks();
-	boolean isMatchingRecipe(@Nonnull List<FluidStack> fluids, @Nonnull List<ItemStack> items);
-	boolean isFluidIngredient(@Nullable Fluid fluid);
-	boolean isFluidIngredient(@Nullable FluidStack fluidStack);
-	boolean isItemIngredient(@Nullable ItemStack itemStack);
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+
+public interface ICheeseVatRecipe {
+    List<FluidStack> getOutputFluidStacks();
+
+    List<ItemStack> getOutputItemStacks();
+
+    List<IMultiFluidStacks> getInputFluidStacks();
+
+    List<IMultiItemStacks> getInputItemStacks();
+
+    boolean isMatchingRecipe(@Nonnull List<FluidStack> fluids, @Nonnull List<ItemStack> items);
+
+    boolean isFluidIngredient(@Nullable Fluid fluid);
+
+    boolean isFluidIngredient(@Nullable FluidStack fluidStack);
+
+    boolean isItemIngredient(@Nullable ItemStack itemStack);
 }

@@ -23,84 +23,69 @@
  */
 package growthcraft.api.core.fluids.user;
 
-import java.io.BufferedReader;
-
 import growthcraft.api.core.CoreRegistry;
 import growthcraft.api.core.fluids.FluidTag;
-import growthcraft.api.core.fluids.IFluidTagsRegistry;
 import growthcraft.api.core.fluids.IFluidDictionary;
+import growthcraft.api.core.fluids.IFluidTagsRegistry;
 import growthcraft.api.core.user.AbstractUserJSONConfig;
-
 import net.minecraftforge.fluids.Fluid;
 
-public class UserFluidDictionaryConfig extends AbstractUserJSONConfig
-{
-	private final UserFluidDictionaryEntries defaultEntries = new UserFluidDictionaryEntries();
-	private UserFluidDictionaryEntries entries;
+import java.io.BufferedReader;
 
-	@Override
-	protected String getDefault()
-	{
-		return gson.toJson(defaultEntries);
-	}
+public class UserFluidDictionaryConfig extends AbstractUserJSONConfig {
+    private final UserFluidDictionaryEntries defaultEntries = new UserFluidDictionaryEntries();
+    private UserFluidDictionaryEntries entries;
 
-	@Override
-	protected void loadFromBuffer(BufferedReader reader) throws IllegalStateException
-	{
-		this.entries = gson.fromJson(reader, UserFluidDictionaryEntries.class);
-	}
+    @Override
+    protected String getDefault() {
+        return gson.toJson(defaultEntries);
+    }
 
-	private void addFluidDictionaryEntry(UserFluidDictionaryEntry entry)
-	{
-		if (entry == null)
-		{
-			logger.error("Entry was invalid");
-			return;
-		}
+    @Override
+    protected void loadFromBuffer(BufferedReader reader) throws IllegalStateException {
+        this.entries = gson.fromJson(reader, UserFluidDictionaryEntries.class);
+    }
 
-		if (entry.getFluid() == null)
-		{
-			logger.error("Entry fluid is invalid! %s", entry);
-			return;
-		}
+    private void addFluidDictionaryEntry(UserFluidDictionaryEntry entry) {
+        if (entry == null) {
+            logger.error("Entry was invalid");
+            return;
+        }
 
-		if (entry.tags == null)
-		{
-			logger.error("Entry tags are invalid! %s", entry);
-			return;
-		}
+        if (entry.getFluid() == null) {
+            logger.error("Entry fluid is invalid! %s", entry);
+            return;
+        }
 
-		final IFluidTagsRegistry fluidTags = CoreRegistry.instance().fluidTags();
-		final IFluidDictionary fluidDict = CoreRegistry.instance().fluidDictionary();
-		final Fluid fluid = entry.getFluid();
+        if (entry.tags == null) {
+            logger.error("Entry tags are invalid! %s", entry);
+            return;
+        }
 
-		for (String tagName : entry.tags)
-		{
-			FluidTag fluidTag = fluidTags.findTag(tagName);
-			if (fluidTag == null)
-			{
-				logger.warn("Creating new FluidTag '%s'", tagName);
-				fluidTag = fluidTags.createTag(tagName);
-			}
-			fluidDict.addFluidTags(fluid, fluidTag);
-		}
-	}
+        final IFluidTagsRegistry fluidTags = CoreRegistry.instance().fluidTags();
+        final IFluidDictionary fluidDict = CoreRegistry.instance().fluidDictionary();
+        final Fluid fluid = entry.getFluid();
 
-	@Override
-	public void init()
-	{
-		super.init();
-		if (entries != null)
-		{
-			if (entries.data != null)
-			{
-				logger.debug("Adding %d fluid dictionary entries.", entries.data.size());
-				for (UserFluidDictionaryEntry entry : entries.data) addFluidDictionaryEntry(entry);
-			}
-			else
-			{
-				logger.error("Invalid fluid dictionary entries data");
-			}
-		}
-	}
+        for (String tagName : entry.tags) {
+            FluidTag fluidTag = fluidTags.findTag(tagName);
+            if (fluidTag == null) {
+                logger.warn("Creating new FluidTag '%s'", tagName);
+                fluidTag = fluidTags.createTag(tagName);
+            }
+            fluidDict.addFluidTags(fluid, fluidTag);
+        }
+    }
+
+    @Override
+    public void init() {
+        super.init();
+        if (entries != null) {
+            if (entries.data != null) {
+                logger.debug("Adding %d fluid dictionary entries.", entries.data.size());
+                for (UserFluidDictionaryEntry entry : entries.data) addFluidDictionaryEntry(entry);
+            } else {
+                logger.error("Invalid fluid dictionary entries data");
+            }
+        }
+    }
 }

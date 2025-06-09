@@ -23,15 +23,13 @@
  */
 package growthcraft.cellar.common.definition;
 
-import javax.annotation.Nonnull;
-
 import growthcraft.cellar.common.item.ItemBucketBooze;
 import growthcraft.core.common.definition.ItemTypeDefinition;
 
-public class ItemBucketBoozeDefinition extends ItemTypeDefinition<ItemBucketBooze>
-{
-	public ItemBucketBoozeDefinition(@Nonnull ItemBucketBooze bucket)
-	{
-		super(bucket);
-	}
+import javax.annotation.Nonnull;
+
+public class ItemBucketBoozeDefinition extends ItemTypeDefinition<ItemBucketBooze> {
+    public ItemBucketBoozeDefinition(@Nonnull ItemBucketBooze bucket) {
+        super(bucket);
+    }
 }

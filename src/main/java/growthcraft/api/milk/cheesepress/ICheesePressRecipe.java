@@ -23,14 +23,16 @@
  */
 package growthcraft.api.milk.cheesepress;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.item.ItemStack;
 
-public interface ICheesePressRecipe
-{
-	ItemStack getInputItemStack();
-	ItemStack getOutputItemStack();
-	int getTimeMax();
-	boolean isMatchingRecipe(@Nonnull ItemStack stack);
+import javax.annotation.Nonnull;
+
+public interface ICheesePressRecipe {
+    ItemStack getInputItemStack();
+
+    ItemStack getOutputItemStack();
+
+    int getTimeMax();
+
+    boolean isMatchingRecipe(@Nonnull ItemStack stack);
 }

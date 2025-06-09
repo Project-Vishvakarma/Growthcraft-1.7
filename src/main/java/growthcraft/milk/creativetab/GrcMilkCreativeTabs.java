@@ -23,24 +23,20 @@
  */
 package growthcraft.milk.creativetab;
 
-import growthcraft.milk.GrowthCraftMilk;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.item.Item;
+import growthcraft.milk.GrowthCraftMilk;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 
-public class GrcMilkCreativeTabs extends CreativeTabs
-{
-	public GrcMilkCreativeTabs(String name)
-	{
-		super(name);
-	}
+public class GrcMilkCreativeTabs extends CreativeTabs {
+    public GrcMilkCreativeTabs(String name) {
+        super(name);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Item getTabIconItem()
-	{
-		return GrowthCraftMilk.blocks.cheesePress.getItem();
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Item getTabIconItem() {
+        return GrowthCraftMilk.blocks.cheesePress.getItem();
+    }
 }

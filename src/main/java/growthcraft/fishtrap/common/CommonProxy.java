@@ -23,12 +23,10 @@
  */
 package growthcraft.fishtrap.common;
 
+import cpw.mods.fml.common.SidedProxy;
 import growthcraft.core.common.GrcModuleProxyBase;
 
-import cpw.mods.fml.common.SidedProxy;
-
-public class CommonProxy extends GrcModuleProxyBase
-{
-	@SidedProxy(clientSide="growthcraft.fishtrap.client.ClientProxy", serverSide="growthcraft.fishtrap.common.CommonProxy")
-	public static CommonProxy instance;
+public class CommonProxy extends GrcModuleProxyBase {
+    @SidedProxy(clientSide = "growthcraft.fishtrap.client.ClientProxy", serverSide = "growthcraft.fishtrap.common.CommonProxy")
+    public static CommonProxy instance;
 }

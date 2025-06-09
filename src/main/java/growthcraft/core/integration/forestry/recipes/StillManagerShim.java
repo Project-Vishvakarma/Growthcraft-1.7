@@ -23,16 +23,14 @@
  */
 package growthcraft.core.integration.forestry.recipes;
 
+import cpw.mods.fml.common.Optional;
 import forestry.api.recipes.IStillManager;
 import forestry.api.recipes.IStillRecipe;
-
 import net.minecraftforge.fluids.FluidStack;
 
-import cpw.mods.fml.common.Optional;
-
-@Optional.Interface(iface="forestry.api.recipes.IStillManager", modid="ForestryAPI|recipes")
-public class StillManagerShim extends AbstractManagerShim<IStillRecipe> implements IStillManager
-{
-	@Override
-	public void addRecipe(int cyclesPerUnit, FluidStack input, FluidStack output) {}
+@Optional.Interface(iface = "forestry.api.recipes.IStillManager", modid = "ForestryAPI|recipes")
+public class StillManagerShim extends AbstractManagerShim<IStillRecipe> implements IStillManager {
+    @Override
+    public void addRecipe(int cyclesPerUnit, FluidStack input, FluidStack output) {
+    }
 }

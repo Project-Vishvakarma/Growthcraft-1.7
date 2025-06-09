@@ -23,21 +23,20 @@
  */
 package growthcraft.core.integration.forestry.recipes;
 
+import cpw.mods.fml.common.Optional;
 import forestry.api.recipes.IFabricatorManager;
 import forestry.api.recipes.IFabricatorRecipe;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import cpw.mods.fml.common.Optional;
+@Optional.Interface(iface = "forestry.api.recipes.IFabricatorManager", modid = "ForestryAPI|recipes")
+public class FabricatorManagerShim extends AbstractManagerShim<IFabricatorRecipe> implements IFabricatorManager {
+    @Override
+    public void addRecipe(ItemStack plan, FluidStack molten, ItemStack result, Object[] pattern) {
+    }
 
-@Optional.Interface(iface="forestry.api.recipes.IFabricatorManager", modid="ForestryAPI|recipes")
-public class FabricatorManagerShim extends AbstractManagerShim<IFabricatorRecipe> implements IFabricatorManager
-{
-	@Override
-	public void addRecipe(ItemStack plan, FluidStack molten, ItemStack result, Object[] pattern) {}
-
-	@Override
-	@Deprecated
-	public void addSmelting(ItemStack resource, FluidStack molten, int meltingPoint) {}
+    @Override
+    @Deprecated
+    public void addSmelting(ItemStack resource, FluidStack molten, int meltingPoint) {
+    }
 }

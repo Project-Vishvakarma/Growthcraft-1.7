@@ -23,47 +23,38 @@
  */
 package growthcraft.milk.integration;
 
-import growthcraft.core.integration.WailaIntegrationBase;
-import growthcraft.milk.common.block.BlockButterChurn;
-import growthcraft.milk.common.block.BlockCheeseBlock;
-import growthcraft.milk.common.block.BlockCheesePress;
-import growthcraft.milk.common.block.BlockCheeseVat;
-import growthcraft.milk.common.block.BlockHangingCurds;
-import growthcraft.milk.GrowthCraftMilk;
-import growthcraft.milk.integration.waila.GrcMilkDataProvider;
-
 import cpw.mods.fml.common.Optional;
-
+import growthcraft.core.integration.WailaIntegrationBase;
+import growthcraft.milk.GrowthCraftMilk;
+import growthcraft.milk.common.block.*;
+import growthcraft.milk.integration.waila.GrcMilkDataProvider;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
 
-public class Waila extends WailaIntegrationBase
-{
-	public Waila()
-	{
-		super(GrowthCraftMilk.MOD_ID);
-	}
+public class Waila extends WailaIntegrationBase {
+    public Waila() {
+        super(GrowthCraftMilk.MOD_ID);
+    }
 
-	@Optional.Method(modid="Waila")
-	public static void register(IWailaRegistrar reg)
-	{
-		final IWailaDataProvider provider = new GrcMilkDataProvider();
+    @Optional.Method(modid = "Waila")
+    public static void register(IWailaRegistrar reg) {
+        final IWailaDataProvider provider = new GrcMilkDataProvider();
 
-		reg.registerBodyProvider(provider, BlockCheesePress.class);
-		reg.registerNBTProvider(provider, BlockCheesePress.class);
+        reg.registerBodyProvider(provider, BlockCheesePress.class);
+        reg.registerNBTProvider(provider, BlockCheesePress.class);
 
-		reg.registerBodyProvider(provider, BlockButterChurn.class);
-		reg.registerNBTProvider(provider, BlockButterChurn.class);
+        reg.registerBodyProvider(provider, BlockButterChurn.class);
+        reg.registerNBTProvider(provider, BlockButterChurn.class);
 
-		reg.registerBodyProvider(provider, BlockCheeseVat.class);
-		reg.registerNBTProvider(provider, BlockCheeseVat.class);
+        reg.registerBodyProvider(provider, BlockCheeseVat.class);
+        reg.registerNBTProvider(provider, BlockCheeseVat.class);
 
-		reg.registerStackProvider(provider, BlockCheeseBlock.class);
-		reg.registerBodyProvider(provider, BlockCheeseBlock.class);
-		reg.registerNBTProvider(provider, BlockCheeseBlock.class);
+        reg.registerStackProvider(provider, BlockCheeseBlock.class);
+        reg.registerBodyProvider(provider, BlockCheeseBlock.class);
+        reg.registerNBTProvider(provider, BlockCheeseBlock.class);
 
-		reg.registerStackProvider(provider, BlockHangingCurds.class);
-		reg.registerBodyProvider(provider, BlockHangingCurds.class);
-		reg.registerNBTProvider(provider, BlockHangingCurds.class);
-	}
+        reg.registerStackProvider(provider, BlockHangingCurds.class);
+        reg.registerBodyProvider(provider, BlockHangingCurds.class);
+        reg.registerNBTProvider(provider, BlockHangingCurds.class);
+    }
 }

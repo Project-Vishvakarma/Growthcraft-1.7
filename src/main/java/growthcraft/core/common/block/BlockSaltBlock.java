@@ -23,36 +23,31 @@
  */
 package growthcraft.core.common.block;
 
-import java.util.Random;
-
 import growthcraft.api.core.util.RandomUtils;
 import growthcraft.core.GrowthCraftCore;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 
-public class BlockSaltBlock extends GrcBlockBase
-{
-	public BlockSaltBlock()
-	{
-		super(Material.rock);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setStepSound(soundTypePiston);
-		setBlockName("grccore.salt_block");
-		setBlockTextureName("grccore:salt_block");
-		setCreativeTab(GrowthCraftCore.creativeTab);
-	}
+import java.util.Random;
 
-	@Override
-	public Item getItemDropped(int meta, Random rand, int fortune)
-	{
-		return GrowthCraftCore.items.salt.getItem();
-	}
+public class BlockSaltBlock extends GrcBlockBase {
+    public BlockSaltBlock() {
+        super(Material.rock);
+        setHardness(2.0F);
+        setResistance(10.0F);
+        setStepSound(soundTypePiston);
+        setBlockName("grccore.salt_block");
+        setBlockTextureName("grccore:salt_block");
+        setCreativeTab(GrowthCraftCore.creativeTab);
+    }
 
-	@Override
-	public int quantityDropped(Random random)
-	{
-		return RandomUtils.range(random, 4, 9);
-	}
+    @Override
+    public Item getItemDropped(int meta, Random rand, int fortune) {
+        return GrowthCraftCore.items.salt.getItem();
+    }
+
+    @Override
+    public int quantityDropped(Random random) {
+        return RandomUtils.range(random, 4, 9);
+    }
 }

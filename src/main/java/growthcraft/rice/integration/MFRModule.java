@@ -23,27 +23,23 @@
  */
 package growthcraft.rice.integration;
 
+import cpw.mods.fml.common.Optional;
 import growthcraft.core.integration.MFRModuleBase;
-import growthcraft.rice.common.block.BlockRice;
 import growthcraft.rice.GrowthCraftRice;
+import growthcraft.rice.common.block.BlockRice;
 import growthcraft.rice.integration.mfr.RiceFactoryHarvester;
 import growthcraft.rice.integration.mfr.RiceFactoryPlanter;
 
-import cpw.mods.fml.common.Optional;
+public class MFRModule extends MFRModuleBase {
+    public MFRModule() {
+        super(GrowthCraftRice.MOD_ID);
+    }
 
-public class MFRModule extends MFRModuleBase
-{
-	public MFRModule()
-	{
-		super(GrowthCraftRice.MOD_ID);
-	}
-
-	@Override
-	@Optional.Method(modid=MFRModuleBase.MOD_ID)
-	protected void integrate()
-	{
-		registerHarvestable(new RiceFactoryHarvester());
-		registerPlantable(new RiceFactoryPlanter());
-		registerFertilizableCrop(GrowthCraftRice.blocks.riceBlock.getBlock(), BlockRice.RiceStage.MATURE);
-	}
+    @Override
+    @Optional.Method(modid = MFRModuleBase.MOD_ID)
+    protected void integrate() {
+        registerHarvestable(new RiceFactoryHarvester());
+        registerPlantable(new RiceFactoryPlanter());
+        registerFertilizableCrop(GrowthCraftRice.blocks.riceBlock.getBlock(), BlockRice.RiceStage.MATURE);
+    }
 }

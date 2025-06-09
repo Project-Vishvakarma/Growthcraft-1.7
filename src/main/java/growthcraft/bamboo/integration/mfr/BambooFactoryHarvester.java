@@ -23,18 +23,15 @@
  */
 package growthcraft.bamboo.integration.mfr;
 
-import growthcraft.core.integration.mfr.AbstractFactoryHarvestable;
-import growthcraft.bamboo.common.block.BlockBambooStalk;
 import growthcraft.bamboo.GrowthCraftBamboo;
-
+import growthcraft.bamboo.common.block.BlockBambooStalk;
+import growthcraft.core.integration.mfr.AbstractFactoryHarvestable;
 import powercrystals.minefactoryreloaded.api.HarvestType;
 
-public class BambooFactoryHarvester extends AbstractFactoryHarvestable<BlockBambooStalk>
-{
-	public BambooFactoryHarvester()
-	{
-		super();
-		setPlant(GrowthCraftBamboo.blocks.bambooStalk.getBlock());
-		setHarvestType(HarvestType.Tree);
-	}
+public class BambooFactoryHarvester extends AbstractFactoryHarvestable<BlockBambooStalk> {
+    public BambooFactoryHarvester() {
+        super();
+        setPlant(GrowthCraftBamboo.blocks.bambooStalk.getBlock());
+        setHarvestType(HarvestType.Tree);
+    }
 }

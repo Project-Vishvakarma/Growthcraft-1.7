@@ -23,47 +23,37 @@
  */
 package growthcraft.core.util;
 
-import java.util.List;
-
 import growthcraft.api.core.i18n.GrcI18n;
 import growthcraft.api.core.util.ConstID;
 import growthcraft.api.core.util.ITagFormatter;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 
+import java.util.List;
+
 /**
  * Tag Formatter for item NBT data
  */
-public class TagFormatterItem implements ITagFormatter
-{
-	public static final TagFormatterItem INSTANCE = new TagFormatterItem();
+public class TagFormatterItem implements ITagFormatter {
+    public static final TagFormatterItem INSTANCE = new TagFormatterItem();
 
-	public String formatItem(NBTTagCompound tag)
-	{
-		final int id = tag.getInteger("id");
-		if (id == ConstID.NO_ITEM)
-		{
-			return UnitFormatter.noItem();
-		}
-		else
-		{
-			final ItemStack stack = ItemStack.loadItemStackFromNBT(tag);
-			if (stack != null)
-			{
-				return EnumChatFormatting.WHITE + GrcI18n.translate("grc.format.itemslot.item", stack.getDisplayName(), stack.stackSize);
-			}
-			else
-			{
-				return UnitFormatter.invalidItem();
-			}
-		}
-	}
+    public String formatItem(NBTTagCompound tag) {
+        final int id = tag.getInteger("id");
+        if (id == ConstID.NO_ITEM) {
+            return UnitFormatter.noItem();
+        } else {
+            final ItemStack stack = ItemStack.loadItemStackFromNBT(tag);
+            if (stack != null) {
+                return EnumChatFormatting.WHITE + GrcI18n.translate("grc.format.itemslot.item", stack.getDisplayName(), stack.stackSize);
+            } else {
+                return UnitFormatter.invalidItem();
+            }
+        }
+    }
 
-	public List<String> format(List<String> list, NBTTagCompound tag)
-	{
-		list.add(formatItem(tag));
-		return list;
-	}
+    public List<String> format(List<String> list, NBTTagCompound tag) {
+        list.add(formatItem(tag));
+        return list;
+    }
 }

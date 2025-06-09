@@ -23,14 +23,9 @@
  */
 package growthcraft.core.eventhandler;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nonnull;
-
-import growthcraft.core.GrowthCraftCore;
-
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import growthcraft.core.GrowthCraftCore;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -39,107 +34,94 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 
-public class EventHandlerBucketFill
-{
-	public static interface IBucketEntry
-	{
-		ItemStack getItemStack();
-		boolean matches(@Nonnull World world, @Nonnull MovingObjectPosition pos);
-		void commit(@Nonnull EntityPlayer player, @Nonnull World world, @Nonnull MovingObjectPosition pos);
-	}
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
-	public static class GenericBucketEntry implements IBucketEntry
-	{
-		private final Block block;
-		private final ItemStack itemStack;
+public class EventHandlerBucketFill {
+    private static final EventHandlerBucketFill INSTANCE = new EventHandlerBucketFill();
+    private final List<IBucketEntry> buckets = new ArrayList<IBucketEntry>();
 
-		public GenericBucketEntry(Block blk, ItemStack stack)
-		{
-			this.block = blk;
-			this.itemStack = stack;
-		}
+    public static EventHandlerBucketFill instance() {
+        return INSTANCE;
+    }
 
-		public ItemStack getItemStack()
-		{
-			return itemStack;
-		}
+    public void addEntry(@Nonnull IBucketEntry entry) {
+        buckets.add(entry);
+        GrowthCraftCore.getLogger().debug("Added new Bucket Entry {%s}", entry);
+    }
 
-		public boolean matches(@Nonnull World world, @Nonnull MovingObjectPosition pos)
-		{
-			final Block srcBlock = world.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+    public EventHandlerBucketFill register(Block block, ItemStack stack) {
+        addEntry(new GenericBucketEntry(block, stack));
+        return this;
+    }
 
-			if (block.equals(srcBlock))
-			{
-				return world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) == 0;
-			}
-			return false;
-		}
+    public EventHandlerBucketFill register(Block block, Item item) {
+        return register(block, new ItemStack(item, 1));
+    }
 
-		public void commit(@Nonnull EntityPlayer player, @Nonnull World world, @Nonnull MovingObjectPosition pos)
-		{
-			world.setBlockToAir(pos.blockX, pos.blockY, pos.blockZ);
-		}
+    private ItemStack fillCustomBucket(FillBucketEvent event) {
+        for (IBucketEntry entry : buckets) {
+            if (entry.matches(event.world, event.target)) {
+                entry.commit(event.entityPlayer, event.world, event.target);
+                return entry.getItemStack();
+            }
+        }
+        return null;
+    }
 
-		public String toString()
-		{
-			return String.format("GenericBucketEntry{ block: {%s}, item_stack: {%s} }", block, itemStack);
-		}
-	}
+    @SubscribeEvent
+    public void onBucketFill(FillBucketEvent event) {
+        if (event.world.isRemote ||
+            event.result != null ||
+            event.getResult() != Result.DEFAULT) {
+            return;
+        }
 
-	private static EventHandlerBucketFill INSTANCE = new EventHandlerBucketFill();
-	private List<IBucketEntry> buckets = new ArrayList<IBucketEntry>();
+        final ItemStack result = fillCustomBucket(event);
 
-	public static EventHandlerBucketFill instance()
-	{
-		return INSTANCE;
-	}
+        if (result != null) {
+            event.result = result.copy();
+            event.setResult(Result.ALLOW);
+        }
+    }
 
-	public void addEntry(@Nonnull IBucketEntry entry)
-	{
-		buckets.add(entry);
-		GrowthCraftCore.getLogger().debug("Added new Bucket Entry {%s}", entry);
-	}
+    public interface IBucketEntry {
+        ItemStack getItemStack();
 
-	public EventHandlerBucketFill register(Block block, ItemStack stack)
-	{
-		addEntry(new GenericBucketEntry(block, stack));
-		return this;
-	}
+        boolean matches(@Nonnull World world, @Nonnull MovingObjectPosition pos);
 
-	public EventHandlerBucketFill register(Block block, Item item)
-	{
-		return register(block, new ItemStack(item, 1));
-	}
+        void commit(@Nonnull EntityPlayer player, @Nonnull World world, @Nonnull MovingObjectPosition pos);
+    }
 
-	private ItemStack fillCustomBucket(FillBucketEvent event)
-	{
-		for (IBucketEntry entry : buckets)
-		{
-			if (entry.matches(event.world, event.target))
-			{
-				entry.commit(event.entityPlayer, event.world, event.target);
-				return entry.getItemStack();
-			}
-		}
-		return null;
-	}
+    public static class GenericBucketEntry implements IBucketEntry {
+        private final Block block;
+        private final ItemStack itemStack;
 
-	@SubscribeEvent
-	public void onBucketFill(FillBucketEvent event)
-	{
-		if (event.world.isRemote ||
-			event.result != null ||
-			event.getResult() != Result.DEFAULT)
-		{
-			return;
-		}
+        public GenericBucketEntry(Block blk, ItemStack stack) {
+            this.block = blk;
+            this.itemStack = stack;
+        }
 
-		final ItemStack result = fillCustomBucket(event);
+        public ItemStack getItemStack() {
+            return itemStack;
+        }
 
-		if (result != null)
-		{
-			event.result = result.copy();
-			event.setResult(Result.ALLOW);
-		}
-	}
+        public boolean matches(@Nonnull World world, @Nonnull MovingObjectPosition pos) {
+            final Block srcBlock = world.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+
+            if (block.equals(srcBlock)) {
+                return world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) == 0;
+            }
+            return false;
+        }
+
+        public void commit(@Nonnull EntityPlayer player, @Nonnull World world, @Nonnull MovingObjectPosition pos) {
+            world.setBlockToAir(pos.blockX, pos.blockY, pos.blockZ);
+        }
+
+        public String toString() {
+            return String.format("GenericBucketEntry{ block: {%s}, item_stack: {%s} }", block, itemStack);
+        }
+    }
 }

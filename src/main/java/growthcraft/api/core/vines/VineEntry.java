@@ -23,16 +23,13 @@
  */
 package growthcraft.api.core.vines;
 
-import javax.annotation.Nonnull;
-
 import growthcraft.api.core.util.BlockKey;
-
 import net.minecraft.block.Block;
 
-public class VineEntry extends BlockKey implements IVineEntry
-{
-	public VineEntry(@Nonnull Block block, int meta)
-	{
-		super(block, meta);
-	}
+import javax.annotation.Nonnull;
+
+public class VineEntry extends BlockKey implements IVineEntry {
+    public VineEntry(@Nonnull Block block, int meta) {
+        super(block, meta);
+    }
 }

@@ -23,15 +23,18 @@
  */
 package growthcraft.api.milk.pancheon;
 
-import javax.annotation.Nullable;
-
 import net.minecraftforge.fluids.FluidStack;
 
-public interface IPancheonRecipe
-{
-	boolean isValidForRecipe(@Nullable FluidStack stack);
-	FluidStack getInputFluid();
-	FluidStack getTopOutputFluid();
-	FluidStack getBottomOutputFluid();
-	int getTime();
+import javax.annotation.Nullable;
+
+public interface IPancheonRecipe {
+    boolean isValidForRecipe(@Nullable FluidStack stack);
+
+    FluidStack getInputFluid();
+
+    FluidStack getTopOutputFluid();
+
+    FluidStack getBottomOutputFluid();
+
+    int getTime();
 }

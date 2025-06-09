@@ -23,69 +23,62 @@
  */
 package growthcraft.api.fishtrap.user;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import growthcraft.api.core.schema.ICommentable;
 import growthcraft.api.core.schema.ItemKeySchema;
 import growthcraft.api.fishtrap.FishTrapEntry;
-
 import net.minecraft.item.ItemStack;
 
-public class UserFishTrapEntry implements ICommentable
-{
-	public String comment = "";
-	public String group;
-	public int weight;
-	public ItemKeySchema item;
-	public float damage_variance;
-	public boolean enchanted;
+import java.util.ArrayList;
+import java.util.List;
 
-	/**
-	 * @param g - item group, can be "treasure", "junk", or "fish"
-	 * @param w - entry weight
-	 * @param stack - item stack
-	 * @param dam - damage variance, how much damage is applied to the item when fished up?
-	 * @param enc - is the item enchanted?
-	 */
-	public UserFishTrapEntry(String g, int w, ItemStack stack, float dam, boolean enc)
-	{
-		this.weight = w;
-		this.group = g;
-		this.item = new ItemKeySchema(stack);
-		this.damage_variance = dam;
-		this.enchanted = enc;
-	}
+public class UserFishTrapEntry implements ICommentable {
+    public String comment = "";
+    public String group;
+    public int weight;
+    public ItemKeySchema item;
+    public float damage_variance;
+    public boolean enchanted;
 
-	public UserFishTrapEntry(String g, FishTrapEntry entry)
-	{
-		this(g, entry.itemWeight, entry.getItemStack(), entry.getDamage(), entry.getEnchanted());
-	}
+    /**
+     * @param g     - item group, can be "treasure", "junk", or "fish"
+     * @param w     - entry weight
+     * @param stack - item stack
+     * @param dam   - damage variance, how much damage is applied to the item when fished up?
+     * @param enc   - is the item enchanted?
+     */
+    public UserFishTrapEntry(String g, int w, ItemStack stack, float dam, boolean enc) {
+        this.weight = w;
+        this.group = g;
+        this.item = new ItemKeySchema(stack);
+        this.damage_variance = dam;
+        this.enchanted = enc;
+    }
 
-	public UserFishTrapEntry() {}
+    public UserFishTrapEntry(String g, FishTrapEntry entry) {
+        this(g, entry.itemWeight, entry.getItemStack(), entry.getDamage(), entry.getEnchanted());
+    }
 
-	@Override
-	public String getComment()
-	{
-		return comment;
-	}
+    public UserFishTrapEntry() {
+    }
 
-	@Override
-	public void setComment(String com)
-	{
-		this.comment = com;
-	}
+    @Override
+    public String getComment() {
+        return comment;
+    }
 
-	public List<FishTrapEntry> getFishTrapEntries()
-	{
-		final List<FishTrapEntry> result = new ArrayList<FishTrapEntry>();
-		for (ItemStack stack : item.getItemStacks())
-		{
-			final FishTrapEntry entry = new FishTrapEntry(stack, weight);
-			entry.setDamage(damage_variance);
-			entry.setEnchantable(enchanted);
-			result.add(entry);
-		}
-		return result;
-	}
+    @Override
+    public void setComment(String com) {
+        this.comment = com;
+    }
+
+    public List<FishTrapEntry> getFishTrapEntries() {
+        final List<FishTrapEntry> result = new ArrayList<FishTrapEntry>();
+        for (ItemStack stack : item.getItemStacks()) {
+            final FishTrapEntry entry = new FishTrapEntry(stack, weight);
+            entry.setDamage(damage_variance);
+            entry.setEnchantable(enchanted);
+            result.add(entry);
+        }
+        return result;
+    }
 }

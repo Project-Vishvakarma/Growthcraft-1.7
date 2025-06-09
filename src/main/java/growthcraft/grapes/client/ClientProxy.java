@@ -23,21 +23,18 @@
  */
 package growthcraft.grapes.client;
 
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import growthcraft.grapes.client.renderer.RenderGrape;
 import growthcraft.grapes.client.renderer.RenderGrapeLeaves;
 import growthcraft.grapes.client.renderer.RenderGrapeVine1;
 import growthcraft.grapes.common.CommonProxy;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
-
-public class ClientProxy extends CommonProxy
-{
-	@Override
-	public void init()
-	{
-		super.init();
-		RenderingRegistry.registerBlockHandler(new RenderGrape());
-		RenderingRegistry.registerBlockHandler(new RenderGrapeLeaves());
-		RenderingRegistry.registerBlockHandler(new RenderGrapeVine1());
-	}
+public class ClientProxy extends CommonProxy {
+    @Override
+    public void init() {
+        super.init();
+        RenderingRegistry.registerBlockHandler(new RenderGrape());
+        RenderingRegistry.registerBlockHandler(new RenderGrapeLeaves());
+        RenderingRegistry.registerBlockHandler(new RenderGrapeVine1());
+    }
 }

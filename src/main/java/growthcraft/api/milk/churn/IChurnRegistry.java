@@ -23,46 +23,45 @@
  */
 package growthcraft.api.milk.churn;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.core.log.ILoggable;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public interface IChurnRegistry extends ILoggable
-{
-	void addRecipe(@Nonnull IChurnRecipe recipe);
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-	/**
-	 * @param inputFluid - input fluid
-	 * @param outputFluid - fluid output in churn
-	 * @param outputItem - item output in churn
-	 * @param churns - how many times must a user churn the fluid to produce results?
-	 */
-	void addRecipe(@Nonnull FluidStack inputFluid, @Nonnull FluidStack outputFluid, @Nullable ItemStack outputItem, int churns);
+public interface IChurnRegistry extends ILoggable {
+    void addRecipe(@Nonnull IChurnRecipe recipe);
 
-	/**
-	 * Determines if the provided fluid is an input ingredient
-	 *
-	 * @param fluid - fluid to look for
-	 * @return true, the fluid is an input ingredient, false otherwise
-	 */
-	boolean isFluidIngredient(@Nullable Fluid fluid);
+    /**
+     * @param inputFluid  - input fluid
+     * @param outputFluid - fluid output in churn
+     * @param outputItem  - item output in churn
+     * @param churns      - how many times must a user churn the fluid to produce results?
+     */
+    void addRecipe(@Nonnull FluidStack inputFluid, @Nonnull FluidStack outputFluid, @Nullable ItemStack outputItem, int churns);
 
-	/**
-	 * Determines if the provided fluid is an input ingredient
-	 *
-	 * @param fluid - fluid stack to check
-	 * @return true, the fluid is an input ingredient, false otherwise
-	 */
-	boolean isFluidIngredient(@Nullable FluidStack fluid);
+    /**
+     * Determines if the provided fluid is an input ingredient
+     *
+     * @param fluid - fluid to look for
+     * @return true, the fluid is an input ingredient, false otherwise
+     */
+    boolean isFluidIngredient(@Nullable Fluid fluid);
 
-	/**
-	 * @param inputFluid - recipe fluid
-	 * @return recipe if matched
-	 */
-	@Nullable IChurnRecipe getRecipe(@Nullable FluidStack inputFluid);
+    /**
+     * Determines if the provided fluid is an input ingredient
+     *
+     * @param fluid - fluid stack to check
+     * @return true, the fluid is an input ingredient, false otherwise
+     */
+    boolean isFluidIngredient(@Nullable FluidStack fluid);
+
+    /**
+     * @param inputFluid - recipe fluid
+     * @return recipe if matched
+     */
+    @Nullable
+    IChurnRecipe getRecipe(@Nullable FluidStack inputFluid);
 }

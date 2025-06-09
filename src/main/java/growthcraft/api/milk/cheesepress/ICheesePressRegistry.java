@@ -23,17 +23,16 @@
  */
 package growthcraft.api.milk.cheesepress;
 
+import growthcraft.api.core.log.ILoggable;
+import net.minecraft.item.ItemStack;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import growthcraft.api.core.log.ILoggable;
+public interface ICheesePressRegistry extends ILoggable {
+    void addRecipe(@Nonnull ICheesePressRecipe recipe);
 
-import net.minecraft.item.ItemStack;
+    void addRecipe(@Nonnull ItemStack stack, @Nonnull ItemStack output, int time);
 
-public interface ICheesePressRegistry extends ILoggable
-{
-	void addRecipe(@Nonnull ICheesePressRecipe recipe);
-	void addRecipe(@Nonnull ItemStack stack, @Nonnull ItemStack output, int time);
-
-	ICheesePressRecipe findRecipe(@Nullable ItemStack stack);
+    ICheesePressRecipe findRecipe(@Nullable ItemStack stack);
 }

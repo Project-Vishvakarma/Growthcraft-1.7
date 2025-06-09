@@ -23,51 +23,44 @@
  */
 package growthcraft.api.core.item;
 
-import java.util.Locale;
-
 import growthcraft.api.core.definition.IItemStackFactory;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+
+import java.util.Locale;
 
 /**
  * Skulls!
  */
-public enum EnumSkull implements IItemStackFactory
-{
-	SKELETON,
-	WITHER,
-	ZOMBIE,
-	CHAR,
-	CREEPER;
+public enum EnumSkull implements IItemStackFactory {
+    SKELETON,
+    WITHER,
+    ZOMBIE,
+    CHAR,
+    CREEPER;
 
-	public static final EnumSkull[] VALUES = values();
+    public static final EnumSkull[] VALUES = values();
 
-	public final int meta;
-	public final String name;
+    public final int meta;
+    public final String name;
 
-	private EnumSkull()
-	{
-		this.name = name().toLowerCase(Locale.ENGLISH);
-		this.meta = ordinal();
-	}
+    EnumSkull() {
+        this.name = name().toLowerCase(Locale.ENGLISH);
+        this.meta = ordinal();
+    }
 
-	public ItemStack asStack(int size)
-	{
-		return new ItemStack(Items.skull, size, meta);
-	}
+    public static EnumSkull getByMeta(int meta) {
+        if (meta < 0 || meta >= VALUES.length) {
+            return SKELETON;
+        }
+        return VALUES[meta];
+    }
 
-	public ItemStack asStack()
-	{
-		return asStack(1);
-	}
+    public ItemStack asStack(int size) {
+        return new ItemStack(Items.skull, size, meta);
+    }
 
-	public static EnumSkull getByMeta(int meta)
-	{
-		if (meta < 0 || meta >= VALUES.length)
-		{
-			return SKELETON;
-		}
-		return VALUES[meta];
-	}
+    public ItemStack asStack() {
+        return asStack(1);
+    }
 }

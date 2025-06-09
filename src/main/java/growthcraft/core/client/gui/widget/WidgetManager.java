@@ -23,43 +23,36 @@
  */
 package growthcraft.core.client.gui.widget;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import growthcraft.core.client.gui.GrcGuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 
-public class WidgetManager<C extends Container, T extends TileEntity>
-{
-	public final GrcGuiContainer<C, T> gui;
-	protected List<Widget> widgets = new ArrayList<Widget>();
+import java.util.ArrayList;
+import java.util.List;
 
-	public WidgetManager(GrcGuiContainer<C, T> g)
-	{
-		this.gui = g;
-	}
+public class WidgetManager<C extends Container, T extends TileEntity> {
+    public final GrcGuiContainer<C, T> gui;
+    protected List<Widget> widgets = new ArrayList<Widget>();
 
-	@SuppressWarnings({"rawtypes"})
-	public WidgetManager add(Widget widget)
-	{
-		widgets.add(widget);
-		return this;
-	}
+    public WidgetManager(GrcGuiContainer<C, T> g) {
+        this.gui = g;
+    }
 
-	public void draw(int mx, int my)
-	{
-		for (Widget widget : widgets)
-		{
-			widget.draw(mx, my);
-		}
-	}
+    @SuppressWarnings({"rawtypes"})
+    public WidgetManager add(Widget widget) {
+        widgets.add(widget);
+        return this;
+    }
 
-	public void drawForeground(int mx, int my)
-	{
-		for (Widget widget : widgets)
-		{
-			widget.drawForeground(mx, my);
-		}
-	}
+    public void draw(int mx, int my) {
+        for (Widget widget : widgets) {
+            widget.draw(mx, my);
+        }
+    }
+
+    public void drawForeground(int mx, int my) {
+        for (Widget widget : widgets) {
+            widget.drawForeground(mx, my);
+        }
+    }
 }

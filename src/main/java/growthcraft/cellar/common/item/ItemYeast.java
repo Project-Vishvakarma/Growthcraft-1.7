@@ -23,13 +23,10 @@
  */
 package growthcraft.cellar.common.item;
 
-import java.util.List;
-
-import growthcraft.cellar.GrowthCraftCellar;
-import growthcraft.core.common.item.GrcItemBase;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import growthcraft.cellar.GrowthCraftCellar;
+import growthcraft.core.common.item.GrcItemBase;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -37,53 +34,48 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 
-public class ItemYeast extends GrcItemBase
-{
-	protected IIcon[] icons;
+import java.util.List;
 
-	public ItemYeast()
-	{
-		super();
-		setHasSubtypes(true);
-		setMaxDamage(0);
-		setTextureName("grccellar:yeast");
-		setUnlocalizedName("grc.yeast");
-		setCreativeTab(GrowthCraftCellar.tab);
-	}
+public class ItemYeast extends GrcItemBase {
+    protected IIcon[] icons;
 
-	@Override
-	public String getUnlocalizedName(ItemStack stack)
-	{
-		return super.getUnlocalizedName(stack) + stack.getItemDamage();
-	}
+    public ItemYeast() {
+        super();
+        setHasSubtypes(true);
+        setMaxDamage(0);
+        setTextureName("grccellar:yeast");
+        setUnlocalizedName("grc.yeast");
+        setCreativeTab(GrowthCraftCellar.tab);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	public void getSubItems(Item item, CreativeTabs tab, List list)
-	{
-		for (EnumYeast ytype : EnumYeast.values())
-		{
-			list.add(ytype.asStack());
-		}
-	}
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        return super.getUnlocalizedName(stack) + stack.getItemDamage();
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister reg)
-	{
-		this.icons = new IIcon[EnumYeast.length];
-		icons[EnumYeast.BAYANUS.ordinal()] = reg.registerIcon(getIconString() + "_bayanus");
-		icons[EnumYeast.BREWERS.ordinal()] = reg.registerIcon(getIconString() + "_brewers");
-		icons[EnumYeast.ETHEREAL.ordinal()] = reg.registerIcon(getIconString() + "_ethereal");
-		icons[EnumYeast.LAGER.ordinal()] = reg.registerIcon(getIconString() + "_lager");
-		icons[EnumYeast.ORIGIN.ordinal()] = reg.registerIcon(getIconString() + "_origin");
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void getSubItems(Item item, CreativeTabs tab, List list) {
+        for (EnumYeast ytype : EnumYeast.values()) {
+            list.add(ytype.asStack());
+        }
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamage(int meta)
-	{
-		return icons[MathHelper.clamp_int(meta, 0, icons.length - 1)];
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister reg) {
+        this.icons = new IIcon[EnumYeast.length];
+        icons[EnumYeast.BAYANUS.ordinal()] = reg.registerIcon(getIconString() + "_bayanus");
+        icons[EnumYeast.BREWERS.ordinal()] = reg.registerIcon(getIconString() + "_brewers");
+        icons[EnumYeast.ETHEREAL.ordinal()] = reg.registerIcon(getIconString() + "_ethereal");
+        icons[EnumYeast.LAGER.ordinal()] = reg.registerIcon(getIconString() + "_lager");
+        icons[EnumYeast.ORIGIN.ordinal()] = reg.registerIcon(getIconString() + "_origin");
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamage(int meta) {
+        return icons[MathHelper.clamp_int(meta, 0, icons.length - 1)];
+    }
 }

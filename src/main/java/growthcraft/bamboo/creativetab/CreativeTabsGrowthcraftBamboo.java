@@ -23,24 +23,20 @@
  */
 package growthcraft.bamboo.creativetab;
 
-import growthcraft.bamboo.GrowthCraftBamboo;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import growthcraft.bamboo.GrowthCraftBamboo;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-public class CreativeTabsGrowthcraftBamboo extends CreativeTabs
-{
-	public CreativeTabsGrowthcraftBamboo(String name)
-	{
-		super(name);
-	}
+public class CreativeTabsGrowthcraftBamboo extends CreativeTabs {
+    public CreativeTabsGrowthcraftBamboo(String name) {
+        super(name);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Item getTabIconItem()
-	{
-		return GrowthCraftBamboo.items.bamboo.getItem();
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Item getTabIconItem() {
+        return GrowthCraftBamboo.items.bamboo.getItem();
+    }
 }

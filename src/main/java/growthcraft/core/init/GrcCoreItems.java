@@ -23,53 +23,44 @@
  */
 package growthcraft.core.init;
 
-import growthcraft.core.common.definition.ItemDefinition;
 import growthcraft.core.common.GrcModuleItems;
-import growthcraft.core.common.item.ItemBottleSalt;
-import growthcraft.core.common.item.ItemBucketSalt;
-import growthcraft.core.common.item.ItemCrowbar;
-import growthcraft.core.common.item.ItemRope;
-import growthcraft.core.common.item.ItemSalt;
-
+import growthcraft.core.common.definition.ItemDefinition;
+import growthcraft.core.common.item.*;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class GrcCoreItems extends GrcModuleItems
-{
-	public ItemDefinition rope;
-	public ItemDefinition salt;
-	public ItemDefinition saltBucket;
-	public ItemDefinition saltBottle;
-	public ItemDefinition crowbar;
+public class GrcCoreItems extends GrcModuleItems {
+    public ItemDefinition rope;
+    public ItemDefinition salt;
+    public ItemDefinition saltBucket;
+    public ItemDefinition saltBottle;
+    public ItemDefinition crowbar;
 
-	@Override
-	public void preInit()
-	{
-		this.rope = newDefinition(new ItemRope());
-		this.salt = newDefinition(new ItemSalt());
-		this.saltBottle = newDefinition(new ItemBottleSalt());
-		this.saltBucket = newDefinition(new ItemBucketSalt());
-		this.crowbar = newDefinition(new ItemCrowbar());
-	}
+    @Override
+    public void preInit() {
+        this.rope = newDefinition(new ItemRope());
+        this.salt = newDefinition(new ItemSalt());
+        this.saltBottle = newDefinition(new ItemBottleSalt());
+        this.saltBucket = newDefinition(new ItemBucketSalt());
+        this.crowbar = newDefinition(new ItemCrowbar());
+    }
 
-	@Override
-	public void register()
-	{
-		rope.register("grc.rope");
-		salt.register("grccore.salt");
-		saltBottle.register("grccore.saltBottle");
-		saltBucket.register("grccore.saltBucket");
-		crowbar.register("grccore.crowbar");
-	}
+    @Override
+    public void register() {
+        rope.register("grc.rope");
+        salt.register("grccore.salt");
+        saltBottle.register("grccore.saltBottle");
+        saltBucket.register("grccore.saltBucket");
+        crowbar.register("grccore.crowbar");
+    }
 
-	@Override
-	public void init()
-	{
-		OreDictionary.registerOre("materialRope", rope.getItem());
-		OreDictionary.registerOre("materialSalt", salt.getItem());
-		OreDictionary.registerOre("foodSalt", salt.getItem());
-		OreDictionary.registerOre("dustSalt", salt.getItem());
-		OreDictionary.registerOre("lumpSalt", salt.getItem());
-		OreDictionary.registerOre("bottleSalt", saltBottle.getItem());
-		OreDictionary.registerOre("bucketSalt", saltBucket.getItem());
-	}
+    @Override
+    public void init() {
+        OreDictionary.registerOre("materialRope", rope.getItem());
+        OreDictionary.registerOre("materialSalt", salt.getItem());
+        OreDictionary.registerOre("foodSalt", salt.getItem());
+        OreDictionary.registerOre("dustSalt", salt.getItem());
+        OreDictionary.registerOre("lumpSalt", salt.getItem());
+        OreDictionary.registerOre("bottleSalt", saltBottle.getItem());
+        OreDictionary.registerOre("bucketSalt", saltBucket.getItem());
+    }
 }

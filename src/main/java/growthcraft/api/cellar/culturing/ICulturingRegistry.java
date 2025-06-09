@@ -23,17 +23,17 @@
  */
 package growthcraft.api.cellar.culturing;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.core.log.ILoggable;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public interface ICulturingRegistry extends ILoggable
-{
-	void addRecipe(@Nonnull ICultureRecipe recipe);
-	void addRecipe(@Nonnull FluidStack fluidStack, @Nonnull ItemStack itemStack, float requiredHeat, int time);
-	ICultureRecipe findRecipe(@Nullable FluidStack fluid, float heat);
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+public interface ICulturingRegistry extends ILoggable {
+    void addRecipe(@Nonnull ICultureRecipe recipe);
+
+    void addRecipe(@Nonnull FluidStack fluidStack, @Nonnull ItemStack itemStack, float requiredHeat, int time);
+
+    ICultureRecipe findRecipe(@Nullable FluidStack fluid, float heat);
 }

@@ -23,45 +23,39 @@
  */
 package growthcraft.core.integration.forestry.recipes;
 
+import cpw.mods.fml.common.Optional;
+import forestry.api.recipes.ICraftingProvider;
+import forestry.api.recipes.IForestryRecipe;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import forestry.api.recipes.IForestryRecipe;
-import forestry.api.recipes.ICraftingProvider;
-
-import cpw.mods.fml.common.Optional;
-
 // Forestry API shims, so we don't have to do null checks all over the place.
-@Optional.Interface(iface="forestry.api.recipes.ICraftingProvider", modid="ForestryAPI|recipes")
-public abstract class AbstractManagerShim<T extends IForestryRecipe> implements ICraftingProvider<T>
-{
-	private static Map<Object[], Object[]> map = new HashMap<Object[], Object[]>();
-	private Collection<T> coll = new ArrayList<T>();
+@Optional.Interface(iface = "forestry.api.recipes.ICraftingProvider", modid = "ForestryAPI|recipes")
+public abstract class AbstractManagerShim<T extends IForestryRecipe> implements ICraftingProvider<T> {
+    private static final Map<Object[], Object[]> map = new HashMap<Object[], Object[]>();
+    private final Collection<T> coll = new ArrayList<T>();
 
-	@Override
-	public boolean addRecipe(T recipe)
-	{
-		return false;
-	}
+    @Override
+    public boolean addRecipe(T recipe) {
+        return false;
+    }
 
-	@Override
-	public  boolean removeRecipe(T recipe)
-	{
-		return false;
-	}
+    @Override
+    public boolean removeRecipe(T recipe) {
+        return false;
+    }
 
-	@Override
-	public Collection<T> recipes()
-	{
-		return coll;
-	}
+    @Override
+    public Collection<T> recipes() {
+        return coll;
+    }
 
-	@Override
-	@Deprecated
-	public Map<Object[], Object[]> getRecipes()
-	{
-		return map;
-	}
+    @Override
+    @Deprecated
+    public Map<Object[], Object[]> getRecipes() {
+        return map;
+    }
 }

@@ -23,34 +23,23 @@
  */
 package growthcraft.core.integration.forestry.recipes;
 
+import cpw.mods.fml.common.Optional;
+import forestry.api.recipes.*;
 import growthcraft.api.core.util.ObjectUtils;
 
-import forestry.api.recipes.ICarpenterManager;
-import forestry.api.recipes.ICentrifugeManager;
-import forestry.api.recipes.IFabricatorManager;
-import forestry.api.recipes.IFermenterManager;
-import forestry.api.recipes.IMoistenerManager;
-import forestry.api.recipes.ISqueezerManager;
-import forestry.api.recipes.IStillManager;
-import forestry.api.recipes.RecipeManagers;
+public class RecipeManagersShims {
+    private static RecipeManagersShims INSTANCE;
+    public ICarpenterManager carpenterManager = ObjectUtils.maybe(RecipeManagers.carpenterManager, new CarpenterManagerShim());
+    public ICentrifugeManager centrifugeManager = ObjectUtils.maybe(RecipeManagers.centrifugeManager, new CentrifugeManagerShim());
+    public IFabricatorManager fabricatorManager = ObjectUtils.maybe(RecipeManagers.fabricatorManager, new FabricatorManagerShim());
+    public IFermenterManager fermenterManager = ObjectUtils.maybe(RecipeManagers.fermenterManager, new FermenterManagerShim());
+    public IMoistenerManager moistenerManager = ObjectUtils.maybe(RecipeManagers.moistenerManager, new MoistenerManagerShim());
+    public ISqueezerManager squeezerManager = ObjectUtils.maybe(RecipeManagers.squeezerManager, new SqueezerManagerShim());
+    public IStillManager stillManager = ObjectUtils.maybe(RecipeManagers.stillManager, new StillManagerShim());
 
-import cpw.mods.fml.common.Optional;
-
-public class RecipeManagersShims
-{
-	private static RecipeManagersShims INSTANCE;
-	public ICarpenterManager carpenterManager = ObjectUtils.<ICarpenterManager>maybe(RecipeManagers.carpenterManager, new CarpenterManagerShim());
-	public ICentrifugeManager centrifugeManager = ObjectUtils.<ICentrifugeManager>maybe(RecipeManagers.centrifugeManager, new CentrifugeManagerShim());
-	public IFabricatorManager fabricatorManager = ObjectUtils.<IFabricatorManager>maybe(RecipeManagers.fabricatorManager, new FabricatorManagerShim());
-	public IFermenterManager fermenterManager = ObjectUtils.<IFermenterManager>maybe(RecipeManagers.fermenterManager, new FermenterManagerShim());
-	public IMoistenerManager moistenerManager = ObjectUtils.<IMoistenerManager>maybe(RecipeManagers.moistenerManager, new MoistenerManagerShim());
-	public ISqueezerManager squeezerManager = ObjectUtils.<ISqueezerManager>maybe(RecipeManagers.squeezerManager, new SqueezerManagerShim());
-	public IStillManager stillManager = ObjectUtils.<IStillManager>maybe(RecipeManagers.stillManager, new StillManagerShim());
-
-	@Optional.Method(modid="ForestryAPI|recipes")
-	public static RecipeManagersShims instance()
-	{
-		if (INSTANCE == null) INSTANCE = new RecipeManagersShims();
-		return INSTANCE;
-	}
+    @Optional.Method(modid = "ForestryAPI|recipes")
+    public static RecipeManagersShims instance() {
+        if (INSTANCE == null) INSTANCE = new RecipeManagersShims();
+        return INSTANCE;
+    }
 }

@@ -23,14 +23,12 @@
  */
 package growthcraft.api.cellar.booze;
 
-import javax.annotation.Nonnull;
-
 import growthcraft.api.core.GrcFluid;
 
-public class Booze extends GrcFluid
-{
-	public Booze(@Nonnull String fluidName)
-	{
-		super(fluidName);
-	}
+import javax.annotation.Nonnull;
+
+public class Booze extends GrcFluid {
+    public Booze(@Nonnull String fluidName) {
+        super(fluidName);
+    }
 }

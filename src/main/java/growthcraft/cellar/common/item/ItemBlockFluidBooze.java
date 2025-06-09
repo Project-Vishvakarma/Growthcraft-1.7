@@ -24,13 +24,10 @@
 package growthcraft.cellar.common.item;
 
 import growthcraft.core.common.item.ItemGrcBlockFluid;
-
 import net.minecraft.block.Block;
 
-public class ItemBlockFluidBooze extends ItemGrcBlockFluid
-{
-	public ItemBlockFluidBooze(Block block)
-	{
-		super(block);
-	}
+public class ItemBlockFluidBooze extends ItemGrcBlockFluid {
+    public ItemBlockFluidBooze(Block block) {
+        super(block);
+    }
 }

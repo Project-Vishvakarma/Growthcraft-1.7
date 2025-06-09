@@ -23,70 +23,60 @@
  */
 package growthcraft.core.integration.mfr;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import growthcraft.core.integration.MFRModuleBase;
-
 import cpw.mods.fml.common.Optional;
+import growthcraft.core.integration.MFRModuleBase;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-@Optional.Interface(iface="powercrystals.minefactoryreloaded.api.IFactoryFruit", modid=MFRModuleBase.MOD_ID)
-public abstract class AbstractFactoryFruit<TBlock extends Block> implements IFactoryFruit
-{
-	protected TBlock plantBlock;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-	public AbstractFactoryFruit<TBlock> setPlant(TBlock pBlock)
-	{
-		this.plantBlock = pBlock;
-		return this;
-	}
+@Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IFactoryFruit", modid = MFRModuleBase.MOD_ID)
+public abstract class AbstractFactoryFruit<TBlock extends Block> implements IFactoryFruit {
+    protected TBlock plantBlock;
 
-	@Override
-	public Block getPlant()
-	{
-		return plantBlock;
-	}
+    @Override
+    public Block getPlant() {
+        return plantBlock;
+    }
 
-	@Override
-	@Deprecated
-	public boolean breakBlock()
-	{
-		return true;
-	}
+    public AbstractFactoryFruit<TBlock> setPlant(TBlock pBlock) {
+        this.plantBlock = pBlock;
+        return this;
+    }
 
-	@Override
-	public boolean canBePicked(World world, int x, int y, int z)
-	{
-		return true;
-	}
+    @Override
+    @Deprecated
+    public boolean breakBlock() {
+        return true;
+    }
 
-	@Override
-	@Optional.Method(modid=MFRModuleBase.MOD_ID)
-	public ReplacementBlock getReplacementBlock(World world, int x, int y, int z)
-	{
-		return null;
-	}
+    @Override
+    public boolean canBePicked(World world, int x, int y, int z) {
+        return true;
+    }
 
-	@Override
-	public List<ItemStack> getDrops(World world, Random rand, int x, int y, int z)
-	{
-		if (plantBlock != null)
-			return plantBlock.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
-		return new ArrayList<ItemStack>();
-	}
+    @Override
+    @Optional.Method(modid = MFRModuleBase.MOD_ID)
+    public ReplacementBlock getReplacementBlock(World world, int x, int y, int z) {
+        return null;
+    }
 
-	@Override
-	public void prePick(World world, int x, int y, int z)
-	{
-	}
+    @Override
+    public List<ItemStack> getDrops(World world, Random rand, int x, int y, int z) {
+        if (plantBlock != null)
+            return plantBlock.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
+        return new ArrayList<ItemStack>();
+    }
 
-	@Override
-	public void postPick(World world, int x, int y, int z)
-	{
-		if (plantBlock != null) world.notifyBlocksOfNeighborChange(x, y, z, plantBlock);
-	}
+    @Override
+    public void prePick(World world, int x, int y, int z) {
+    }
+
+    @Override
+    public void postPick(World world, int x, int y, int z) {
+        if (plantBlock != null) world.notifyBlocksOfNeighborChange(x, y, z, plantBlock);
+    }
 }

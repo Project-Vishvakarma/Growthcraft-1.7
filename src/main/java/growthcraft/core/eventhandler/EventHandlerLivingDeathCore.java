@@ -23,43 +23,33 @@
  */
 package growthcraft.core.eventhandler;
 
-import java.util.Random;
-
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import growthcraft.core.common.item.ItemCrowbar;
 import growthcraft.core.stats.CoreAchievement;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
-public class EventHandlerLivingDeathCore
-{
-	private Random rng = new Random();
+import java.util.Random;
 
-	@SubscribeEvent
-	public void onLivingEntityDeath(LivingDeathEvent event)
-	{
-		if (event.source instanceof EntityDamageSource)
-		{
-			final EntityDamageSource source = (EntityDamageSource)event.source;
-			if (source.getEntity() instanceof EntityPlayer)
-			{
-				final EntityPlayer player = (EntityPlayer)source.getEntity();
-				final ItemStack heldItem = player.getHeldItem();
-				if (heldItem != null)
-				{
-					if (heldItem.getItem() instanceof ItemCrowbar)
-					{
-						if (event.entityLiving instanceof EntityZombie)
-						{
-							CoreAchievement.HALF_LIFE_CONFIRMED.unlock(player);
-						}
-					}
-				}
-			}
-		}
-	}
+public class EventHandlerLivingDeathCore {
+    private final Random rng = new Random();
+
+    @SubscribeEvent
+    public void onLivingEntityDeath(LivingDeathEvent event) {
+        if (event.source instanceof EntityDamageSource source) {
+            if (source.getEntity() instanceof EntityPlayer player) {
+                final ItemStack heldItem = player.getHeldItem();
+                if (heldItem != null) {
+                    if (heldItem.getItem() instanceof ItemCrowbar) {
+                        if (event.entityLiving instanceof EntityZombie) {
+                            CoreAchievement.HALF_LIFE_CONFIRMED.unlock(player);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

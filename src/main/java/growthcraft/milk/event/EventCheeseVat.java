@@ -26,29 +26,23 @@ package growthcraft.milk.event;
 import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.tileentity.TileEntity;
 
-public abstract class EventCheeseVat extends Event
-{
-	public final TileEntity tile;
+public abstract class EventCheeseVat extends Event {
+    public final TileEntity tile;
 
-	public EventCheeseVat(TileEntity te)
-	{
-		super();
-		this.tile = te;
-	}
+    public EventCheeseVat(TileEntity te) {
+        super();
+        this.tile = te;
+    }
 
-	public static class EventCheeseVatMadeCurds extends EventCheeseVat
-	{
-		public EventCheeseVatMadeCurds(TileEntity te)
-		{
-			super(te);
-		}
-	}
+    public static class EventCheeseVatMadeCurds extends EventCheeseVat {
+        public EventCheeseVatMadeCurds(TileEntity te) {
+            super(te);
+        }
+    }
 
-	public static class EventCheeseVatMadeCheeseFluid extends EventCheeseVat
-	{
-		public EventCheeseVatMadeCheeseFluid(TileEntity te)
-		{
-			super(te);
-		}
-	}
+    public static class EventCheeseVatMadeCheeseFluid extends EventCheeseVat {
+        public EventCheeseVatMadeCheeseFluid(TileEntity te) {
+            super(te);
+        }
+    }
 }

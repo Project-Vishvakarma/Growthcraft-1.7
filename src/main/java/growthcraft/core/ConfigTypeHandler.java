@@ -23,95 +23,86 @@
  */
 package growthcraft.core;
 
+import growthcraft.api.core.util.TagParser;
+import net.minecraftforge.common.config.Configuration;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import growthcraft.api.core.util.TagParser;
+public abstract class ConfigTypeHandler {
+    public static List<ConfigTypeHandler> handlers = new ArrayList<ConfigTypeHandler>();
 
-import net.minecraftforge.common.config.Configuration;
+    static {
+        handlers.add(new TagHandler());
+        handlers.add(new TagTableHandler());
+    }
 
-public abstract class ConfigTypeHandler
-{
-	public static List<ConfigTypeHandler> handlers = new ArrayList<ConfigTypeHandler>();
-	public abstract boolean canHandle(Field field);
-	public abstract Object handle(Field field, Configuration config);
+    public abstract boolean canHandle(Field field);
 
-	public static class TagHandler extends ConfigTypeHandler
-	{
-		@Override
-		@SuppressWarnings({"rawtypes"})
-		public boolean canHandle(Field field)
-		{
-			final Class typeClass = field.getType();
-			return typeClass.isArray() &&
-				TagParser.Tag.class.equals(typeClass.getComponentType());
-		}
+    public abstract Object handle(Field field, Configuration config);
 
-		@Override
-		public Object handle(Field field, Configuration config)
-		{
-			final ConfigBase.ConfigOption opt = field.getAnnotation(ConfigBase.ConfigOption.class);
-			final String value = opt.def();
-			final TagParser parser = opt.opt().equals("scsv") ?
-				TagParser.scsv :
-				(opt.opt().equals("cosv") ? TagParser.cosv : TagParser.csv);
+    public static class TagHandler extends ConfigTypeHandler {
+        @Override
+        @SuppressWarnings({"rawtypes"})
+        public boolean canHandle(Field field) {
+            final Class typeClass = field.getType();
+            return typeClass.isArray() &&
+                TagParser.Tag.class.equals(typeClass.getComponentType());
+        }
 
-			return parser.parse(
-				config.get(
-					opt.catergory(),
-					opt.name(),
-					value,
-					opt.desc() + ConfigBase.DEFAULT_STR + value
-				).getString()
-			);
-		}
-	}
+        @Override
+        public Object handle(Field field, Configuration config) {
+            final ConfigBase.ConfigOption opt = field.getAnnotation(ConfigBase.ConfigOption.class);
+            final String value = opt.def();
+            final TagParser parser = opt.opt().equals("scsv") ?
+                TagParser.scsv :
+                (opt.opt().equals("cosv") ? TagParser.cosv : TagParser.csv);
 
-	public static class TagTableHandler extends ConfigTypeHandler
-	{
-		@Override
-		@SuppressWarnings({"rawtypes"})
-		public boolean canHandle(Field field)
-		{
-			final Class typeClass = field.getType();
-			if (typeClass.isArray())
-			{
-				final Class componentClass = typeClass.getComponentType();
-				return componentClass.isArray() &&
-					TagParser.Tag.class.equals(componentClass.getComponentType());
-			}
-			return false;
-		}
+            return parser.parse(
+                config.get(
+                    opt.catergory(),
+                    opt.name(),
+                    value,
+                    opt.desc() + ConfigBase.DEFAULT_STR + value
+                ).getString()
+            );
+        }
+    }
 
-		@Override
-		public Object handle(Field field, Configuration config)
-		{
-			final ConfigBase.ConfigOption opt = field.getAnnotation(ConfigBase.ConfigOption.class);
-			final String value = opt.def();
-			final String[] rows = TagParser.scsv.parseToArray(
-				config.get(
-					opt.catergory(),
-					opt.name(),
-					value,
-					opt.desc() + ConfigBase.DEFAULT_STR + value
-				).getString()
-			);
+    public static class TagTableHandler extends ConfigTypeHandler {
+        @Override
+        @SuppressWarnings({"rawtypes"})
+        public boolean canHandle(Field field) {
+            final Class typeClass = field.getType();
+            if (typeClass.isArray()) {
+                final Class componentClass = typeClass.getComponentType();
+                return componentClass.isArray() &&
+                    TagParser.Tag.class.equals(componentClass.getComponentType());
+            }
+            return false;
+        }
 
-			final TagParser.Tag[][] table = new TagParser.Tag[rows.length][];
-			int i = 0;
-			for (String row : rows)
-			{
-				table[i] = TagParser.csv.parse(row);
-				i++;
-			}
-			return table;
-		}
-	}
+        @Override
+        public Object handle(Field field, Configuration config) {
+            final ConfigBase.ConfigOption opt = field.getAnnotation(ConfigBase.ConfigOption.class);
+            final String value = opt.def();
+            final String[] rows = TagParser.scsv.parseToArray(
+                config.get(
+                    opt.catergory(),
+                    opt.name(),
+                    value,
+                    opt.desc() + ConfigBase.DEFAULT_STR + value
+                ).getString()
+            );
 
-	static
-	{
-		handlers.add(new TagHandler());
-		handlers.add(new TagTableHandler());
-	}
+            final TagParser.Tag[][] table = new TagParser.Tag[rows.length][];
+            int i = 0;
+            for (String row : rows) {
+                table[i] = TagParser.csv.parse(row);
+                i++;
+            }
+            return table;
+        }
+    }
 }

@@ -26,15 +26,12 @@ package growthcraft.api.bees;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
-public class GenericFlowerBlockEntry extends AbstractFlowerBlockEntry
-{
-	public GenericFlowerBlockEntry(Block pblock, int pmeta)
-	{
-		super(pblock, pmeta);
-	}
+public class GenericFlowerBlockEntry extends AbstractFlowerBlockEntry {
+    public GenericFlowerBlockEntry(Block pblock, int pmeta) {
+        super(pblock, pmeta);
+    }
 
-	public boolean canPlaceAt(World world, int x, int y, int z)
-	{
-		return getBlock().canPlaceBlockAt(world, x, y, z);
-	}
+    public boolean canPlaceAt(World world, int x, int y, int z) {
+        return getBlock().canPlaceBlockAt(world, x, y, z);
+    }
 }

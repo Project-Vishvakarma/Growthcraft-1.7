@@ -23,45 +23,37 @@
  */
 package growthcraft.bees.integration;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import growthcraft.bees.GrowthCraftBees;
 import growthcraft.bees.common.block.BlockBeeBoxBiomesOPlenty;
 import growthcraft.bees.common.item.ItemBlockBeeBox;
-import growthcraft.bees.GrowthCraftBees;
+import growthcraft.core.integration.ModIntegrationBase;
 import growthcraft.core.integration.bop.BopPlatform;
 import growthcraft.core.integration.bop.EnumBopWoodType;
-import growthcraft.core.integration.ModIntegrationBase;
-
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
 
-public class BoPModule extends ModIntegrationBase
-{
-	public BoPModule()
-	{
-		super(GrowthCraftBees.MOD_ID, BopPlatform.MOD_ID);
-	}
+public class BoPModule extends ModIntegrationBase {
+    public BoPModule() {
+        super(GrowthCraftBees.MOD_ID, BopPlatform.MOD_ID);
+    }
 
-	@Override
-	public void doPreInit()
-	{
-		GrowthCraftBees.blocks.beeBoxBiomesOPlenty = GrowthCraftBees.blocks.newTypedDefinition(new BlockBeeBoxBiomesOPlenty());
-	}
+    @Override
+    public void doPreInit() {
+        GrowthCraftBees.blocks.beeBoxBiomesOPlenty = GrowthCraftBees.blocks.newTypedDefinition(new BlockBeeBoxBiomesOPlenty());
+    }
 
-	@Override
-	public void doRegister()
-	{
-		GrowthCraftBees.blocks.beeBoxBiomesOPlenty.register("grc.BeeBox.BiomesOPlenty", ItemBlockBeeBox.class);
-	}
+    @Override
+    public void doRegister() {
+        GrowthCraftBees.blocks.beeBoxBiomesOPlenty.register("grc.BeeBox.BiomesOPlenty", ItemBlockBeeBox.class);
+    }
 
-	@Override
-	protected void doLateRegister()
-	{
-		for (EnumBopWoodType type : EnumBopWoodType.VALUES)
-		{
-			final ItemStack planks = type.asPlanksItemStack();
-			if (planks != null)
-			{
-				GameRegistry.addShapedRecipe(GrowthCraftBees.blocks.beeBoxBiomesOPlenty.asStack(1, type.meta), " A ", "A A", "AAA", 'A', planks);
-			}
-		}
-	}
+    @Override
+    protected void doLateRegister() {
+        for (EnumBopWoodType type : EnumBopWoodType.VALUES) {
+            final ItemStack planks = type.asPlanksItemStack();
+            if (planks != null) {
+                GameRegistry.addShapedRecipe(GrowthCraftBees.blocks.beeBoxBiomesOPlenty.asStack(1, type.meta), " A ", "A A", "AAA", 'A', planks);
+            }
+        }
+    }
 }

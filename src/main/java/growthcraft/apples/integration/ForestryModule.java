@@ -23,27 +23,24 @@
  */
 package growthcraft.apples.integration;
 
-import growthcraft.apples.GrowthCraftApples;
-import growthcraft.core.integration.forestry.ForestryFluids;
-import growthcraft.core.integration.ForestryModuleBase;
-
 import cpw.mods.fml.common.Optional;
+import growthcraft.apples.GrowthCraftApples;
+import growthcraft.core.integration.ForestryModuleBase;
+import growthcraft.core.integration.forestry.ForestryFluids;
 import net.minecraft.item.ItemStack;
 
-public class ForestryModule extends ForestryModuleBase
-{
-	public ForestryModule()
-	{
-		super(GrowthCraftApples.MOD_ID);
-	}
+public class ForestryModule extends ForestryModuleBase {
+    public ForestryModule() {
+        super(GrowthCraftApples.MOD_ID);
+    }
 
-	@Override
-	@Optional.Method(modid="Forestry")
-	protected void integrate()
-	{
-		final ItemStack appleSeed = GrowthCraftApples.items.appleSeeds.asStack();
-		final int seedamount = getActiveMode().getIntegerSetting("squeezer.liquid.seed");
-		if (ForestryFluids.SEEDOIL.exists()) recipes().squeezerManager.addRecipe(10, new ItemStack[]{appleSeed}, ForestryFluids.SEEDOIL.asFluidStack(seedamount));
-		Backpack.FORESTERS.add(appleSeed);
-	}
+    @Override
+    @Optional.Method(modid = "Forestry")
+    protected void integrate() {
+        final ItemStack appleSeed = GrowthCraftApples.items.appleSeeds.asStack();
+        final int seedamount = getActiveMode().getIntegerSetting("squeezer.liquid.seed");
+        if (ForestryFluids.SEEDOIL.exists())
+            recipes().squeezerManager.addRecipe(10, new ItemStack[]{appleSeed}, ForestryFluids.SEEDOIL.asFluidStack(seedamount));
+        Backpack.FORESTERS.add(appleSeed);
+    }
 }

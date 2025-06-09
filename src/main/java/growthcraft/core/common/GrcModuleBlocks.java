@@ -23,42 +23,38 @@
  */
 package growthcraft.core.common;
 
+import growthcraft.core.common.definition.BlockDefinition;
+import growthcraft.core.common.definition.BlockTypeDefinition;
+import net.minecraft.block.Block;
+
 import java.util.LinkedList;
 import java.util.List;
 
-import growthcraft.core.common.definition.BlockDefinition;
-import growthcraft.core.common.definition.BlockTypeDefinition;
+public class GrcModuleBlocks extends GrcModuleBase {
+    // All items that had defintions created via the interface
+    public final List<BlockTypeDefinition<? extends Block>> all = new LinkedList<BlockTypeDefinition<? extends Block>>();
 
-import net.minecraft.block.Block;
+    /**
+     * Creates a basic BlockDefintion from the given block
+     *
+     * @param block the block to wrap
+     * @return definition
+     */
+    public BlockDefinition newDefinition(Block block) {
+        final BlockDefinition def = new BlockDefinition(block);
+        all.add(def);
+        return def;
+    }
 
-public class GrcModuleBlocks extends GrcModuleBase
-{
-	// All items that had defintions created via the interface
-	public final List<BlockTypeDefinition<? extends Block>> all = new LinkedList<BlockTypeDefinition<? extends Block>>();
-
-	/**
-	 * Creates a basic BlockDefintion from the given block
-	 *
-	 * @param block the block to wrap
-	 * @return definition
-	 */
-	public BlockDefinition newDefinition(Block block)
-	{
-		final BlockDefinition def = new BlockDefinition(block);
-		all.add(def);
-		return def;
-	}
-
-	/**
-	 * Creates a BlockTypeDefintion from the given block
-	 *
-	 * @param block the block to wrap and type by
-	 * @return typed definition
-	 */
-	public <T extends Block> BlockTypeDefinition<T> newTypedDefinition(T block)
-	{
-		final BlockTypeDefinition<T> def = new BlockTypeDefinition<T>(block);
-		all.add(def);
-		return def;
-	}
+    /**
+     * Creates a BlockTypeDefintion from the given block
+     *
+     * @param block the block to wrap and type by
+     * @return typed definition
+     */
+    public <T extends Block> BlockTypeDefinition<T> newTypedDefinition(T block) {
+        final BlockTypeDefinition<T> def = new BlockTypeDefinition<T>(block);
+        all.add(def);
+        return def;
+    }
 }

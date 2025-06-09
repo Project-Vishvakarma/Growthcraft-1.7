@@ -24,17 +24,14 @@
 package growthcraft.core.common.item;
 
 import growthcraft.core.GrowthCraftCore;
-
 import net.minecraft.init.Items;
 
-public class ItemBottleSalt extends GrcItemBase
-{
-	public ItemBottleSalt()
-	{
-		super();
-		setTextureName("grccore:bottle_salt");
-		setUnlocalizedName("grccore.bottleSalt");
-		setCreativeTab(GrowthCraftCore.creativeTab);
-		setContainerItem(Items.glass_bottle);
-	}
+public class ItemBottleSalt extends GrcItemBase {
+    public ItemBottleSalt() {
+        super();
+        setTextureName("grccore:bottle_salt");
+        setUnlocalizedName("grccore.bottleSalt");
+        setCreativeTab(GrowthCraftCore.creativeTab);
+        setContainerItem(Items.glass_bottle);
+    }
 }

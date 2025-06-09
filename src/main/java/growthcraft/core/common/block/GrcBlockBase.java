@@ -27,23 +27,21 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
-public class GrcBlockBase extends Block
-{
-	public GrcBlockBase(Material material)
-	{
-		super(material);
-	}
+public class GrcBlockBase extends Block {
+    public GrcBlockBase(Material material) {
+        super(material);
+    }
 
-	/**
-	 * Drops the block as an item and replaces it with air
-	 * @param world - world to drop in
-	 * @param x - x Coord
-	 * @param y - y Coord
-	 * @param z - z Coord
-	 */
-	public void fellBlockAsItem(World world, int x, int y, int z)
-	{
-		dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
-		world.setBlockToAir(x, y, z);
-	}
+    /**
+     * Drops the block as an item and replaces it with air
+     *
+     * @param world - world to drop in
+     * @param x     - x Coord
+     * @param y     - y Coord
+     * @param z     - z Coord
+     */
+    public void fellBlockAsItem(World world, int x, int y, int z) {
+        dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
+        world.setBlockToAir(x, y, z);
+    }
 }

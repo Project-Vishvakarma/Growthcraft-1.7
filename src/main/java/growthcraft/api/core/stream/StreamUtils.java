@@ -23,78 +23,73 @@
  */
 package growthcraft.api.core.stream;
 
-import java.io.UnsupportedEncodingException;
-
 import io.netty.buffer.ByteBuf;
-
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+
 /**
  * Utility class for handling data streams
  */
-public class StreamUtils
-{
-	private StreamUtils() {}
+public class StreamUtils {
+    private StreamUtils() {
+    }
 
-	/**
-	 * Reads an ASCII string from the stream, the first int should be the length
-	 * of the string.
-	 *
-	 * @param stream - stream to read from
-	 * @return string
-	 */
-	public static String readStringASCII(ByteBuf stream) throws UnsupportedEncodingException
-	{
-		final int len = stream.readInt();
-		final byte[] bytes = stream.readBytes(len).array();
-		return new String(bytes, "US-ASCII");
-	}
+    /**
+     * Reads an ASCII string from the stream, the first int should be the length
+     * of the string.
+     *
+     * @param stream - stream to read from
+     * @return string
+     */
+    public static String readStringASCII(ByteBuf stream) throws UnsupportedEncodingException {
+        final int len = stream.readInt();
+        final byte[] bytes = stream.readBytes(len).array();
+        return new String(bytes, StandardCharsets.US_ASCII);
+    }
 
-	/**
-	 * Writes an ASCII string to the stream, the first value will be an integer for the length of the
-	 * string, followed by bytes
-	 *
-	 * @param stream - stream to write to
-	 * @param str - string to write
-	 */
-	public static void writeStringASCII(ByteBuf stream, String str) throws UnsupportedEncodingException
-	{
-		final byte[] bytes = str.getBytes("US-ASCII");
-		stream.writeInt(str.length());
-		stream.writeBytes(bytes);
-	}
+    /**
+     * Writes an ASCII string to the stream, the first value will be an integer for the length of the
+     * string, followed by bytes
+     *
+     * @param stream - stream to write to
+     * @param str    - string to write
+     */
+    public static void writeStringASCII(ByteBuf stream, String str) throws UnsupportedEncodingException {
+        final byte[] bytes = str.getBytes(StandardCharsets.US_ASCII);
+        stream.writeInt(str.length());
+        stream.writeBytes(bytes);
+    }
 
-	public static void readFluidTank(ByteBuf stream, FluidTank tank)
-	{
-		final int capacity = stream.readInt();
-		final int fluidId = stream.readInt();
-		final int fluidAmount = stream.readInt();
+    public static void readFluidTank(ByteBuf stream, FluidTank tank) {
+        final int capacity = stream.readInt();
+        final int fluidId = stream.readInt();
+        final int fluidAmount = stream.readInt();
 
-		final Fluid fluid = fluidId > -1 ? FluidRegistry.getFluid(fluidId) : null;
-		final FluidStack fluidStack = fluid != null ? new FluidStack(fluid, fluidAmount) : null;
+        final Fluid fluid = fluidId > -1 ? FluidRegistry.getFluid(fluidId) : null;
+        final FluidStack fluidStack = fluid != null ? new FluidStack(fluid, fluidAmount) : null;
 
-		tank.setCapacity(capacity);
-		tank.setFluid(fluidStack);
-	}
+        tank.setCapacity(capacity);
+        tank.setFluid(fluidStack);
+    }
 
-	public static void writeFluidTank(ByteBuf stream, FluidTank tank)
-	{
-		int fluidId = -1;
-		int fluidAmount = 0;
-		final int capacity = tank.getCapacity();
-		final FluidStack fs = tank.getFluid();
+    public static void writeFluidTank(ByteBuf stream, FluidTank tank) {
+        int fluidId = -1;
+        int fluidAmount = 0;
+        final int capacity = tank.getCapacity();
+        final FluidStack fs = tank.getFluid();
 
-		if (fs != null)
-		{
-			fluidId = fs.getFluidID();
-			fluidAmount = fs.amount;
-		}
+        if (fs != null) {
+            fluidId = fs.getFluidID();
+            fluidAmount = fs.amount;
+        }
 
-		stream.writeInt(capacity);
-		stream.writeInt(fluidId);
-		stream.writeInt(fluidAmount);
-	}
+        stream.writeInt(capacity);
+        stream.writeInt(fluidId);
+        stream.writeInt(fluidAmount);
+    }
 }

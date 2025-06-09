@@ -23,20 +23,19 @@
  */
 package growthcraft.core.integration.forestry.recipes;
 
+import cpw.mods.fml.common.Optional;
 import forestry.api.recipes.IFermenterManager;
 import forestry.api.recipes.IFermenterRecipe;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import cpw.mods.fml.common.Optional;
+@Optional.Interface(iface = "forestry.api.recipes.IFermenterManager", modid = "ForestryAPI|recipes")
+public class FermenterManagerShim extends AbstractManagerShim<IFermenterRecipe> implements IFermenterManager {
+    @Override
+    public void addRecipe(ItemStack resource, int fermentationValue, float modifier, FluidStack output, FluidStack liquid) {
+    }
 
-@Optional.Interface(iface="forestry.api.recipes.IFermenterManager", modid="ForestryAPI|recipes")
-public class FermenterManagerShim extends AbstractManagerShim<IFermenterRecipe> implements IFermenterManager
-{
-	@Override
-	public void addRecipe(ItemStack resource, int fermentationValue, float modifier, FluidStack output, FluidStack liquid) {}
-
-	@Override
-	public void addRecipe(ItemStack resource, int fermentationValue, float modifier, FluidStack output) {}
+    @Override
+    public void addRecipe(ItemStack resource, int fermentationValue, float modifier, FluidStack output) {
+    }
 }

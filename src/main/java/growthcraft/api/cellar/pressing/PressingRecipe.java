@@ -23,39 +23,32 @@
  */
 package growthcraft.api.cellar.pressing;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.cellar.common.ProcessingRecipe;
 import growthcraft.api.cellar.common.Residue;
 import growthcraft.api.core.definition.IMultiItemStacks;
 import growthcraft.api.core.item.ItemTest;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class PressingRecipe extends ProcessingRecipe
-{
-	private IMultiItemStacks inputItemStack;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-	public PressingRecipe(@Nonnull IMultiItemStacks src, @Nonnull FluidStack f, int t, @Nullable Residue r)
-	{
-		super(f, t, r);
-		this.inputItemStack = src;
-	}
+public class PressingRecipe extends ProcessingRecipe {
+    private final IMultiItemStacks inputItemStack;
 
-	public IMultiItemStacks getInput()
-	{
-		return inputItemStack;
-	}
+    public PressingRecipe(@Nonnull IMultiItemStacks src, @Nonnull FluidStack f, int t, @Nullable Residue r) {
+        super(f, t, r);
+        this.inputItemStack = src;
+    }
 
-	public boolean matchesRecipe(@Nullable ItemStack itemStack)
-	{
-		if (itemStack != null)
-		{
-			if (!ItemTest.hasEnough(inputItemStack, itemStack)) return false;
-			return true;
-		}
-		return false;
-	}
+    public IMultiItemStacks getInput() {
+        return inputItemStack;
+    }
+
+    public boolean matchesRecipe(@Nullable ItemStack itemStack) {
+        if (itemStack != null) {
+            return ItemTest.hasEnough(inputItemStack, itemStack);
+        }
+        return false;
+    }
 }

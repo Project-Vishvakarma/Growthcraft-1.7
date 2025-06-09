@@ -23,49 +23,44 @@
  */
 package growthcraft.core.integration.botania;
 
-import java.util.Locale;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public enum EnumBotaniaWoodType
-{
-	LIVING_WOOD("livingwood", 1),
-	DREAM_WOOD("dreamwood", 1),
-	SHIMMER_WOOD("shimmerwoodPlanks", 0);
+import java.util.Locale;
 
-	public static final EnumBotaniaWoodType[] VALUES = values();
+public enum EnumBotaniaWoodType {
+    LIVING_WOOD("livingwood", 1),
+    DREAM_WOOD("dreamwood", 1),
+    SHIMMER_WOOD("shimmerwoodPlanks", 0);
 
-	public final String plankName;
-	public final String name;
-	public final int meta;
-	public final int plankMeta;
+    public static final EnumBotaniaWoodType[] VALUES = values();
 
-	/**
-	 * @param pn - plank block name
-	 */
-	private EnumBotaniaWoodType(String pn, int m)
-	{
-		this.plankName = pn;
-		this.plankMeta = m;
-		this.name = name().toLowerCase(Locale.ENGLISH);
-		this.meta = ordinal();
-	}
+    public final String plankName;
+    public final String name;
+    public final int meta;
+    public final int plankMeta;
 
-	public ItemStack asPlanksItemStack(int size)
-	{
-		final Block block = GameRegistry.findBlock(BotaniaPlatform.MOD_ID, plankName);
-		if (block != null)
-		{
-			final ItemStack result = new ItemStack(block, size, plankMeta);
-			return result;
-		}
-		return null;
-	}
+    /**
+     * @param pn - plank block name
+     */
+    EnumBotaniaWoodType(String pn, int m) {
+        this.plankName = pn;
+        this.plankMeta = m;
+        this.name = name().toLowerCase(Locale.ENGLISH);
+        this.meta = ordinal();
+    }
 
-	public ItemStack asPlanksItemStack()
-	{
-		return asPlanksItemStack(1);
-	}
+    public ItemStack asPlanksItemStack(int size) {
+        final Block block = GameRegistry.findBlock(BotaniaPlatform.MOD_ID, plankName);
+        if (block != null) {
+            final ItemStack result = new ItemStack(block, size, plankMeta);
+            return result;
+        }
+        return null;
+    }
+
+    public ItemStack asPlanksItemStack() {
+        return asPlanksItemStack(1);
+    }
 }

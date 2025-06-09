@@ -23,67 +23,55 @@
  */
 package growthcraft.api.cellar.brewing;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.cellar.common.ProcessingRecipe;
 import growthcraft.api.cellar.common.Residue;
+import growthcraft.api.core.definition.IMultiItemStacks;
 import growthcraft.api.core.fluids.FluidTest;
 import growthcraft.api.core.item.ItemTest;
-import growthcraft.api.core.definition.IMultiItemStacks;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class BrewingRecipe extends ProcessingRecipe
-{
-	private IMultiItemStacks inputItemStack;
-	private FluidStack inputFluidStack;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-	public BrewingRecipe(@Nonnull FluidStack pInputFluid, @Nonnull IMultiItemStacks pInputItem, @Nonnull FluidStack pOutputFluid, int pTime, @Nullable Residue pResidue)
-	{
-		super(pOutputFluid, pTime, pResidue);
-		this.inputItemStack = pInputItem;
-		this.inputFluidStack = pInputFluid;
-	}
+public class BrewingRecipe extends ProcessingRecipe {
+    private final IMultiItemStacks inputItemStack;
+    private final FluidStack inputFluidStack;
 
-	public IMultiItemStacks getInputItemStack()
-	{
-		return inputItemStack;
-	}
+    public BrewingRecipe(@Nonnull FluidStack pInputFluid, @Nonnull IMultiItemStacks pInputItem, @Nonnull FluidStack pOutputFluid, int pTime, @Nullable Residue pResidue) {
+        super(pOutputFluid, pTime, pResidue);
+        this.inputItemStack = pInputItem;
+        this.inputFluidStack = pInputFluid;
+    }
 
-	public FluidStack getInputFluidStack()
-	{
-		return inputFluidStack;
-	}
+    public IMultiItemStacks getInputItemStack() {
+        return inputItemStack;
+    }
 
-	public boolean matchesRecipe(@Nullable FluidStack fluidStack, @Nullable ItemStack itemStack)
-	{
-		if (fluidStack != null && itemStack != null)
-		{
-			if (!FluidTest.hasEnough(inputFluidStack, fluidStack)) return false;
-			if (!ItemTest.hasEnough(inputItemStack, itemStack)) return false;
-			return true;
-		}
-		return false;
-	}
+    public FluidStack getInputFluidStack() {
+        return inputFluidStack;
+    }
 
-	public boolean matchesIngredient(@Nullable FluidStack fluidStack)
-	{
-		return FluidTest.fluidMatches(inputFluidStack, fluidStack);
-	}
+    public boolean matchesRecipe(@Nullable FluidStack fluidStack, @Nullable ItemStack itemStack) {
+        if (fluidStack != null && itemStack != null) {
+            if (!FluidTest.hasEnough(inputFluidStack, fluidStack)) return false;
+            return ItemTest.hasEnough(inputItemStack, itemStack);
+        }
+        return false;
+    }
 
-	public boolean matchesIngredient(@Nullable ItemStack stack)
-	{
-		return ItemTest.itemMatches(inputItemStack, stack);
-	}
+    public boolean matchesIngredient(@Nullable FluidStack fluidStack) {
+        return FluidTest.fluidMatches(inputFluidStack, fluidStack);
+    }
 
-	public boolean isItemIngredient(@Nullable ItemStack stack)
-	{
-		if (stack != null)
-		{
-			if (inputItemStack.containsItemStack(stack)) return true;
-		}
-		return false;
-	}
+    public boolean matchesIngredient(@Nullable ItemStack stack) {
+        return ItemTest.itemMatches(inputItemStack, stack);
+    }
+
+    public boolean isItemIngredient(@Nullable ItemStack stack) {
+        if (stack != null) {
+            return inputItemStack.containsItemStack(stack);
+        }
+        return false;
+    }
 }

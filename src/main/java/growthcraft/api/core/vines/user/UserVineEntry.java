@@ -23,55 +23,46 @@
  */
 package growthcraft.api.core.vines.user;
 
-import javax.annotation.Nonnull;
-
 import growthcraft.api.core.item.ItemKey;
 import growthcraft.api.core.schema.BlockKeySchema;
 import growthcraft.api.core.schema.ICommentable;
 import growthcraft.api.core.util.BlockKey;
-
 import net.minecraft.block.Block;
 
-public class UserVineEntry implements ICommentable
-{
-	public String comment;
-	public BlockKeySchema block;
+import javax.annotation.Nonnull;
 
-	public UserVineEntry(@Nonnull BlockKeySchema schema)
-	{
-		this.block = schema;
-		this.comment = block.getComment();
-	}
+public class UserVineEntry implements ICommentable {
+    public String comment;
+    public BlockKeySchema block;
 
-	public UserVineEntry(@Nonnull Block pBlock, int meta)
-	{
-		this(new BlockKeySchema(pBlock, meta));
-	}
+    public UserVineEntry(@Nonnull BlockKeySchema schema) {
+        this.block = schema;
+        this.comment = block.getComment();
+    }
 
-	public UserVineEntry(@Nonnull Block pBlock)
-	{
-		this(pBlock, ItemKey.WILDCARD_VALUE);
-	}
+    public UserVineEntry(@Nonnull Block pBlock, int meta) {
+        this(new BlockKeySchema(pBlock, meta));
+    }
 
-	public UserVineEntry(@Nonnull BlockKey pBlockKey)
-	{
-		this(new BlockKeySchema(pBlockKey));
-	}
+    public UserVineEntry(@Nonnull Block pBlock) {
+        this(pBlock, ItemKey.WILDCARD_VALUE);
+    }
 
-	public UserVineEntry()
-	{
-		this.comment = "";
-	}
+    public UserVineEntry(@Nonnull BlockKey pBlockKey) {
+        this(new BlockKeySchema(pBlockKey));
+    }
 
-	@Override
-	public String getComment()
-	{
-		return comment;
-	}
+    public UserVineEntry() {
+        this.comment = "";
+    }
 
-	@Override
-	public void setComment(String com)
-	{
-		this.comment = com;
-	}
+    @Override
+    public String getComment() {
+        return comment;
+    }
+
+    @Override
+    public void setComment(String com) {
+        this.comment = com;
+    }
 }

@@ -23,28 +23,22 @@
  */
 package growthcraft.cellar.eventhandler;
 
-import growthcraft.api.cellar.booze.BoozeTag;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import growthcraft.api.cellar.CellarRegistry;
+import growthcraft.api.cellar.booze.BoozeTag;
 import growthcraft.api.core.CoreRegistry;
 import growthcraft.cellar.event.EventBarrelDrained;
 import growthcraft.cellar.stats.CellarAchievement;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-
-public class EventHandlerBarrelDrainedCellar
-{
-	@SubscribeEvent
-	public void handle(EventBarrelDrained event)
-	{
-		if (event.fluid != null && event.player != null)
-		{
-			if (CellarRegistry.instance().booze().isFluidBooze(event.fluid))
-			{
-				if (CoreRegistry.instance().fluidDictionary().hasFluidTags(event.fluid.getFluid(), BoozeTag.FERMENTED))
-				{
-					CellarAchievement.FERMENT_BOOZE.unlock(event.player);
-				}
-			}
-		}
-	}
+public class EventHandlerBarrelDrainedCellar {
+    @SubscribeEvent
+    public void handle(EventBarrelDrained event) {
+        if (event.fluid != null && event.player != null) {
+            if (CellarRegistry.instance().booze().isFluidBooze(event.fluid)) {
+                if (CoreRegistry.instance().fluidDictionary().hasFluidTags(event.fluid.getFluid(), BoozeTag.FERMENTED)) {
+                    CellarAchievement.FERMENT_BOOZE.unlock(event.player);
+                }
+            }
+        }
+    }
 }

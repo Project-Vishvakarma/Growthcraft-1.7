@@ -23,23 +23,20 @@
  */
 package growthcraft.cellar.event;
 
-import growthcraft.api.cellar.brewing.BrewingRecipe;
-
 import cpw.mods.fml.common.eventhandler.Event;
+import growthcraft.api.cellar.brewing.BrewingRecipe;
 import net.minecraft.tileentity.TileEntity;
 
 /**
  * Event emitted when a BrewKettle brews something
  */
-public class EventBrewed extends Event
-{
-	public final BrewingRecipe recipe;
-	public final TileEntity tile;
+public class EventBrewed extends Event {
+    public final BrewingRecipe recipe;
+    public final TileEntity tile;
 
-	public EventBrewed(TileEntity te, BrewingRecipe re)
-	{
-		super();
-		this.tile = te;
-		this.recipe = re;
-	}
+    public EventBrewed(TileEntity te, BrewingRecipe re) {
+        super();
+        this.tile = te;
+        this.recipe = re;
+    }
 }

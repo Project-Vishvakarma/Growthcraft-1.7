@@ -27,10 +27,8 @@ package growthcraft.core.integration;
  * Helper class for integrating Thaumcraft with Growthcraft, simply extend
  * class and implement the integrate method
  */
-public abstract class ThaumcraftModuleBase extends ModIntegrationBase
-{
-	public ThaumcraftModuleBase(String modid)
-	{
-		super(modid, "Thaumcraft");
-	}
+public abstract class ThaumcraftModuleBase extends ModIntegrationBase {
+    public ThaumcraftModuleBase(String modid) {
+        super(modid, "Thaumcraft");
+    }
 }

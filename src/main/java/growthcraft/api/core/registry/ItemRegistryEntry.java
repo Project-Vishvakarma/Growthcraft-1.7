@@ -25,24 +25,20 @@ package growthcraft.api.core.registry;
 
 import growthcraft.api.core.definition.IMultiItemStacks;
 import growthcraft.api.core.util.MultiStacksUtil;
-
 import net.minecraft.item.ItemStack;
 
-public class ItemRegistryEntry<T> implements IItemRegistryEntry<ItemStack>
-{
-	public T handle;
-	private IMultiItemStacks stacks;
+public class ItemRegistryEntry<T> implements IItemRegistryEntry<ItemStack> {
+    private final IMultiItemStacks stacks;
+    public T handle;
 
-	public ItemRegistryEntry(Object stack, T p_handle)
-	{
-		this.handle = p_handle;
-		this.stacks = MultiStacksUtil.toMultiItemStacks(stack);
-	}
+    public ItemRegistryEntry(Object stack, T p_handle) {
+        this.handle = p_handle;
+        this.stacks = MultiStacksUtil.toMultiItemStacks(stack);
+    }
 
-	@Override
-	public boolean matches(ItemStack stack)
-	{
-		if (stack == null) return false;
-		return stacks.containsItemStack(stack);
-	}
+    @Override
+    public boolean matches(ItemStack stack) {
+        if (stack == null) return false;
+        return stacks.containsItemStack(stack);
+    }
 }

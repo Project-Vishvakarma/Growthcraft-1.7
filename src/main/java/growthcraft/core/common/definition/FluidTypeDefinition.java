@@ -23,49 +23,41 @@
  */
 package growthcraft.core.common.definition;
 
+import growthcraft.api.core.definition.IFluidStackFactory;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+
 import javax.annotation.Nonnull;
 
-import growthcraft.api.core.definition.IFluidStackFactory;
+public class FluidTypeDefinition<T extends Fluid> implements IFluidStackFactory {
+    protected T fluid;
 
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidRegistry;
+    public FluidTypeDefinition(@Nonnull T obj) {
+        this.fluid = obj;
+    }
 
-public class FluidTypeDefinition<T extends Fluid> implements IFluidStackFactory
-{
-	protected T fluid;
+    @Nonnull
+    public T getFluid() {
+        return fluid;
+    }
 
-	public FluidTypeDefinition(@Nonnull T obj)
-	{
-		this.fluid = obj;
-	}
+    @Nonnull
+    public FluidStack asFluidStack(int size) {
+        return new FluidStack(getFluid(), size);
+    }
 
-	@Nonnull
-	public T getFluid()
-	{
-		return fluid;
-	}
+    @Nonnull
+    public FluidStack asFluidStack() {
+        return asFluidStack(1);
+    }
 
-	@Nonnull
-	public FluidStack asFluidStack(int size)
-	{
-		return new FluidStack(getFluid(), size);
-	}
+    public boolean equals(Fluid other) {
+        if (other == null) return false;
+        return getFluid() == other;
+    }
 
-	@Nonnull
-	public FluidStack asFluidStack()
-	{
-		return asFluidStack(1);
-	}
-
-	public boolean equals(Fluid other)
-	{
-		if (other == null) return false;
-		return getFluid() == other;
-	}
-
-	public void register()
-	{
-		FluidRegistry.registerFluid(fluid);
-	}
+    public void register() {
+        FluidRegistry.registerFluid(fluid);
+    }
 }

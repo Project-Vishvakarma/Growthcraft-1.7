@@ -26,38 +26,34 @@ package growthcraft.apples.init;
 import growthcraft.apples.common.block.BlockApple;
 import growthcraft.apples.common.block.BlockAppleLeaves;
 import growthcraft.apples.common.block.BlockAppleSapling;
+import growthcraft.core.common.GrcModuleBlocks;
 import growthcraft.core.common.definition.BlockDefinition;
 import growthcraft.core.common.definition.BlockTypeDefinition;
-import growthcraft.core.common.GrcModuleBlocks;
-
 import net.minecraft.init.Blocks;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class GrcApplesBlocks extends GrcModuleBlocks
-{
-	public BlockDefinition appleSapling;
-	public BlockDefinition appleLeaves;
-	public BlockTypeDefinition<BlockApple> appleBlock;
+public class GrcApplesBlocks extends GrcModuleBlocks {
+    public BlockDefinition appleSapling;
+    public BlockDefinition appleLeaves;
+    public BlockTypeDefinition<BlockApple> appleBlock;
 
-	@Override
-	public void preInit()
-	{
-		this.appleSapling = newDefinition(new BlockAppleSapling());
-		this.appleLeaves = newDefinition(new BlockAppleLeaves());
-		this.appleBlock = newTypedDefinition(new BlockApple());
-	}
+    @Override
+    public void preInit() {
+        this.appleSapling = newDefinition(new BlockAppleSapling());
+        this.appleLeaves = newDefinition(new BlockAppleLeaves());
+        this.appleBlock = newTypedDefinition(new BlockApple());
+    }
 
-	@Override
-	public void register()
-	{
-		appleSapling.register("grc.appleSapling");
-		appleLeaves.register("grc.appleLeaves");
-		appleBlock.register("grc.appleBlock");
+    @Override
+    public void register() {
+        appleSapling.register("grc.appleSapling");
+        appleLeaves.register("grc.appleLeaves");
+        appleBlock.register("grc.appleBlock");
 
-		OreDictionary.registerOre("saplingTree", appleSapling.getItem());
-		OreDictionary.registerOre("treeSapling", appleSapling.getItem());
-		OreDictionary.registerOre("treeLeaves", appleLeaves.asStack(1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("saplingTree", appleSapling.getItem());
+        OreDictionary.registerOre("treeSapling", appleSapling.getItem());
+        OreDictionary.registerOre("treeLeaves", appleLeaves.asStack(1, OreDictionary.WILDCARD_VALUE));
 
-		Blocks.fire.setFireInfo(appleLeaves.getBlock(), 30, 60);
-	}
+        Blocks.fire.setFireInfo(appleLeaves.getBlock(), 30, 60);
+    }
 }

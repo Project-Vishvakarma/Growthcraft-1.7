@@ -23,107 +23,91 @@
  */
 package growthcraft.cellar.integration.nei;
 
-import javax.annotation.Nonnull;
-
+import codechicken.lib.gui.GuiDraw;
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import growthcraft.api.cellar.CellarRegistry;
 import growthcraft.api.cellar.pressing.PressingRecipe;
 import growthcraft.api.core.i18n.GrcI18n;
+import growthcraft.cellar.GrowthCraftCellar;
 import growthcraft.cellar.client.gui.GuiFruitPress;
 import growthcraft.cellar.client.resource.GrcCellarResources;
-import growthcraft.cellar.GrowthCraftCellar;
 import growthcraft.core.integration.nei.TemplateRenderHelper;
-
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
-import codechicken.lib.gui.GuiDraw;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
-public class RecipeHandlerFruitPress extends TemplateRecipeHandler
-{
-	public class CachedPressingRecipe extends CachedRecipe
-	{
-		public PressingRecipe pressingRecipe;
-		protected PositionedStack ingredient;
-		protected PositionedStack otherStack;
 
-		public CachedPressingRecipe(@Nonnull PressingRecipe recipe)
-		{
-			super();
-			this.pressingRecipe = recipe;
-			this.ingredient = new PositionedStack(pressingRecipe.getInput().getItemStacks(), 40, 24);
-			if (recipe.hasResidue())
-				this.otherStack = new PositionedStack(pressingRecipe.getResidue().residueItem, 111, 6);
-		}
+import javax.annotation.Nonnull;
 
-		@Override
-		public PositionedStack getIngredient()
-		{
-			return ingredient;
-		}
+public class RecipeHandlerFruitPress extends TemplateRecipeHandler {
+    @Override
+    public String getGuiTexture() {
+        return GrcCellarResources.INSTANCE.textureGuiFruitPress.toString();
+    }
 
-		@Override
-		public PositionedStack getResult()
-		{
-			return null;
-		}
+    @Override
+    public String getRecipeName() {
+        return GrcI18n.translate("grc.recipe_handler.fruit_press");
+    }
 
-		@Override
-		public PositionedStack getOtherStack()
-		{
-			return otherStack;
-		}
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Class<? extends GuiContainer> getGuiClass() {
+        return GuiFruitPress.class;
+    }
 
-	@Override
-	public String getGuiTexture()
-	{
-		return GrcCellarResources.INSTANCE.textureGuiFruitPress.toString();
-	}
+    @Override
+    public void loadUsageRecipes(ItemStack ingredient) {
+        final PressingRecipe recipe = CellarRegistry.instance().pressing().getPressingRecipe(ingredient);
+        if (recipe != null) {
+            arecipes.add(new CachedPressingRecipe(recipe));
+        }
+    }
 
-	@Override
-	public String getRecipeName()
-	{
-		return GrcI18n.translate("grc.recipe_handler.fruit_press");
-	}
+    public void drawOutputFluidStack(CachedRecipe recipe) {
+        if (recipe instanceof CachedPressingRecipe) {
+            final PressingRecipe pressingRecipe = ((CachedPressingRecipe) recipe).pressingRecipe;
+            TemplateRenderHelper.drawFluidStack(84, 5, 16, 52, pressingRecipe.getFluidStack(), GrowthCraftCellar.getConfig().fruitPressMaxCap);
+        }
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Class<? extends GuiContainer> getGuiClass()
-	{
-		return GuiFruitPress.class;
-	}
+    @Override
+    public void drawExtras(int recipe) {
+        final CachedRecipe crecipe = arecipes.get(recipe);
+        if (crecipe != null) {
+            drawOutputFluidStack(crecipe);
+        }
+        GuiDraw.changeTexture(getGuiTexture());
+        drawProgressBar(58, 24, 176, 0, 25, 16, 40, TemplateRenderHelper.PROGRESS_RIGHT);
+    }
 
-	@Override
-	public void loadUsageRecipes(ItemStack ingredient)
-	{
-		final PressingRecipe recipe = CellarRegistry.instance().pressing().getPressingRecipe(ingredient);
-		if (recipe != null)
-		{
-			arecipes.add(new CachedPressingRecipe(recipe));
-		}
-	}
+    public class CachedPressingRecipe extends CachedRecipe {
+        public PressingRecipe pressingRecipe;
+        protected PositionedStack ingredient;
+        protected PositionedStack otherStack;
 
-	public void drawOutputFluidStack(CachedRecipe recipe)
-	{
-		if (recipe instanceof CachedPressingRecipe)
-		{
-			final PressingRecipe pressingRecipe = ((CachedPressingRecipe)recipe).pressingRecipe;
-			TemplateRenderHelper.drawFluidStack(84, 5, 16, 52, pressingRecipe.getFluidStack(), GrowthCraftCellar.getConfig().fruitPressMaxCap);
-		}
-	}
+        public CachedPressingRecipe(@Nonnull PressingRecipe recipe) {
+            super();
+            this.pressingRecipe = recipe;
+            this.ingredient = new PositionedStack(pressingRecipe.getInput().getItemStacks(), 40, 24);
+            if (recipe.hasResidue())
+                this.otherStack = new PositionedStack(pressingRecipe.getResidue().residueItem, 111, 6);
+        }
 
-	@Override
-	public void drawExtras(int recipe)
-	{
-		final CachedRecipe crecipe = arecipes.get(recipe);
-		if (crecipe != null)
-		{
-			drawOutputFluidStack(crecipe);
-		}
-		GuiDraw.changeTexture(getGuiTexture());
-		drawProgressBar(58, 24, 176, 0, 25, 16, 40, TemplateRenderHelper.PROGRESS_RIGHT);
-	}
+        @Override
+        public PositionedStack getIngredient() {
+            return ingredient;
+        }
+
+        @Override
+        public PositionedStack getResult() {
+            return null;
+        }
+
+        @Override
+        public PositionedStack getOtherStack() {
+            return otherStack;
+        }
+    }
 }

@@ -23,16 +23,14 @@
  */
 package growthcraft.fishtrap.client;
 
+import growthcraft.fishtrap.GrowthCraftFishTrap;
 import growthcraft.fishtrap.client.gui.GuiFishTrap;
 import growthcraft.fishtrap.common.CommonProxy;
-import growthcraft.fishtrap.GrowthCraftFishTrap;
 
-public class ClientProxy extends CommonProxy
-{
-	@Override
-	public void init()
-	{
-		super.init();
-		GrowthCraftFishTrap.guiProvider.register("grcfishtrap:fish_trap", GuiFishTrap.class);
-	}
+public class ClientProxy extends CommonProxy {
+    @Override
+    public void init() {
+        super.init();
+        GrowthCraftFishTrap.guiProvider.register("grcfishtrap:fish_trap", GuiFishTrap.class);
+    }
 }

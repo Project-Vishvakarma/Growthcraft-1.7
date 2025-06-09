@@ -23,25 +23,21 @@
  */
 package growthcraft.bamboo.integration;
 
-import growthcraft.bamboo.GrowthCraftBamboo;
-import growthcraft.core.integration.MFRModuleBase;
-import growthcraft.bamboo.integration.mfr.BambooFactoryHarvester;
-
 import cpw.mods.fml.common.Optional;
+import growthcraft.bamboo.GrowthCraftBamboo;
+import growthcraft.bamboo.integration.mfr.BambooFactoryHarvester;
+import growthcraft.core.integration.MFRModuleBase;
 
-public class MFRModule extends MFRModuleBase
-{
-	public MFRModule()
-	{
-		super(GrowthCraftBamboo.MOD_ID);
-	}
+public class MFRModule extends MFRModuleBase {
+    public MFRModule() {
+        super(GrowthCraftBamboo.MOD_ID);
+    }
 
-	@Override
-	@Optional.Method(modid=MFRModuleBase.MOD_ID)
-	protected void integrate()
-	{
-		registerHarvestable(new BambooFactoryHarvester());
-		registerHarvestableLeaves(GrowthCraftBamboo.blocks.bambooLeaves.getBlock());
-		registerPlantableSapling(GrowthCraftBamboo.items.bambooShootFood.getItem(), GrowthCraftBamboo.blocks.bambooShoot.getBlock());
-	}
+    @Override
+    @Optional.Method(modid = MFRModuleBase.MOD_ID)
+    protected void integrate() {
+        registerHarvestable(new BambooFactoryHarvester());
+        registerHarvestableLeaves(GrowthCraftBamboo.blocks.bambooLeaves.getBlock());
+        registerPlantableSapling(GrowthCraftBamboo.items.bambooShootFood.getItem(), GrowthCraftBamboo.blocks.bambooShoot.getBlock());
+    }
 }

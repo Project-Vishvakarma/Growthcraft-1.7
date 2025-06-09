@@ -23,88 +23,77 @@
  */
 package growthcraft.api.core.schema;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import growthcraft.api.core.definition.IItemStackListProvider;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class OreItemSchema implements IItemStackListProvider, IValidatable, ICommentable
-{
-	public String comment = "";
-	public String name;
-	public int amount;
+import java.util.ArrayList;
+import java.util.List;
 
-	/**
-	 * @param n - ore name
-	 * @param a - amount
-	 */
-	public OreItemSchema(String n, int a)
-	{
-		this.name = n;
-		this.amount = a;
-	}
+public class OreItemSchema implements IItemStackListProvider, IValidatable, ICommentable {
+    public String comment = "";
+    public String name;
+    public int amount;
 
-	public OreItemSchema() {}
+    /**
+     * @param n - ore name
+     * @param a - amount
+     */
+    public OreItemSchema(String n, int a) {
+        this.name = n;
+        this.amount = a;
+    }
 
-	@Override
-	public void setComment(String comm)
-	{
-		this.comment = comm;
-	}
+    public OreItemSchema() {
+    }
 
-	@Override
-	public String getComment()
-	{
-		return comment;
-	}
+    @Override
+    public String getComment() {
+        return comment;
+    }
 
-	/**
-	 * @return list of ores or null if the name was invalid
-	 */
-	public List<ItemStack> getOres()
-	{
-		if (name != null) return OreDictionary.getOres(name);
-		return null;
-	}
+    @Override
+    public void setComment(String comm) {
+        this.comment = comm;
+    }
 
-	/**
-	 * @return list with ores, this list may be empty if the ores were invalid
-	 */
-	@Override
-	public List<ItemStack> getItemStacks()
-	{
-		final List<ItemStack> result = new ArrayList<ItemStack>();
-		final List<ItemStack> ores = getOres();
-		if (ores != null)
-		{
-			for (ItemStack stack : ores)
-			{
-				final ItemStack newStack = stack.copy();
-				newStack.stackSize = amount;
-				result.add(newStack);
-			}
-		}
-		return result;
-	}
+    /**
+     * @return list of ores or null if the name was invalid
+     */
+    public List<ItemStack> getOres() {
+        if (name != null) return OreDictionary.getOres(name);
+        return null;
+    }
 
-	@Override
-	public String toString()
-	{
-		return String.format("Schema<OreItem>(name: '%s', amount: %s)", name, amount);
-	}
+    /**
+     * @return list with ores, this list may be empty if the ores were invalid
+     */
+    @Override
+    public List<ItemStack> getItemStacks() {
+        final List<ItemStack> result = new ArrayList<ItemStack>();
+        final List<ItemStack> ores = getOres();
+        if (ores != null) {
+            for (ItemStack stack : ores) {
+                final ItemStack newStack = stack.copy();
+                newStack.stackSize = amount;
+                result.add(newStack);
+            }
+        }
+        return result;
+    }
 
-	@Override
-	public boolean isValid()
-	{
-		return name != null;
-	}
+    @Override
+    public String toString() {
+        return String.format("Schema<OreItem>(name: '%s', amount: %s)", name, amount);
+    }
 
-	@Override
-	public boolean isInvalid()
-	{
-		return !isValid();
-	}
+    @Override
+    public boolean isValid() {
+        return name != null;
+    }
+
+    @Override
+    public boolean isInvalid() {
+        return !isValid();
+    }
 }

@@ -23,26 +23,21 @@
  */
 package growthcraft.core.integration;
 
-import growthcraft.core.GrowthCraftCore;
-
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.Aspect;
-
 import cpw.mods.fml.common.Optional;
+import growthcraft.core.GrowthCraftCore;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 
-public class ThaumcraftModule extends ThaumcraftModuleBase
-{
-	public ThaumcraftModule()
-	{
-		super(GrowthCraftCore.MOD_ID);
-	}
+public class ThaumcraftModule extends ThaumcraftModuleBase {
+    public ThaumcraftModule() {
+        super(GrowthCraftCore.MOD_ID);
+    }
 
-	@Override
-	@Optional.Method(modid="Thaumcraft")
-	protected void integrate()
-	{
-		ThaumcraftApi.registerObjectTag(GrowthCraftCore.items.rope.asStack(), new AspectList().add(Aspect.CRAFT, 1).add(Aspect.CLOTH, 1));
-		ThaumcraftApi.registerObjectTag(GrowthCraftCore.items.salt.asStack(), new AspectList().add(Aspect.CRYSTAL, 1));
-	}
+    @Override
+    @Optional.Method(modid = "Thaumcraft")
+    protected void integrate() {
+        ThaumcraftApi.registerObjectTag(GrowthCraftCore.items.rope.asStack(), new AspectList().add(Aspect.CRAFT, 1).add(Aspect.CLOTH, 1));
+        ThaumcraftApi.registerObjectTag(GrowthCraftCore.items.salt.asStack(), new AspectList().add(Aspect.CRYSTAL, 1));
+    }
 }

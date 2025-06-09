@@ -23,71 +23,58 @@
  */
 package growthcraft.api.fishtrap.user;
 
-import java.io.BufferedReader;
-import java.util.Map;
-
 import growthcraft.api.core.user.AbstractUserJSONConfig;
 import growthcraft.api.fishtrap.FishTrapRegistry;
 
-public class UserCatchGroupConfig extends AbstractUserJSONConfig
-{
-	private final UserCatchGroupEntries defaultEntries = new UserCatchGroupEntries();
-	private UserCatchGroupEntries entries;
+import java.io.BufferedReader;
+import java.util.Map;
 
-	public void addDefault(String group, int weight, String comment)
-	{
-		final UserCatchGroupEntry entry = new UserCatchGroupEntry(weight);
-		entry.setComment(comment);
-		defaultEntries.data.put(group, entry);
-	}
+public class UserCatchGroupConfig extends AbstractUserJSONConfig {
+    private final UserCatchGroupEntries defaultEntries = new UserCatchGroupEntries();
+    private UserCatchGroupEntries entries;
 
-	@Override
-	protected String getDefault()
-	{
-		return gson.toJson(defaultEntries);
-	}
+    public void addDefault(String group, int weight, String comment) {
+        final UserCatchGroupEntry entry = new UserCatchGroupEntry(weight);
+        entry.setComment(comment);
+        defaultEntries.data.put(group, entry);
+    }
 
-	@Override
-	protected void loadFromBuffer(BufferedReader buff) throws IllegalStateException
-	{
-		this.entries = gson.fromJson(buff, UserCatchGroupEntries.class);
-	}
+    @Override
+    protected String getDefault() {
+        return gson.toJson(defaultEntries);
+    }
 
-	private void addCatchGroupEntry(String name, UserCatchGroupEntry entry)
-	{
-		if (entry == null)
-		{
-			logger.error("Invalid Entry");
-			return;
-		}
+    @Override
+    protected void loadFromBuffer(BufferedReader buff) throws IllegalStateException {
+        this.entries = gson.fromJson(buff, UserCatchGroupEntries.class);
+    }
 
-		if (entry.weight <= 0)
-		{
-			logger.error("Invalid weight for entry {%s}", entry);
-			return;
-		}
+    private void addCatchGroupEntry(String name, UserCatchGroupEntry entry) {
+        if (entry == null) {
+            logger.error("Invalid Entry");
+            return;
+        }
 
-		logger.debug("Adding Catch Group %s", name);
-		FishTrapRegistry.instance().addCatchGroup(name, entry.weight);
-	}
+        if (entry.weight <= 0) {
+            logger.error("Invalid weight for entry {%s}", entry);
+            return;
+        }
 
-	@Override
-	public void postInit()
-	{
-		if (entries != null)
-		{
-			if (entries.data != null)
-			{
-				logger.debug("Adding %d user catch groups.", entries.data.size());
-				for (Map.Entry<String, UserCatchGroupEntry> pair : entries.data.entrySet())
-				{
-					addCatchGroupEntry(pair.getKey(), pair.getValue());
-				}
-			}
-			else
-			{
-				logger.error("Config contains invalid data.");
-			}
-		}
-	}
+        logger.debug("Adding Catch Group %s", name);
+        FishTrapRegistry.instance().addCatchGroup(name, entry.weight);
+    }
+
+    @Override
+    public void postInit() {
+        if (entries != null) {
+            if (entries.data != null) {
+                logger.debug("Adding %d user catch groups.", entries.data.size());
+                for (Map.Entry<String, UserCatchGroupEntry> pair : entries.data.entrySet()) {
+                    addCatchGroupEntry(pair.getKey(), pair.getValue());
+                }
+            } else {
+                logger.error("Config contains invalid data.");
+            }
+        }
+    }
 }

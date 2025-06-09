@@ -23,23 +23,19 @@
  */
 package growthcraft.cellar.util;
 
-import javax.annotation.Nonnull;
-
 import growthcraft.api.cellar.util.ICellarBoozeBuilder;
-
 import net.minecraftforge.fluids.Fluid;
 
-public class CellarBoozeBuilderFactory
-{
-	private GrcCellarUserApis userApis;
+import javax.annotation.Nonnull;
 
-	public CellarBoozeBuilderFactory(@Nonnull GrcCellarUserApis apis)
-	{
-		this.userApis = apis;
-	}
+public class CellarBoozeBuilderFactory {
+    private final GrcCellarUserApis userApis;
 
-	public ICellarBoozeBuilder create(@Nonnull Fluid fluid)
-	{
-		return new UserApiCellarBoozeBuilder(userApis, fluid);
-	}
+    public CellarBoozeBuilderFactory(@Nonnull GrcCellarUserApis apis) {
+        this.userApis = apis;
+    }
+
+    public ICellarBoozeBuilder create(@Nonnull Fluid fluid) {
+        return new UserApiCellarBoozeBuilder(userApis, fluid);
+    }
 }

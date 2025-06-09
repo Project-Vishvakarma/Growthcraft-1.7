@@ -23,25 +23,20 @@
  */
 package growthcraft.core.eventhandler;
 
-import growthcraft.core.common.item.ItemCrowbar;
-import growthcraft.core.stats.CoreAchievement;
-
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import growthcraft.core.common.item.ItemCrowbar;
+import growthcraft.core.stats.CoreAchievement;
 import net.minecraft.item.Item;
 
-public class EventHandlerItemCraftedEventCore
-{
-	@SubscribeEvent
-	public void onItemCrafting(ItemCraftedEvent event)
-	{
-		if (event.crafting != null)
-		{
-			final Item craftedItem = event.crafting.getItem();
-			if (craftedItem instanceof ItemCrowbar)
-			{
-				CoreAchievement.TRUSTY_HARDWARE.addStat(event.player, 1);
-			}
-		}
-	}
+public class EventHandlerItemCraftedEventCore {
+    @SubscribeEvent
+    public void onItemCrafting(ItemCraftedEvent event) {
+        if (event.crafting != null) {
+            final Item craftedItem = event.crafting.getItem();
+            if (craftedItem instanceof ItemCrowbar) {
+                CoreAchievement.TRUSTY_HARDWARE.addStat(event.player, 1);
+            }
+        }
+    }
 }

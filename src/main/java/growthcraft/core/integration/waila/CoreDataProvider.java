@@ -23,21 +23,16 @@
  */
 package growthcraft.core.integration.waila;
 
-import java.util.List;
-
+import cpw.mods.fml.common.Optional;
 import growthcraft.api.core.i18n.GrcI18n;
 import growthcraft.api.core.nbt.NBTHelper;
 import growthcraft.core.common.tileentity.feature.ITileHeatedDevice;
 import growthcraft.core.common.tileentity.feature.ITileNamedFluidTanks;
 import growthcraft.core.common.tileentity.feature.ITileProgressiveDevice;
 import growthcraft.core.util.TagFormatterFluidHandler;
-
-import cpw.mods.fml.common.Optional;
-
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -47,90 +42,74 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.IFluidHandler;
 
-public class CoreDataProvider implements IWailaDataProvider
-{
-	@Override
-	@Optional.Method(modid="Waila")
-	public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config)
-	{
-		return accessor.getStack();
-	}
+import java.util.List;
 
-	@Override
-	@Optional.Method(modid="Waila")
-	public List<String> getWailaHead(ItemStack itemStack, List<String> tooltip, IWailaDataAccessor accessor, IWailaConfigHandler config)
-	{
-		return tooltip;
-	}
+public class CoreDataProvider implements IWailaDataProvider {
+    @Override
+    @Optional.Method(modid = "Waila")
+    public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        return accessor.getStack();
+    }
 
-	@Override
-	@Optional.Method(modid="Waila")
-	public List<String> getWailaBody(ItemStack itemStack, List<String> tooltip, IWailaDataAccessor accessor, IWailaConfigHandler config)
-	{
-		final Block block = accessor.getBlock();
-		final TileEntity te = accessor.getTileEntity();
-		final NBTTagCompound tag = accessor.getNBTData();
-		if (config.getConfig("DisplayFluidContent"))
-		{
-			if (te instanceof IFluidHandler)
-			{
-				tooltip = TagFormatterFluidHandler.INSTANCE.format(tooltip, tag);
-			}
-		}
+    @Override
+    @Optional.Method(modid = "Waila")
+    public List<String> getWailaHead(ItemStack itemStack, List<String> tooltip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        return tooltip;
+    }
 
-		if (te instanceof ITileHeatedDevice)
-		{
-			final boolean isHeated = tag.getBoolean("is_heated");
-			final float heat = tag.getFloat("heat_multiplier");
-			String result = EnumChatFormatting.GRAY + GrcI18n.translate("grccore.device.heated.prefix");
-			if (isHeated)
-			{
-				result += EnumChatFormatting.WHITE + GrcI18n.translate("grccore.device.heated.multiplier.format", (int)(heat * 100));
-			}
-			else
-			{
-				result += EnumChatFormatting.WHITE + GrcI18n.translate("grccore.device.heated.state.false");
-			}
-			tooltip.add(result);
-		}
+    @Override
+    @Optional.Method(modid = "Waila")
+    public List<String> getWailaBody(ItemStack itemStack, List<String> tooltip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        final Block block = accessor.getBlock();
+        final TileEntity te = accessor.getTileEntity();
+        final NBTTagCompound tag = accessor.getNBTData();
+        if (config.getConfig("DisplayFluidContent")) {
+            if (te instanceof IFluidHandler) {
+                tooltip = TagFormatterFluidHandler.INSTANCE.format(tooltip, tag);
+            }
+        }
 
-		if (te instanceof ITileProgressiveDevice)
-		{
-			final float prog = tag.getFloat("device_progress");
-			if (prog > 0)
-			{
-				final String result = EnumChatFormatting.GRAY + GrcI18n.translate("grccore.device.progress.prefix") +
-					EnumChatFormatting.WHITE + GrcI18n.translate("grccore.device.progress.format", (int)(prog * 100));
-				tooltip.add(result);
-			}
-		}
-		return tooltip;
-	}
+        if (te instanceof ITileHeatedDevice) {
+            final boolean isHeated = tag.getBoolean("is_heated");
+            final float heat = tag.getFloat("heat_multiplier");
+            String result = EnumChatFormatting.GRAY + GrcI18n.translate("grccore.device.heated.prefix");
+            if (isHeated) {
+                result += EnumChatFormatting.WHITE + GrcI18n.translate("grccore.device.heated.multiplier.format", (int) (heat * 100));
+            } else {
+                result += EnumChatFormatting.WHITE + GrcI18n.translate("grccore.device.heated.state.false");
+            }
+            tooltip.add(result);
+        }
 
-	@Override
-	@Optional.Method(modid="Waila")
-	public List<String> getWailaTail(ItemStack itemStack, List<String> tooltip, IWailaDataAccessor accessor, IWailaConfigHandler config)
-	{
-		return tooltip;
-	}
+        if (te instanceof ITileProgressiveDevice) {
+            final float prog = tag.getFloat("device_progress");
+            if (prog > 0) {
+                final String result = EnumChatFormatting.GRAY + GrcI18n.translate("grccore.device.progress.prefix") +
+                    EnumChatFormatting.WHITE + GrcI18n.translate("grccore.device.progress.format", (int) (prog * 100));
+                tooltip.add(result);
+            }
+        }
+        return tooltip;
+    }
 
-	@Override
-	@Optional.Method(modid="Waila")
-	public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, int x, int y, int z)
-	{
-		if (te instanceof IFluidHandler) NBTHelper.writeIFluidHandlerToNBT((IFluidHandler)te, tag);
-		if (te instanceof ITileNamedFluidTanks) ((ITileNamedFluidTanks)te).writeFluidTankNamesToTag(tag);
-		if (te instanceof ITileProgressiveDevice)
-		{
-			final ITileProgressiveDevice device = (ITileProgressiveDevice)te;
-			tag.setFloat("device_progress", device.getDeviceProgress());
-		}
-		if (te instanceof ITileHeatedDevice)
-		{
-			final ITileHeatedDevice device = (ITileHeatedDevice)te;
-			tag.setBoolean("is_heated", device.isHeated());
-			tag.setFloat("heat_multiplier", device.getHeatMultiplier());
-		}
-		return tag;
-	}
+    @Override
+    @Optional.Method(modid = "Waila")
+    public List<String> getWailaTail(ItemStack itemStack, List<String> tooltip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        return tooltip;
+    }
+
+    @Override
+    @Optional.Method(modid = "Waila")
+    public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, int x, int y, int z) {
+        if (te instanceof IFluidHandler) NBTHelper.writeIFluidHandlerToNBT((IFluidHandler) te, tag);
+        if (te instanceof ITileNamedFluidTanks) ((ITileNamedFluidTanks) te).writeFluidTankNamesToTag(tag);
+        if (te instanceof ITileProgressiveDevice device) {
+            tag.setFloat("device_progress", device.getDeviceProgress());
+        }
+        if (te instanceof ITileHeatedDevice device) {
+            tag.setBoolean("is_heated", device.isHeated());
+            tag.setFloat("heat_multiplier", device.getHeatMultiplier());
+        }
+        return tag;
+    }
 }

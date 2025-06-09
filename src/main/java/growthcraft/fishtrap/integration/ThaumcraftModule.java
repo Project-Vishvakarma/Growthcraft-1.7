@@ -23,26 +23,21 @@
  */
 package growthcraft.fishtrap.integration;
 
-import growthcraft.fishtrap.GrowthCraftFishTrap;
-import growthcraft.core.integration.ThaumcraftModuleBase;
-
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.aspects.Aspect;
-
 import cpw.mods.fml.common.Optional;
+import growthcraft.core.integration.ThaumcraftModuleBase;
+import growthcraft.fishtrap.GrowthCraftFishTrap;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 
-public class ThaumcraftModule extends ThaumcraftModuleBase
-{
-	public ThaumcraftModule()
-	{
-		super(GrowthCraftFishTrap.MOD_ID);
-	}
+public class ThaumcraftModule extends ThaumcraftModuleBase {
+    public ThaumcraftModule() {
+        super(GrowthCraftFishTrap.MOD_ID);
+    }
 
-	@Override
-	@Optional.Method(modid="Thaumcraft")
-	protected void integrate()
-	{
-		ThaumcraftApi.registerObjectTag(GrowthCraftFishTrap.fishTrap.asStack(), new AspectList().add(Aspect.SLIME, 1).add(Aspect.WATER, 2).add(Aspect.VOID, 1).add(Aspect.TRAP, 2));
-	}
+    @Override
+    @Optional.Method(modid = "Thaumcraft")
+    protected void integrate() {
+        ThaumcraftApi.registerObjectTag(GrowthCraftFishTrap.fishTrap.asStack(), new AspectList().add(Aspect.SLIME, 1).add(Aspect.WATER, 2).add(Aspect.VOID, 1).add(Aspect.TRAP, 2));
+    }
 }

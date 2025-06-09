@@ -23,39 +23,33 @@
  */
 package growthcraft.bees.common.block;
 
-import java.util.Locale;
-
-import growthcraft.bees.GrowthCraftBees;
 import growthcraft.api.core.definition.IItemStackFactory;
-
+import growthcraft.bees.GrowthCraftBees;
 import net.minecraft.item.ItemStack;
 
-public enum EnumBeeBoxThaumcraft implements IItemStackFactory
-{
-	GREATWOOD,
-	SILVERWOOD;
+import java.util.Locale;
 
-	public static final EnumBeeBoxThaumcraft[] VALUES = { GREATWOOD, SILVERWOOD };
-	public final String name;
-	public final int meta;
+public enum EnumBeeBoxThaumcraft implements IItemStackFactory {
+    GREATWOOD,
+    SILVERWOOD;
 
-	private EnumBeeBoxThaumcraft()
-	{
-		this.name = name().toLowerCase(Locale.ENGLISH);
-		this.meta = ordinal();
-	}
+    public static final EnumBeeBoxThaumcraft[] VALUES = {GREATWOOD, SILVERWOOD};
+    public final String name;
+    public final int meta;
 
-	public ItemStack asStack(int size)
-	{
-		if (GrowthCraftBees.blocks.beeBoxThaumcraft != null)
-		{
-			return GrowthCraftBees.blocks.beeBoxThaumcraft.asStack(size, meta);
-		}
-		return null;
-	}
+    EnumBeeBoxThaumcraft() {
+        this.name = name().toLowerCase(Locale.ENGLISH);
+        this.meta = ordinal();
+    }
 
-	public ItemStack asStack()
-	{
-		return asStack(1);
-	}
+    public ItemStack asStack(int size) {
+        if (GrowthCraftBees.blocks.beeBoxThaumcraft != null) {
+            return GrowthCraftBees.blocks.beeBoxThaumcraft.asStack(size, meta);
+        }
+        return null;
+    }
+
+    public ItemStack asStack() {
+        return asStack(1);
+    }
 }

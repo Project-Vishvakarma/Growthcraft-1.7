@@ -23,78 +23,66 @@
  */
 package growthcraft.api.cellar.fermenting;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.core.definition.IMultiFluidStacks;
 import growthcraft.api.core.definition.IMultiItemStacks;
 import growthcraft.api.core.fluids.FluidTest;
 import growthcraft.api.core.item.ItemTest;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class FermentationRecipe implements IFermentationRecipe
-{
-	private final IMultiItemStacks fermentingItem;
-	private final IMultiFluidStacks inputFluidStack;
-	private final FluidStack outputFluidStack;
-	private final int time;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-	public FermentationRecipe(@Nonnull IMultiFluidStacks pInputFluidStack, @Nonnull IMultiItemStacks pFermentingItem, @Nonnull FluidStack pOutputFluidStack, int pTime)
-	{
-		this.fermentingItem = pFermentingItem;
-		this.inputFluidStack = pInputFluidStack;
-		this.outputFluidStack = pOutputFluidStack;
-		this.time = pTime;
-	}
+public class FermentationRecipe implements IFermentationRecipe {
+    private final IMultiItemStacks fermentingItem;
+    private final IMultiFluidStacks inputFluidStack;
+    private final FluidStack outputFluidStack;
+    private final int time;
 
-	@Override
-	public IMultiFluidStacks getInputFluidStack()
-	{
-		return inputFluidStack;
-	}
+    public FermentationRecipe(@Nonnull IMultiFluidStacks pInputFluidStack, @Nonnull IMultiItemStacks pFermentingItem, @Nonnull FluidStack pOutputFluidStack, int pTime) {
+        this.fermentingItem = pFermentingItem;
+        this.inputFluidStack = pInputFluidStack;
+        this.outputFluidStack = pOutputFluidStack;
+        this.time = pTime;
+    }
 
-	@Override
-	public FluidStack getOutputFluidStack()
-	{
-		return outputFluidStack;
-	}
+    @Override
+    public IMultiFluidStacks getInputFluidStack() {
+        return inputFluidStack;
+    }
 
-	@Override
-	public IMultiItemStacks getFermentingItemStack()
-	{
-		return fermentingItem;
-	}
+    @Override
+    public FluidStack getOutputFluidStack() {
+        return outputFluidStack;
+    }
 
-	@Override
-	public int getTime()
-	{
-		return time;
-	}
+    @Override
+    public IMultiItemStacks getFermentingItemStack() {
+        return fermentingItem;
+    }
 
-	@Override
-	public boolean matchesRecipe(@Nullable FluidStack fluidStack, @Nullable ItemStack itemStack)
-	{
-		if (FluidTest.isValid(fluidStack) && ItemTest.isValid(itemStack))
-		{
-			if (FluidTest.hasEnough(inputFluidStack, fluidStack))
-			{
-				return ItemTest.hasEnough(fermentingItem, itemStack);
-			}
-		}
-		return false;
-	}
+    @Override
+    public int getTime() {
+        return time;
+    }
 
-	@Override
-	public boolean matchesIngredient(@Nullable FluidStack fluidStack)
-	{
-		return FluidTest.fluidMatches(inputFluidStack, fluidStack);
-	}
+    @Override
+    public boolean matchesRecipe(@Nullable FluidStack fluidStack, @Nullable ItemStack itemStack) {
+        if (FluidTest.isValid(fluidStack) && ItemTest.isValid(itemStack)) {
+            if (FluidTest.hasEnough(inputFluidStack, fluidStack)) {
+                return ItemTest.hasEnough(fermentingItem, itemStack);
+            }
+        }
+        return false;
+    }
 
-	@Override
-	public boolean matchesIngredient(@Nullable ItemStack stack)
-	{
-		return ItemTest.itemMatches(fermentingItem, stack);
-	}
+    @Override
+    public boolean matchesIngredient(@Nullable FluidStack fluidStack) {
+        return FluidTest.fluidMatches(inputFluidStack, fluidStack);
+    }
+
+    @Override
+    public boolean matchesIngredient(@Nullable ItemStack stack) {
+        return ItemTest.itemMatches(fermentingItem, stack);
+    }
 }

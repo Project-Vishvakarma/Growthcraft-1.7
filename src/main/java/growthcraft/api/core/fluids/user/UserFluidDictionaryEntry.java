@@ -23,45 +23,38 @@
  */
 package growthcraft.api.core.fluids.user;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import growthcraft.api.core.schema.ICommentable;
-
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-public class UserFluidDictionaryEntry implements ICommentable
-{
-	public String comment = "";
-	public String fluid_name;
-	public List<String> tags;
+import java.util.ArrayList;
+import java.util.List;
 
-	public UserFluidDictionaryEntry(String name, List<String> t)
-	{
-		this.fluid_name = name;
-		this.tags = t;
-	}
+public class UserFluidDictionaryEntry implements ICommentable {
+    public String comment = "";
+    public String fluid_name;
+    public List<String> tags;
 
-	public UserFluidDictionaryEntry()
-	{
-		this("", new ArrayList<String>());
-	}
+    public UserFluidDictionaryEntry(String name, List<String> t) {
+        this.fluid_name = name;
+        this.tags = t;
+    }
 
-	public Fluid getFluid()
-	{
-		return FluidRegistry.getFluid(fluid_name);
-	}
+    public UserFluidDictionaryEntry() {
+        this("", new ArrayList<String>());
+    }
 
-	@Override
-	public String getComment()
-	{
-		return comment;
-	}
+    public Fluid getFluid() {
+        return FluidRegistry.getFluid(fluid_name);
+    }
 
-	@Override
-	public void setComment(String com)
-	{
-		this.comment = com;
-	}
+    @Override
+    public String getComment() {
+        return comment;
+    }
+
+    @Override
+    public void setComment(String com) {
+        this.comment = com;
+    }
 }

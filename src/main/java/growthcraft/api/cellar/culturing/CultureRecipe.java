@@ -23,60 +23,51 @@
  */
 package growthcraft.api.cellar.culturing;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.core.fluids.FluidTest;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class CultureRecipe implements ICultureRecipe
-{
-	private FluidStack inputFluidStack;
-	private ItemStack outputItemStack;
-	private float requiredHeat;
-	private int time;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-	public CultureRecipe(@Nonnull FluidStack pInputFluidStack, @Nonnull ItemStack pOutputItemStack, float pRequiredHeat, int pTime)
-	{
-		this.inputFluidStack = pInputFluidStack;
-		this.outputItemStack = pOutputItemStack;
-		this.requiredHeat = pRequiredHeat;
-		this.time = pTime;
-	}
+public class CultureRecipe implements ICultureRecipe {
+    private final FluidStack inputFluidStack;
+    private final ItemStack outputItemStack;
+    private final float requiredHeat;
+    private final int time;
 
-	@Override
-	public ItemStack getOutputItemStack()
-	{
-		return outputItemStack;
-	}
+    public CultureRecipe(@Nonnull FluidStack pInputFluidStack, @Nonnull ItemStack pOutputItemStack, float pRequiredHeat, int pTime) {
+        this.inputFluidStack = pInputFluidStack;
+        this.outputItemStack = pOutputItemStack;
+        this.requiredHeat = pRequiredHeat;
+        this.time = pTime;
+    }
 
-	@Override
-	public FluidStack getInputFluidStack()
-	{
-		return inputFluidStack;
-	}
+    @Override
+    public ItemStack getOutputItemStack() {
+        return outputItemStack;
+    }
 
-	@Override
-	public float getRequiredHeat()
-	{
-		return requiredHeat;
-	}
+    @Override
+    public FluidStack getInputFluidStack() {
+        return inputFluidStack;
+    }
 
-	@Override
-	public int getTime()
-	{
-		return time;
-	}
+    @Override
+    public float getRequiredHeat() {
+        return requiredHeat;
+    }
 
-	@Override
-	public boolean matchesRecipe(@Nullable FluidStack fluid, float heat)
-	{
-		if (FluidTest.hasEnough(inputFluidStack, fluid))
-		{
-			return heat >= requiredHeat;
-		}
-		return false;
-	}
+    @Override
+    public int getTime() {
+        return time;
+    }
+
+    @Override
+    public boolean matchesRecipe(@Nullable FluidStack fluid, float heat) {
+        if (FluidTest.hasEnough(inputFluidStack, fluid)) {
+            return heat >= requiredHeat;
+        }
+        return false;
+    }
 }

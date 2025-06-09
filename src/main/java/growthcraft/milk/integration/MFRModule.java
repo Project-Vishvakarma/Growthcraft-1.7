@@ -23,21 +23,17 @@
  */
 package growthcraft.milk.integration;
 
+import cpw.mods.fml.common.Optional;
 import growthcraft.core.integration.MFRModuleBase;
 import growthcraft.milk.GrowthCraftMilk;
 
-import cpw.mods.fml.common.Optional;
+public class MFRModule extends MFRModuleBase {
+    public MFRModule() {
+        super(GrowthCraftMilk.MOD_ID);
+    }
 
-public class MFRModule extends MFRModuleBase
-{
-	public MFRModule()
-	{
-		super(GrowthCraftMilk.MOD_ID);
-	}
-
-	@Override
-	@Optional.Method(modid=MFRModuleBase.MOD_ID)
-	protected void integrate()
-	{
-	}
+    @Override
+    @Optional.Method(modid = MFRModuleBase.MOD_ID)
+    protected void integrate() {
+    }
 }

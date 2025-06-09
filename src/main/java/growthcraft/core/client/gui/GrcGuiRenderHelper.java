@@ -26,18 +26,17 @@ package growthcraft.core.client.gui;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 
-public class GrcGuiRenderHelper
-{
-	private GrcGuiRenderHelper() {}
+public class GrcGuiRenderHelper {
+    private GrcGuiRenderHelper() {
+    }
 
-	public static void drawTexturedModelRectFromIcon(int x, int y, float z, IIcon icon, int w, int h)
-	{
-		final Tessellator tessellator = Tessellator.instance;
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV((double)(x + 0), (double)(y + h), (double)z, (double)icon.getMinU(), (double)icon.getMaxV());
-		tessellator.addVertexWithUV((double)(x + w), (double)(y + h), (double)z, (double)icon.getMaxU(), (double)icon.getMaxV());
-		tessellator.addVertexWithUV((double)(x + w), (double)(y + 0), (double)z, (double)icon.getMaxU(), (double)icon.getMinV());
-		tessellator.addVertexWithUV((double)(x + 0), (double)(y + 0), (double)z, (double)icon.getMinU(), (double)icon.getMinV());
-		tessellator.draw();
-	}
+    public static void drawTexturedModelRectFromIcon(int x, int y, float z, IIcon icon, int w, int h) {
+        final Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.addVertexWithUV(x, y + h, z, icon.getMinU(), icon.getMaxV());
+        tessellator.addVertexWithUV(x + w, y + h, z, icon.getMaxU(), icon.getMaxV());
+        tessellator.addVertexWithUV(x + w, y, z, icon.getMaxU(), icon.getMinV());
+        tessellator.addVertexWithUV(x, y, z, icon.getMinU(), icon.getMinV());
+        tessellator.draw();
+    }
 }

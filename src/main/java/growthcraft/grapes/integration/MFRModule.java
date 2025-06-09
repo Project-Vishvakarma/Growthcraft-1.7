@@ -23,23 +23,19 @@
  */
 package growthcraft.grapes.integration;
 
+import cpw.mods.fml.common.Optional;
 import growthcraft.core.integration.MFRModuleBase;
 import growthcraft.grapes.GrowthCraftGrapes;
 import growthcraft.grapes.integration.mfr.GrapeFactoryFruit;
 
-import cpw.mods.fml.common.Optional;
+public class MFRModule extends MFRModuleBase {
+    public MFRModule() {
+        super(GrowthCraftGrapes.MOD_ID);
+    }
 
-public class MFRModule extends MFRModuleBase
-{
-	public MFRModule()
-	{
-		super(GrowthCraftGrapes.MOD_ID);
-	}
-
-	@Override
-	@Optional.Method(modid=MFRModuleBase.MOD_ID)
-	protected void integrate()
-	{
-		registerPickableFruit(new GrapeFactoryFruit());
-	}
+    @Override
+    @Optional.Method(modid = MFRModuleBase.MOD_ID)
+    protected void integrate() {
+        registerPickableFruit(new GrapeFactoryFruit());
+    }
 }

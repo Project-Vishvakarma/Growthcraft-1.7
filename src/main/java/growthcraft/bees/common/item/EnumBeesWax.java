@@ -23,37 +23,32 @@
  */
 package growthcraft.bees.common.item;
 
+import growthcraft.api.core.definition.IItemStackFactory;
+import growthcraft.bees.GrowthCraftBees;
+import net.minecraft.item.ItemStack;
+
 import java.util.Arrays;
 import java.util.List;
 
-import growthcraft.api.core.definition.IItemStackFactory;
-import growthcraft.bees.GrowthCraftBees;
+public enum EnumBeesWax implements IItemStackFactory {
+    NORMAL("normal"),
+    RED("red"),
+    BLACK("black");
 
-import net.minecraft.item.ItemStack;
+    public static List<EnumBeesWax> VALUES = Arrays.asList(values());
+    public final String basename;
+    public final int meta;
 
-public enum EnumBeesWax implements IItemStackFactory
-{
-	NORMAL("normal"),
-	RED("red"),
-	BLACK("black");
+    EnumBeesWax(String bsn) {
+        this.basename = bsn;
+        this.meta = ordinal();
+    }
 
-	public static List<EnumBeesWax> VALUES = Arrays.asList(values());
-	public final String basename;
-	public final int meta;
+    public ItemStack asStack(int size) {
+        return GrowthCraftBees.items.beesWax.asStack(size, meta);
+    }
 
-	private EnumBeesWax(String bsn)
-	{
-		this.basename = bsn;
-		this.meta = ordinal();
-	}
-
-	public ItemStack asStack(int size)
-	{
-		return GrowthCraftBees.items.beesWax.asStack(size, meta);
-	}
-
-	public ItemStack asStack()
-	{
-		return asStack(1);
-	}
+    public ItemStack asStack() {
+        return asStack(1);
+    }
 }

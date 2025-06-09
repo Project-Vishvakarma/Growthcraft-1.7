@@ -23,100 +23,83 @@
  */
 package growthcraft.api.cellar.fermenting;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.core.log.ILogger;
 import growthcraft.api.core.log.NullLogger;
 import growthcraft.api.core.util.MultiStacksUtil;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class FermentingRegistry implements IFermentingRegistry
-{
-	private List<IFermentationRecipe> recipes = new ArrayList<IFermentationRecipe>();
-	private ILogger logger = NullLogger.INSTANCE;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
-	@Override
-	public void setLogger(@Nonnull ILogger l)
-	{
-		this.logger = l;
-	}
+public class FermentingRegistry implements IFermentingRegistry {
+    private final List<IFermentationRecipe> recipes = new ArrayList<IFermentationRecipe>();
+    private ILogger logger = NullLogger.INSTANCE;
 
-	private void onRecipeAdded(@Nonnull IFermentationRecipe recipe)
-	{
-		logger.debug("Added Fermentation recipe={%s}", recipe);
-	}
+    @Override
+    public void setLogger(@Nonnull ILogger l) {
+        this.logger = l;
+    }
 
-	@Override
-	public void addRecipe(@Nonnull IFermentationRecipe recipe)
-	{
-		recipes.add(recipe);
-		onRecipeAdded(recipe);
-	}
+    private void onRecipeAdded(@Nonnull IFermentationRecipe recipe) {
+        logger.debug("Added Fermentation recipe={%s}", recipe);
+    }
 
-	@Override
-	public void addRecipe(@Nonnull FluidStack result, @Nonnull Object booze, @Nonnull Object fermenter, int time)
-	{
-		addRecipe(new FermentationRecipe(MultiStacksUtil.toMultiFluidStacks(booze), MultiStacksUtil.toMultiItemStacks(fermenter), result, time));
-	}
+    @Override
+    public void addRecipe(@Nonnull IFermentationRecipe recipe) {
+        recipes.add(recipe);
+        onRecipeAdded(recipe);
+    }
 
-	@Override
-	public IFermentationRecipe findRecipe(@Nullable FluidStack booze, @Nullable ItemStack fermenter)
-	{
-		if (booze == null || fermenter == null) return null;
-		for (IFermentationRecipe recipe : recipes)
-		{
-			if (recipe.matchesRecipe(booze, fermenter)) return recipe;
-		}
-		return null;
-	}
+    @Override
+    public void addRecipe(@Nonnull FluidStack result, @Nonnull Object booze, @Nonnull Object fermenter, int time) {
+        addRecipe(new FermentationRecipe(MultiStacksUtil.toMultiFluidStacks(booze), MultiStacksUtil.toMultiItemStacks(fermenter), result, time));
+    }
 
-	@Override
-	public List<IFermentationRecipe> findRecipes(@Nullable FluidStack fluid)
-	{
-		final List<IFermentationRecipe> result = new ArrayList<IFermentationRecipe>();
-		if (fluid != null)
-		{
-			for (IFermentationRecipe recipe : recipes)
-			{
-				if (recipe.matchesIngredient(fluid))
-					result.add(recipe);
-			}
-		}
-		return result;
-	}
+    @Override
+    public IFermentationRecipe findRecipe(@Nullable FluidStack booze, @Nullable ItemStack fermenter) {
+        if (booze == null || fermenter == null) return null;
+        for (IFermentationRecipe recipe : recipes) {
+            if (recipe.matchesRecipe(booze, fermenter)) return recipe;
+        }
+        return null;
+    }
 
-	@Override
-	public List<IFermentationRecipe> findRecipes(@Nullable ItemStack fermenter)
-	{
-		final List<IFermentationRecipe> result = new ArrayList<IFermentationRecipe>();
-		if (fermenter != null)
-		{
-			for (IFermentationRecipe recipe : recipes)
-			{
-				if (recipe.matchesIngredient(fermenter))
-					result.add(recipe);
-			}
-		}
-		return result;
-	}
+    @Override
+    public List<IFermentationRecipe> findRecipes(@Nullable FluidStack fluid) {
+        final List<IFermentationRecipe> result = new ArrayList<IFermentationRecipe>();
+        if (fluid != null) {
+            for (IFermentationRecipe recipe : recipes) {
+                if (recipe.matchesIngredient(fluid))
+                    result.add(recipe);
+            }
+        }
+        return result;
+    }
 
-	@Override
-	public boolean canFerment(@Nullable FluidStack fluid)
-	{
-		final List<IFermentationRecipe> result = new ArrayList<IFermentationRecipe>();
-		if (fluid != null)
-		{
-			for (IFermentationRecipe recipe : recipes)
-			{
-				if (recipe.matchesIngredient(fluid))
-					return true;
-			}
-		}
-		return false;
-	}
+    @Override
+    public List<IFermentationRecipe> findRecipes(@Nullable ItemStack fermenter) {
+        final List<IFermentationRecipe> result = new ArrayList<IFermentationRecipe>();
+        if (fermenter != null) {
+            for (IFermentationRecipe recipe : recipes) {
+                if (recipe.matchesIngredient(fermenter))
+                    result.add(recipe);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean canFerment(@Nullable FluidStack fluid) {
+        final List<IFermentationRecipe> result = new ArrayList<IFermentationRecipe>();
+        if (fluid != null) {
+            for (IFermentationRecipe recipe : recipes) {
+                if (recipe.matchesIngredient(fluid))
+                    return true;
+            }
+        }
+        return false;
+    }
 }

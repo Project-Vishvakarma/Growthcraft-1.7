@@ -23,52 +23,47 @@
  */
 package growthcraft.core.integration.natura;
 
-import java.util.Locale;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public enum EnumNaturaWoodType
-{
-	EUCALYPTUS,
-	SAKURA,
-	GHOST,
-	REDWOOD,
-	BLOOD,
-	BUSH,
-	MAPLE,
-	SILVERBELL,
-	PURPLEHEART,
-	TIGER,
-	WILLOW,
-	DARKWOOD,
-	FUSEWOOD;
+import java.util.Locale;
 
-	public static final EnumNaturaWoodType[] VALUES = values();
+public enum EnumNaturaWoodType {
+    EUCALYPTUS,
+    SAKURA,
+    GHOST,
+    REDWOOD,
+    BLOOD,
+    BUSH,
+    MAPLE,
+    SILVERBELL,
+    PURPLEHEART,
+    TIGER,
+    WILLOW,
+    DARKWOOD,
+    FUSEWOOD;
 
-	public final String name;
-	public final int meta;
+    public static final EnumNaturaWoodType[] VALUES = values();
 
-	private EnumNaturaWoodType()
-	{
-		this.name = name().toLowerCase(Locale.ENGLISH);
-		this.meta = ordinal();
-	}
+    public final String name;
+    public final int meta;
 
-	public ItemStack asPlanksItemStack(int size)
-	{
-		final Block block = GameRegistry.findBlock(NaturaPlatform.MOD_ID, "planks");
-		if (block != null)
-		{
-			final ItemStack result = new ItemStack(block, size, meta);
-			return result;
-		}
-		return null;
-	}
+    EnumNaturaWoodType() {
+        this.name = name().toLowerCase(Locale.ENGLISH);
+        this.meta = ordinal();
+    }
 
-	public ItemStack asPlanksItemStack()
-	{
-		return asPlanksItemStack(1);
-	}
+    public ItemStack asPlanksItemStack(int size) {
+        final Block block = GameRegistry.findBlock(NaturaPlatform.MOD_ID, "planks");
+        if (block != null) {
+            final ItemStack result = new ItemStack(block, size, meta);
+            return result;
+        }
+        return null;
+    }
+
+    public ItemStack asPlanksItemStack() {
+        return asPlanksItemStack(1);
+    }
 }

@@ -23,41 +23,34 @@
  */
 package growthcraft.milk.eventhandler;
 
-import java.util.Random;
-
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import growthcraft.api.core.util.RandomUtils;
 import growthcraft.core.util.ItemUtils;
 import growthcraft.milk.GrowthCraftMilk;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
-// I feel sorry for the baby cows, but cheese is required!
-public class EventHandlerOnBabyCowDeath
-{
-	private Random rng = new Random();
+import java.util.Random;
 
-	@SubscribeEvent
-	public void onLivingEntityDeath(LivingDeathEvent event)
-	{
-		if (event.entityLiving instanceof EntityCow)
-		{
-			if (event.entityLiving.isChild())
-			{
-				if (RandomUtils.thresh(rng, GrowthCraftMilk.getConfig().stomachDropRate))
-				{
-					final int count = RandomUtils.range(rng, GrowthCraftMilk.getConfig().stomachMinDropped, GrowthCraftMilk.getConfig().stomachMaxDropped);
-					if (count > 0)
-					{
-						if (!event.entity.worldObj.isRemote) {
-							final ItemStack stack = GrowthCraftMilk.items.stomach.asStack(count);
-							ItemUtils.spawnItemStackAtEntity(stack, event.entityLiving, rng);
-						}
-					}
-				}
-			}
-		}
-	}
+// I feel sorry for the baby cows, but cheese is required!
+public class EventHandlerOnBabyCowDeath {
+    private final Random rng = new Random();
+
+    @SubscribeEvent
+    public void onLivingEntityDeath(LivingDeathEvent event) {
+        if (event.entityLiving instanceof EntityCow) {
+            if (event.entityLiving.isChild()) {
+                if (RandomUtils.thresh(rng, GrowthCraftMilk.getConfig().stomachDropRate)) {
+                    final int count = RandomUtils.range(rng, GrowthCraftMilk.getConfig().stomachMinDropped, GrowthCraftMilk.getConfig().stomachMaxDropped);
+                    if (count > 0) {
+                        if (!event.entity.worldObj.isRemote) {
+                            final ItemStack stack = GrowthCraftMilk.items.stomach.asStack(count);
+                            ItemUtils.spawnItemStackAtEntity(stack, event.entityLiving, rng);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

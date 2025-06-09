@@ -23,32 +23,29 @@
  */
 package growthcraft.rice.integration;
 
+import cpw.mods.fml.common.Optional;
+import growthcraft.core.integration.ForestryModuleBase;
 import growthcraft.core.integration.forestry.FarmableBasicGrowthCraft;
 import growthcraft.core.integration.forestry.ForestryFluids;
-import growthcraft.core.integration.ForestryModuleBase;
 import growthcraft.rice.GrowthCraftRice;
-
-import cpw.mods.fml.common.Optional;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public class ForestryModule extends ForestryModuleBase
-{
-	public ForestryModule()
-	{
-		super(GrowthCraftRice.MOD_ID);
-	}
+public class ForestryModule extends ForestryModuleBase {
+    public ForestryModule() {
+        super(GrowthCraftRice.MOD_ID);
+    }
 
-	@Override
-	@Optional.Method(modid="Forestry")
-	protected void integrate()
-	{
-		final int seedamount = getActiveMode().getIntegerSetting("squeezer.liquid.seed");
+    @Override
+    @Optional.Method(modid = "Forestry")
+    protected void integrate() {
+        final int seedamount = getActiveMode().getIntegerSetting("squeezer.liquid.seed");
 
-		final ItemStack riceSeed = GrowthCraftRice.items.rice.asStack();
-		final Block riceBlock = GrowthCraftRice.blocks.riceBlock.getBlock();
-		if (ForestryFluids.SEEDOIL.exists()) recipes().squeezerManager.addRecipe(10, new ItemStack[]{riceSeed}, ForestryFluids.SEEDOIL.asFluidStack(seedamount));
-		Backpack.FORESTERS.add(riceSeed);
-		addFarmable("farmOrchard", new FarmableBasicGrowthCraft(riceBlock, GrowthCraftRice.getConfig().paddyFieldMax, true, false));
-	}
+        final ItemStack riceSeed = GrowthCraftRice.items.rice.asStack();
+        final Block riceBlock = GrowthCraftRice.blocks.riceBlock.getBlock();
+        if (ForestryFluids.SEEDOIL.exists())
+            recipes().squeezerManager.addRecipe(10, new ItemStack[]{riceSeed}, ForestryFluids.SEEDOIL.asFluidStack(seedamount));
+        Backpack.FORESTERS.add(riceSeed);
+        addFarmable("farmOrchard", new FarmableBasicGrowthCraft(riceBlock, GrowthCraftRice.getConfig().paddyFieldMax, true, false));
+    }
 }

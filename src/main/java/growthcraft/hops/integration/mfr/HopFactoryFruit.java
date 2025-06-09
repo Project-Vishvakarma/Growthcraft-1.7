@@ -23,61 +23,52 @@
  */
 package growthcraft.hops.integration.mfr;
 
+import growthcraft.core.GrowthCraftCore;
+import growthcraft.core.integration.mfr.AbstractFactoryFruit;
+import growthcraft.hops.GrowthCraftHops;
+import growthcraft.hops.common.block.BlockHops;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import powercrystals.minefactoryreloaded.api.ReplacementBlock;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import growthcraft.core.GrowthCraftCore;
-import growthcraft.core.integration.mfr.AbstractFactoryFruit;
-import growthcraft.hops.common.block.BlockHops;
-import growthcraft.hops.GrowthCraftHops;
+public class HopFactoryFruit extends AbstractFactoryFruit<BlockHops> {
+    private final ReplacementBlock replacementBlock;
 
-import powercrystals.minefactoryreloaded.api.ReplacementBlock;
+    public HopFactoryFruit() {
+        super();
+        setPlant(GrowthCraftHops.blocks.hopVine.getBlock());
+        this.replacementBlock = new ReplacementBlock(plantBlock);
+        replacementBlock.setMeta(BlockHops.HopsStage.BIG);
+    }
 
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
+    @Override
+    @Deprecated
+    public boolean breakBlock() {
+        return false;
+    }
 
-public class HopFactoryFruit extends AbstractFactoryFruit<BlockHops>
-{
-	private ReplacementBlock replacementBlock;
+    @Override
+    public boolean canBePicked(World world, int x, int y, int z) {
+        return plantBlock.isMature(world, x, y, z);
+    }
 
-	public HopFactoryFruit()
-	{
-		super();
-		setPlant(GrowthCraftHops.blocks.hopVine.getBlock());
-		this.replacementBlock = new ReplacementBlock(plantBlock);
-		replacementBlock.setMeta(BlockHops.HopsStage.BIG);
-	}
+    @Override
+    public ReplacementBlock getReplacementBlock(World world, int x, int y, int z) {
+        return replacementBlock;
+    }
 
-	@Override
-	@Deprecated
-	public boolean breakBlock()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean canBePicked(World world, int x, int y, int z)
-	{
-		return plantBlock.isMature(world, x, y, z);
-	}
-
-	@Override
-	public ReplacementBlock getReplacementBlock(World world, int x, int y, int z)
-	{
-		return replacementBlock;
-	}
-
-	@Override
-	public List<ItemStack> getDrops(World world, Random rand, int x, int y, int z)
-	{
-		final List<ItemStack> drops = super.getDrops(world, rand, x, y, z);
-		final List<ItemStack> result = new ArrayList<ItemStack>();
-		for (ItemStack drop : drops)
-		{
-			if (GrowthCraftCore.items.rope.equals(drop.getItem())) continue;
-			result.add(drop);
-		}
-		return result;
-	}
+    @Override
+    public List<ItemStack> getDrops(World world, Random rand, int x, int y, int z) {
+        final List<ItemStack> drops = super.getDrops(world, rand, x, y, z);
+        final List<ItemStack> result = new ArrayList<ItemStack>();
+        for (ItemStack drop : drops) {
+            if (GrowthCraftCore.items.rope.equals(drop.getItem())) continue;
+            result.add(drop);
+        }
+        return result;
+    }
 }

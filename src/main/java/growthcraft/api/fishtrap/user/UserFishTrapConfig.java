@@ -23,68 +23,55 @@
  */
 package growthcraft.api.fishtrap.user;
 
-import java.io.BufferedReader;
-
 import growthcraft.api.core.user.AbstractUserJSONConfig;
 import growthcraft.api.fishtrap.FishTrapEntry;
 import growthcraft.api.fishtrap.FishTrapRegistry;
 
-public class UserFishTrapConfig extends AbstractUserJSONConfig
-{
-	private final UserFishTrapEntries defaultEntries = new UserFishTrapEntries();
-	private UserFishTrapEntries entries;
+import java.io.BufferedReader;
 
-	public void addDefault(String group, FishTrapEntry entry)
-	{
-		defaultEntries.data.add(new UserFishTrapEntry(group, entry));
-	}
+public class UserFishTrapConfig extends AbstractUserJSONConfig {
+    private final UserFishTrapEntries defaultEntries = new UserFishTrapEntries();
+    private UserFishTrapEntries entries;
 
-	@Override
-	protected String getDefault()
-	{
-		return gson.toJson(defaultEntries);
-	}
+    public void addDefault(String group, FishTrapEntry entry) {
+        defaultEntries.data.add(new UserFishTrapEntry(group, entry));
+    }
 
-	@Override
-	protected void loadFromBuffer(BufferedReader buff) throws IllegalStateException
-	{
-		this.entries = gson.fromJson(buff, UserFishTrapEntries.class);
-	}
+    @Override
+    protected String getDefault() {
+        return gson.toJson(defaultEntries);
+    }
 
-	private void addFishTrapEntry(UserFishTrapEntry entry)
-	{
-		if (entry == null)
-		{
-			logger.error("Invalid Entry");
-			return;
-		}
+    @Override
+    protected void loadFromBuffer(BufferedReader buff) throws IllegalStateException {
+        this.entries = gson.fromJson(buff, UserFishTrapEntries.class);
+    }
 
-		if (entry.item == null || entry.item.isInvalid())
-		{
-			logger.error("Invalid item for entry {%s}", entry);
-			return;
-		}
+    private void addFishTrapEntry(UserFishTrapEntry entry) {
+        if (entry == null) {
+            logger.error("Invalid Entry");
+            return;
+        }
 
-		for (FishTrapEntry obj : entry.getFishTrapEntries())
-		{
-			FishTrapRegistry.instance().addCatchToGroup(obj, entry.group);
-		}
-	}
+        if (entry.item == null || entry.item.isInvalid()) {
+            logger.error("Invalid item for entry {%s}", entry);
+            return;
+        }
 
-	@Override
-	public void postInit()
-	{
-		if (entries != null)
-		{
-			if (entries.data != null)
-			{
-				logger.debug("Adding %d user fish trap entries.", entries.data.size());
-				for (UserFishTrapEntry entry : entries.data) addFishTrapEntry(entry);
-			}
-			else
-			{
-				logger.error("Config contains invalid data.");
-			}
-		}
-	}
+        for (FishTrapEntry obj : entry.getFishTrapEntries()) {
+            FishTrapRegistry.instance().addCatchToGroup(obj, entry.group);
+        }
+    }
+
+    @Override
+    public void postInit() {
+        if (entries != null) {
+            if (entries.data != null) {
+                logger.debug("Adding %d user fish trap entries.", entries.data.size());
+                for (UserFishTrapEntry entry : entries.data) addFishTrapEntry(entry);
+            } else {
+                logger.error("Config contains invalid data.");
+            }
+        }
+    }
 }

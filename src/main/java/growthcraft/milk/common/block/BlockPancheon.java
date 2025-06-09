@@ -23,53 +23,46 @@
  */
 package growthcraft.milk.common.block;
 
-import growthcraft.core.common.block.GrcBlockContainer;
-import growthcraft.api.core.util.BBox;
-import growthcraft.milk.client.render.RenderPancheon;
-import growthcraft.milk.common.tileentity.TileEntityPancheon;
-import growthcraft.milk.GrowthCraftMilk;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import growthcraft.api.core.util.BBox;
+import growthcraft.core.common.block.GrcBlockContainer;
+import growthcraft.milk.GrowthCraftMilk;
+import growthcraft.milk.client.render.RenderPancheon;
+import growthcraft.milk.common.tileentity.TileEntityPancheon;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockPancheon extends GrcBlockContainer
-{
-	public BlockPancheon()
-	{
-		super(Material.clay);
-		setHardness(0.6F);
-		setBlockName("grcmilk.Pancheon");
-		setCreativeTab(GrowthCraftMilk.creativeTab);
-		setTileEntityType(TileEntityPancheon.class);
-		final BBox bb = BBox.newCube(0f, 0f, 0f, 16f, 5f, 16f).scale(1f / 16f);
-		setBlockBounds(bb.x0(), bb.y0(), bb.z0(), bb.x1(), bb.y1(), bb.z1());
-		setBlockTextureName("grcmilk:pancheon");
-	}
+public class BlockPancheon extends GrcBlockContainer {
+    public BlockPancheon() {
+        super(Material.clay);
+        setHardness(0.6F);
+        setBlockName("grcmilk.Pancheon");
+        setCreativeTab(GrowthCraftMilk.creativeTab);
+        setTileEntityType(TileEntityPancheon.class);
+        final BBox bb = BBox.newCube(0f, 0f, 0f, 16f, 5f, 16f).scale(1f / 16f);
+        setBlockBounds(bb.x0(), bb.y0(), bb.z0(), bb.x1(), bb.y1(), bb.z1());
+        setBlockTextureName("grcmilk:pancheon");
+    }
 
-	@Override
-	public int getRenderType()
-	{
-		return RenderPancheon.RENDER_ID;
-	}
+    @Override
+    public int getRenderType() {
+        return RenderPancheon.RENDER_ID;
+    }
 
-	@Override
-	public boolean isOpaqueCube()
-	{
-		return false;
-	}
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
 
-	@Override
-	public boolean renderAsNormalBlock()
-	{
-		return false;
-	}
+    @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side)
-	{
-		return true;
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
+        return true;
+    }
 }

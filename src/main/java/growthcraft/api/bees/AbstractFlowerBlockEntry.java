@@ -25,24 +25,20 @@ package growthcraft.api.bees;
 
 import net.minecraft.block.Block;
 
-public abstract class AbstractFlowerBlockEntry implements IFlowerBlockEntry
-{
-	private Block block;
-	private int meta;
+public abstract class AbstractFlowerBlockEntry implements IFlowerBlockEntry {
+    private final Block block;
+    private final int meta;
 
-	public AbstractFlowerBlockEntry(Block pblock, int pmeta)
-	{
-		this.block = pblock;
-		this.meta = pmeta;
-	}
+    public AbstractFlowerBlockEntry(Block pblock, int pmeta) {
+        this.block = pblock;
+        this.meta = pmeta;
+    }
 
-	public Block getBlock()
-	{
-		return block;
-	}
+    public Block getBlock() {
+        return block;
+    }
 
-	public int getMetadata()
-	{
-		return meta;
-	}
+    public int getMetadata() {
+        return meta;
+    }
 }

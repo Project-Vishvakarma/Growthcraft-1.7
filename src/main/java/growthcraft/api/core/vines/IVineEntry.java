@@ -23,13 +23,14 @@
  */
 package growthcraft.api.core.vines;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.block.Block;
 
-public interface IVineEntry
-{
-	Block getBlock();
-	int getMetadata();
-	boolean matches(@Nullable Block block, int meta);
+import javax.annotation.Nullable;
+
+public interface IVineEntry {
+    Block getBlock();
+
+    int getMetadata();
+
+    boolean matches(@Nullable Block block, int meta);
 }

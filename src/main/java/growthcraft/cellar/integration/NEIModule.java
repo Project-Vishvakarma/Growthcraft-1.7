@@ -23,42 +23,37 @@
  */
 package growthcraft.cellar.integration;
 
+import codechicken.nei.api.API;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import growthcraft.cellar.GrowthCraftCellar;
 import growthcraft.cellar.integration.nei.RecipeHandlerBrewKettle;
 import growthcraft.cellar.integration.nei.RecipeHandlerCultureJar;
 import growthcraft.cellar.integration.nei.RecipeHandlerFermentBarrel;
 import growthcraft.cellar.integration.nei.RecipeHandlerFruitPress;
-import growthcraft.core.integration.nei.NEIPlatform;
 import growthcraft.core.integration.NEIModuleBase;
+import growthcraft.core.integration.nei.NEIPlatform;
 
-import codechicken.nei.api.API;
+public class NEIModule extends NEIModuleBase {
+    public NEIModule() {
+        super(GrowthCraftCellar.MOD_ID);
+    }
 
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+    @Override
+    @SideOnly(Side.CLIENT)
+    @Optional.Method(modid = NEIPlatform.MOD_ID)
+    public void integrateClient() {
+        API.registerRecipeHandler(new RecipeHandlerBrewKettle());
+        API.registerUsageHandler(new RecipeHandlerBrewKettle());
 
-public class NEIModule extends NEIModuleBase
-{
-	public NEIModule()
-	{
-		super(GrowthCraftCellar.MOD_ID);
-	}
+        API.registerRecipeHandler(new RecipeHandlerCultureJar());
+        API.registerUsageHandler(new RecipeHandlerCultureJar());
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	@Optional.Method(modid=NEIPlatform.MOD_ID)
-	public void integrateClient()
-	{
-		API.registerRecipeHandler(new RecipeHandlerBrewKettle());
-		API.registerUsageHandler(new RecipeHandlerBrewKettle());
+        API.registerRecipeHandler(new RecipeHandlerFermentBarrel());
+        API.registerUsageHandler(new RecipeHandlerFermentBarrel());
 
-		API.registerRecipeHandler(new RecipeHandlerCultureJar());
-		API.registerUsageHandler(new RecipeHandlerCultureJar());
-
-		API.registerRecipeHandler(new RecipeHandlerFermentBarrel());
-		API.registerUsageHandler(new RecipeHandlerFermentBarrel());
-
-		API.registerRecipeHandler(new RecipeHandlerFruitPress());
-		API.registerUsageHandler(new RecipeHandlerFruitPress());
-	}
+        API.registerRecipeHandler(new RecipeHandlerFruitPress());
+        API.registerUsageHandler(new RecipeHandlerFruitPress());
+    }
 }

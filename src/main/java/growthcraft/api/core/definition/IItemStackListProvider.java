@@ -23,17 +23,17 @@
  */
 package growthcraft.api.core.definition;
 
-import java.util.List;
-import javax.annotation.Nonnull;
-
 import net.minecraft.item.ItemStack;
 
-public interface IItemStackListProvider
-{
-	/**
-	 * Returns a list of item stacks.
-	 *
-	 * @return item stacks
-	 */
-	@Nonnull List<ItemStack> getItemStacks();
+import javax.annotation.Nonnull;
+import java.util.List;
+
+public interface IItemStackListProvider {
+    /**
+     * Returns a list of item stacks.
+     *
+     * @return item stacks
+     */
+    @Nonnull
+    List<ItemStack> getItemStacks();
 }

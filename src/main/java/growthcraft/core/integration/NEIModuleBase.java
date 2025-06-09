@@ -29,10 +29,8 @@ import growthcraft.core.integration.nei.NEIPlatform;
  * Helper class for integrating NEI with Growthcraft, simply extend
  * class and implement the integrate method
  */
-public abstract class NEIModuleBase extends ModIntegrationBase
-{
-	public NEIModuleBase(String modid)
-	{
-		super(modid, NEIPlatform.MOD_ID);
-	}
+public abstract class NEIModuleBase extends ModIntegrationBase {
+    public NEIModuleBase(String modid) {
+        super(modid, NEIPlatform.MOD_ID);
+    }
 }

@@ -23,68 +23,57 @@
  */
 package growthcraft.api.milk.pancheon;
 
-import java.util.Map;
-import java.util.HashMap;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.core.log.ILogger;
 import growthcraft.api.core.log.NullLogger;
-
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public class PancheonRegistry implements IPancheonRegistry
-{
-	protected ILogger logger = NullLogger.INSTANCE;
-	private Map<Fluid, IPancheonRecipe> recipes = new HashMap<Fluid, IPancheonRecipe>();
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
 
-	@Override
-	public void setLogger(@Nonnull ILogger l)
-	{
-		this.logger = l;
-	}
+public class PancheonRegistry implements IPancheonRegistry {
+    private final Map<Fluid, IPancheonRecipe> recipes = new HashMap<Fluid, IPancheonRecipe>();
+    protected ILogger logger = NullLogger.INSTANCE;
 
-	@Override
-	public void addRecipe(@Nonnull IPancheonRecipe recipe)
-	{
-		final Fluid fluid = recipe.getInputFluid().getFluid();
-		if (recipes.containsKey(fluid))
-		{
-			logger.warn("Overwriting existing pancheon recipe for {%s} with {%s}", recipe.getInputFluid(), recipe);
-		}
-		else
-		{
-			logger.debug("Adding new pancheon recipe {%s}", recipe);
-		}
-		recipes.put(fluid, recipe);
-	}
+    @Override
+    public void setLogger(@Nonnull ILogger l) {
+        this.logger = l;
+    }
 
-	@Override
-	public void addRecipe(@Nonnull FluidStack inputStack, @Nonnull FluidStack topOutput, @Nullable FluidStack bottomOutput, int time)
-	{
-		final Fluid fluid = inputStack.getFluid();
-		if (fluid == null)
-		{
-			throw new IllegalArgumentException("The provided input fluid is invalid.");
-		}
+    @Override
+    public void addRecipe(@Nonnull IPancheonRecipe recipe) {
+        final Fluid fluid = recipe.getInputFluid().getFluid();
+        if (recipes.containsKey(fluid)) {
+            logger.warn("Overwriting existing pancheon recipe for {%s} with {%s}", recipe.getInputFluid(), recipe);
+        } else {
+            logger.debug("Adding new pancheon recipe {%s}", recipe);
+        }
+        recipes.put(fluid, recipe);
+    }
 
-		final IPancheonRecipe recipe = new PancheonRecipe(inputStack, topOutput, bottomOutput, time);
-		addRecipe(recipe);
-	}
+    @Override
+    public void addRecipe(@Nonnull FluidStack inputStack, @Nonnull FluidStack topOutput, @Nullable FluidStack bottomOutput, int time) {
+        final Fluid fluid = inputStack.getFluid();
+        if (fluid == null) {
+            throw new IllegalArgumentException("The provided input fluid is invalid.");
+        }
 
-	@Override
-	@Nullable
-	public IPancheonRecipe getRecipe(FluidStack stack)
-	{
-		if (stack == null) return null;
-		final Fluid fluid = stack.getFluid();
-		if (fluid == null) return null;
-		final IPancheonRecipe recipe = recipes.get(fluid);
-		if (recipe != null)
-		{
-			if (recipe.isValidForRecipe(stack)) return recipe;
-		}
-		return null;
-	}
+        final IPancheonRecipe recipe = new PancheonRecipe(inputStack, topOutput, bottomOutput, time);
+        addRecipe(recipe);
+    }
+
+    @Override
+    @Nullable
+    public IPancheonRecipe getRecipe(FluidStack stack) {
+        if (stack == null) return null;
+        final Fluid fluid = stack.getFluid();
+        if (fluid == null) return null;
+        final IPancheonRecipe recipe = recipes.get(fluid);
+        if (recipe != null) {
+            if (recipe.isValidForRecipe(stack)) return recipe;
+        }
+        return null;
+    }
 }

@@ -23,48 +23,41 @@
  */
 package growthcraft.api.cellar.culturing;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.core.log.ILogger;
 import growthcraft.api.core.log.NullLogger;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public class CulturingRegistry implements ICulturingRegistry
-{
-	private List<ICultureRecipe> recipes = new ArrayList<ICultureRecipe>();
-	private ILogger logger = NullLogger.INSTANCE;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
-	@Override
-	public void setLogger(@Nonnull ILogger l)
-	{
-		this.logger = l;
-	}
+public class CulturingRegistry implements ICulturingRegistry {
+    private final List<ICultureRecipe> recipes = new ArrayList<ICultureRecipe>();
+    private ILogger logger = NullLogger.INSTANCE;
 
-	@Override
-	public void addRecipe(@Nonnull ICultureRecipe recipe)
-	{
-		recipes.add(recipe);
-		logger.debug("Adding new Culturing Recipe, {%s}.", recipe);
-	}
+    @Override
+    public void setLogger(@Nonnull ILogger l) {
+        this.logger = l;
+    }
 
-	@Override
-	public void addRecipe(@Nonnull FluidStack fluidStack, @Nonnull ItemStack itemStack, float requiredHeat, int time)
-	{
-		addRecipe(new CultureRecipe(fluidStack, itemStack, requiredHeat, time));
-	}
+    @Override
+    public void addRecipe(@Nonnull ICultureRecipe recipe) {
+        recipes.add(recipe);
+        logger.debug("Adding new Culturing Recipe, {%s}.", recipe);
+    }
 
-	@Override
-	public ICultureRecipe findRecipe(@Nullable FluidStack fluid, float heat)
-	{
-		for (ICultureRecipe recipe : recipes)
-		{
-			if (recipe.matchesRecipe(fluid, heat)) return recipe;
-		}
-		return null;
-	}
+    @Override
+    public void addRecipe(@Nonnull FluidStack fluidStack, @Nonnull ItemStack itemStack, float requiredHeat, int time) {
+        addRecipe(new CultureRecipe(fluidStack, itemStack, requiredHeat, time));
+    }
+
+    @Override
+    public ICultureRecipe findRecipe(@Nullable FluidStack fluid, float heat) {
+        for (ICultureRecipe recipe : recipes) {
+            if (recipe.matchesRecipe(fluid, heat)) return recipe;
+        }
+        return null;
+    }
 }

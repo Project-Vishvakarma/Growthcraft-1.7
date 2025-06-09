@@ -26,23 +26,19 @@ package growthcraft.cellar.common.block;
 import growthcraft.cellar.GrowthCraftCellar;
 import growthcraft.core.common.block.GrcBlockFluid;
 import growthcraft.core.common.block.Materials;
-
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fluids.Fluid;
 
-public class BlockFluidBooze extends GrcBlockFluid
-{
-	public BlockFluidBooze(Fluid fluid)
-	{
-		super(fluid, GrowthCraftCellar.getConfig().boozeIsWater ? Material.water : Materials.booze);
-		setBlockTextureName("grccellar:booze");
-		setCreativeTab(GrowthCraftCellar.tab);
-		refreshColor();
-	}
+public class BlockFluidBooze extends GrcBlockFluid {
+    public BlockFluidBooze(Fluid fluid) {
+        super(fluid, GrowthCraftCellar.getConfig().boozeIsWater ? Material.water : Materials.booze);
+        setBlockTextureName("grccellar:booze");
+        setCreativeTab(GrowthCraftCellar.tab);
+        refreshColor();
+    }
 
-	public void refreshColor()
-	{
-		setColor(getFluid().getColor());
-		refreshLight();
-	}
+    public void refreshColor() {
+        setColor(getFluid().getColor());
+        refreshLight();
+    }
 }

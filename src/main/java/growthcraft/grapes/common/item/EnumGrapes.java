@@ -23,44 +23,37 @@
  */
 package growthcraft.grapes.common.item;
 
-import java.util.Locale;
-
 import growthcraft.grapes.GrowthCraftGrapes;
-
 import net.minecraft.item.ItemStack;
 
-public enum EnumGrapes
-{
-	PURPLE,
-	GREEN,
-	RED;
+import java.util.Locale;
 
-	public static final EnumGrapes[] VALUES = values();
-	public final String name;
-	public final int meta;
+public enum EnumGrapes {
+    PURPLE,
+    GREEN,
+    RED;
 
-	private EnumGrapes()
-	{
-		this.name = name().toLowerCase(Locale.ENGLISH);
-		this.meta = ordinal();
-	}
+    public static final EnumGrapes[] VALUES = values();
+    public final String name;
+    public final int meta;
 
-	public ItemStack asStack(int size)
-	{
-		return GrowthCraftGrapes.items.grapes.asStack(size, ordinal());
-	}
+    EnumGrapes() {
+        this.name = name().toLowerCase(Locale.ENGLISH);
+        this.meta = ordinal();
+    }
 
-	public ItemStack asStack()
-	{
-		return asStack(1);
-	}
+    public static EnumGrapes get(int index) {
+        if (index >= 0 && index < VALUES.length) {
+            return VALUES[index];
+        }
+        return PURPLE;
+    }
 
-	public static EnumGrapes get(int index)
-	{
-		if (index >= 0 && index < VALUES.length)
-		{
-			return VALUES[index];
-		}
-		return PURPLE;
-	}
+    public ItemStack asStack(int size) {
+        return GrowthCraftGrapes.items.grapes.asStack(size, ordinal());
+    }
+
+    public ItemStack asStack() {
+        return asStack(1);
+    }
 }

@@ -23,27 +23,24 @@
  */
 package growthcraft.grapes.init;
 
-import growthcraft.core.common.definition.ItemDefinition;
 import growthcraft.core.common.GrcModuleItems;
-import growthcraft.grapes.common.item.ItemGrapes;
+import growthcraft.core.common.definition.ItemDefinition;
 import growthcraft.grapes.common.item.ItemGrapeSeeds;
+import growthcraft.grapes.common.item.ItemGrapes;
 
-public class GrcGrapesItems extends GrcModuleItems
-{
-	public ItemDefinition grapes;
-	public ItemDefinition grapeSeeds;
+public class GrcGrapesItems extends GrcModuleItems {
+    public ItemDefinition grapes;
+    public ItemDefinition grapeSeeds;
 
-	@Override
-	public void preInit()
-	{
-		this.grapes     = newDefinition(new ItemGrapes());
-		this.grapeSeeds = newDefinition(new ItemGrapeSeeds());
-	}
+    @Override
+    public void preInit() {
+        this.grapes = newDefinition(new ItemGrapes());
+        this.grapeSeeds = newDefinition(new ItemGrapeSeeds());
+    }
 
-	@Override
-	public void register()
-	{
-		grapes.register("grc.grapes");
-		grapeSeeds.register("grc.grapeSeeds");
-	}
+    @Override
+    public void register() {
+        grapes.register("grc.grapes");
+        grapeSeeds.register("grc.grapeSeeds");
+    }
 }

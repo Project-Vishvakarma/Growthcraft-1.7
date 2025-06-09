@@ -23,45 +23,38 @@
  */
 package growthcraft.core.common.definition;
 
-import javax.annotation.Nonnull;
-
-import growthcraft.api.core.definition.ISubItemStackFactory;
-
 import cpw.mods.fml.common.registry.GameRegistry;
+import growthcraft.api.core.definition.ISubItemStackFactory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ItemTypeDefinition<T extends Item> extends ObjectDefinition<T> implements ISubItemStackFactory
-{
-	public ItemTypeDefinition(@Nonnull T item)
-	{
-		super(item);
-	}
+import javax.annotation.Nonnull;
 
-	@Nonnull
-	public T getItem()
-	{
-		return getObject();
-	}
+public class ItemTypeDefinition<T extends Item> extends ObjectDefinition<T> implements ISubItemStackFactory {
+    public ItemTypeDefinition(@Nonnull T item) {
+        super(item);
+    }
 
-	@Nonnull
-	@Override
-	public ItemStack asStack(int size, int damage)
-	{
-		return new ItemStack(getItem(), size, damage);
-	}
+    @Nonnull
+    public T getItem() {
+        return getObject();
+    }
 
-	public boolean equals(Item other)
-	{
-		if (other == null) return false;
-		return getItem() == other;
-	}
+    @Nonnull
+    @Override
+    public ItemStack asStack(int size, int damage) {
+        return new ItemStack(getItem(), size, damage);
+    }
 
-	/**
-	 * @param name - item name
-	 */
-	public void register(String name)
-	{
-		GameRegistry.registerItem(getItem(), name);
-	}
+    public boolean equals(Item other) {
+        if (other == null) return false;
+        return getItem() == other;
+    }
+
+    /**
+     * @param name - item name
+     */
+    public void register(String name) {
+        GameRegistry.registerItem(getItem(), name);
+    }
 }

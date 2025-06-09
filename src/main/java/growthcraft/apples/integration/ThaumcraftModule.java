@@ -23,52 +23,46 @@
  */
 package growthcraft.apples.integration;
 
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import growthcraft.apples.GrowthCraftApples;
 import growthcraft.cellar.integration.ThaumcraftBoozeHelper;
-import growthcraft.core.integration.thaumcraft.AspectsHelper;
 import growthcraft.core.integration.ThaumcraftModuleBase;
-
+import growthcraft.core.integration.thaumcraft.AspectsHelper;
 import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
 
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.Optional;
+public class ThaumcraftModule extends ThaumcraftModuleBase {
+    public ThaumcraftModule() {
+        super(GrowthCraftApples.MOD_ID);
+    }
 
-public class ThaumcraftModule extends ThaumcraftModuleBase
-{
-	public ThaumcraftModule()
-	{
-		super(GrowthCraftApples.MOD_ID);
-	}
+    @Override
+    @Optional.Method(modid = "Thaumcraft")
+    protected void integrate() {
+        FMLInterModComms.sendMessage(modID, "harvestStandardCrop", GrowthCraftApples.blocks.appleBlock.asStack(1, 2));
 
-	@Override
-	@Optional.Method(modid="Thaumcraft")
-	protected void integrate()
-	{
-		FMLInterModComms.sendMessage(modID, "harvestStandardCrop", GrowthCraftApples.blocks.appleBlock.asStack(1, 2));
+        ThaumcraftApi.registerObjectTag(GrowthCraftApples.blocks.appleSapling.asStack(), new AspectList().add(Aspect.PLANT, 1));
+        ThaumcraftApi.registerObjectTag(GrowthCraftApples.items.appleSeeds.asStack(), new AspectList().add(Aspect.PLANT, 1));
+        ThaumcraftApi.registerObjectTag(GrowthCraftApples.blocks.appleLeaves.asStack(), new AspectList().add(Aspect.PLANT, 1));
 
-		ThaumcraftApi.registerObjectTag(GrowthCraftApples.blocks.appleSapling.asStack(), new AspectList().add(Aspect.PLANT, 1));
-		ThaumcraftApi.registerObjectTag(GrowthCraftApples.items.appleSeeds.asStack(), new AspectList().add(Aspect.PLANT, 1));
-		ThaumcraftApi.registerObjectTag(GrowthCraftApples.blocks.appleLeaves.asStack(), new AspectList().add(Aspect.PLANT, 1));
+        final AspectList[] common = new AspectList[]
+            {
+                new AspectList(),
+                new AspectList().add(Aspect.HEAL, 1),
+                new AspectList().add(Aspect.HEAL, 2),
+                new AspectList().add(Aspect.HEAL, 1),
+                new AspectList().add(Aspect.EXCHANGE, 1),
+                new AspectList().add(Aspect.HEAL, 1).add(Aspect.POISON, 1),
+                new AspectList().add(Aspect.POISON, 1)
+            };
 
-		final AspectList[] common = new AspectList[]
-		{
-			new AspectList(),
-			new AspectList().add(Aspect.HEAL, 1),
-			new AspectList().add(Aspect.HEAL, 2),
-			new AspectList().add(Aspect.HEAL, 1),
-			new AspectList().add(Aspect.EXCHANGE, 1),
-			new AspectList().add(Aspect.HEAL, 1).add(Aspect.POISON, 1),
-			new AspectList().add(Aspect.POISON, 1)
-		};
-
-		for (int i = 0; i < common.length; ++i)
-		{
-			final AspectList list = common[i];
-			ThaumcraftBoozeHelper.instance().registerAspectsForBottleStack(GrowthCraftApples.fluids.appleCider.asStack(1, i), list.copy());
-			ThaumcraftBoozeHelper.instance().registerAspectsForBucket(GrowthCraftApples.fluids.appleCiderBuckets[i], AspectsHelper.scaleAspects(list.copy(), 3, Aspect.HEAL, Aspect.EXCHANGE));
-			ThaumcraftBoozeHelper.instance().registerAspectsForFluidBlock(GrowthCraftApples.fluids.appleCiderFluids[i], AspectsHelper.scaleAspects(list.copy(), 3, Aspect.HEAL, Aspect.EXCHANGE));
-		}
-	}
+        for (int i = 0; i < common.length; ++i) {
+            final AspectList list = common[i];
+            ThaumcraftBoozeHelper.instance().registerAspectsForBottleStack(GrowthCraftApples.fluids.appleCider.asStack(1, i), list.copy());
+            ThaumcraftBoozeHelper.instance().registerAspectsForBucket(GrowthCraftApples.fluids.appleCiderBuckets[i], AspectsHelper.scaleAspects(list.copy(), 3, Aspect.HEAL, Aspect.EXCHANGE));
+            ThaumcraftBoozeHelper.instance().registerAspectsForFluidBlock(GrowthCraftApples.fluids.appleCiderFluids[i], AspectsHelper.scaleAspects(list.copy(), 3, Aspect.HEAL, Aspect.EXCHANGE));
+        }
+    }
 }

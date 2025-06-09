@@ -23,14 +23,13 @@
  */
 package growthcraft.api.core.util;
 
-import java.util.List;
-
 import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.List;
 
 /**
  * Allows formatter interfaces, look at TagFormatterFluidHandler for an example
  */
-public interface ITagFormatter
-{
-	public List<String> format(List<String> list, NBTTagCompound tag);
+public interface ITagFormatter {
+    List<String> format(List<String> list, NBTTagCompound tag);
 }

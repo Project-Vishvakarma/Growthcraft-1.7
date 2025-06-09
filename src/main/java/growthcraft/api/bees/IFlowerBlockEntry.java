@@ -26,9 +26,10 @@ package growthcraft.api.bees;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
-public interface IFlowerBlockEntry
-{
-	Block getBlock();
-	int getMetadata();
-	boolean canPlaceAt(World world, int x, int y, int z);
+public interface IFlowerBlockEntry {
+    Block getBlock();
+
+    int getMetadata();
+
+    boolean canPlaceAt(World world, int x, int y, int z);
 }

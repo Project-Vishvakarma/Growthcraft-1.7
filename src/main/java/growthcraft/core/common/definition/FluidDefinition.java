@@ -23,24 +23,20 @@
  */
 package growthcraft.core.common.definition;
 
-import javax.annotation.Nonnull;
-
 import net.minecraftforge.fluids.Fluid;
 
-public class FluidDefinition extends FluidTypeDefinition<Fluid>
-{
-	public FluidDefinition(@Nonnull Fluid item)
-	{
-		super(item);
-	}
+import javax.annotation.Nonnull;
 
-	public static FluidDefinition[] convertArray(Fluid[] fluids)
-	{
-		final FluidDefinition[] defs = new FluidDefinition[fluids.length];
-		for (int i = 0; i < fluids.length; ++i)
-		{
-			defs[i] = new FluidDefinition(fluids[i]);
-		}
-		return defs;
-	}
+public class FluidDefinition extends FluidTypeDefinition<Fluid> {
+    public FluidDefinition(@Nonnull Fluid item) {
+        super(item);
+    }
+
+    public static FluidDefinition[] convertArray(Fluid[] fluids) {
+        final FluidDefinition[] defs = new FluidDefinition[fluids.length];
+        for (int i = 0; i < fluids.length; ++i) {
+            defs[i] = new FluidDefinition(fluids[i]);
+        }
+        return defs;
+    }
 }

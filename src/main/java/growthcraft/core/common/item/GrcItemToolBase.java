@@ -23,9 +23,6 @@
  */
 package growthcraft.core.common.item;
 
-import java.util.Set;
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -34,19 +31,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 
-public class GrcItemToolBase extends ItemTool
-{
-	public GrcItemToolBase(float dmg, Item.ToolMaterial material, Set<Block> blocks)
-	{
-		super(dmg, material, blocks);
-	}
+import java.util.List;
+import java.util.Set;
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool)
-	{
-		super.addInformation(stack, player, list, bool);
-		GrcItemBase.addDescription(this, stack, player, list, bool);
-	}
+public class GrcItemToolBase extends ItemTool {
+    public GrcItemToolBase(float dmg, Item.ToolMaterial material, Set<Block> blocks) {
+        super(dmg, material, blocks);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+        super.addInformation(stack, player, list, bool);
+        GrcItemBase.addDescription(this, stack, player, list, bool);
+    }
 }

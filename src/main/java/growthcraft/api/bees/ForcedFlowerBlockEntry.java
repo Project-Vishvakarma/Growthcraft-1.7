@@ -28,26 +28,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class ForcedFlowerBlockEntry extends AbstractFlowerBlockEntry
-{
-	public ForcedFlowerBlockEntry(Block pBlock, int pMeta)
-	{
-		super(pBlock, pMeta);
-	}
+public class ForcedFlowerBlockEntry extends AbstractFlowerBlockEntry {
+    public ForcedFlowerBlockEntry(Block pBlock, int pMeta) {
+        super(pBlock, pMeta);
+    }
 
-	public boolean canPlaceAt(World world, int x, int y, int z)
-	{
-		final Block existingBlock = world.getBlock(x, y, z);
-		if (existingBlock != null)
-		{
-			if (!existingBlock.isReplaceable(world, x, y, z)) return false;
-		}
-		final Block soilBlock = world.getBlock(x, y - 1, z);
-		if (soilBlock == null) return false;
-		if (getBlock() instanceof IPlantable)
-		{
-			return soilBlock.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, (IPlantable)getBlock());
-		}
-		return true;
-	}
+    public boolean canPlaceAt(World world, int x, int y, int z) {
+        final Block existingBlock = world.getBlock(x, y, z);
+        if (existingBlock != null) {
+            if (!existingBlock.isReplaceable(world, x, y, z)) return false;
+        }
+        final Block soilBlock = world.getBlock(x, y - 1, z);
+        if (soilBlock == null) return false;
+        if (getBlock() instanceof IPlantable) {
+            return soilBlock.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, (IPlantable) getBlock());
+        }
+        return true;
+    }
 }

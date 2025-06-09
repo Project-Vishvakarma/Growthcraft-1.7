@@ -23,25 +23,22 @@
  */
 package growthcraft.api.cellar.yeast.user;
 
+import growthcraft.api.core.schema.ICommentable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import growthcraft.api.core.schema.ICommentable;
+public class UserYeastEntries implements ICommentable {
+    public String comment = "";
+    public List<UserYeastEntry> data = new ArrayList<UserYeastEntry>();
 
-public class UserYeastEntries implements ICommentable
-{
-	public String comment = "";
-	public List<UserYeastEntry> data = new ArrayList<UserYeastEntry>();
+    @Override
+    public String getComment() {
+        return comment;
+    }
 
-	@Override
-	public String getComment()
-	{
-		return comment;
-	}
-
-	@Override
-	public void setComment(String com)
-	{
-		this.comment = com;
-	}
+    @Override
+    public void setComment(String com) {
+        this.comment = com;
+    }
 }

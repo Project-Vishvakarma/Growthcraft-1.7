@@ -23,36 +23,30 @@
  */
 package growthcraft.api.core.fluids;
 
-import javax.annotation.Nonnull;
-
 import growthcraft.api.core.i18n.GrcI18n;
 
-public class FluidTag
-{
-	private final String name;
+import javax.annotation.Nonnull;
 
-	public FluidTag(@Nonnull String n)
-	{
-		this.name = n;
-	}
+public class FluidTag {
+    private final String name;
 
-	public String getName()
-	{
-		return name;
-	}
+    public FluidTag(@Nonnull String n) {
+        this.name = n;
+    }
 
-	public String getUnlocalizedName()
-	{
-		return "grc.fluids.tag." + getName();
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getLocalizedName()
-	{
-		return GrcI18n.translate(getUnlocalizedName());
-	}
+    public String getUnlocalizedName() {
+        return "grc.fluids.tag." + getName();
+    }
 
-	public String toString()
-	{
-		return getName();
-	}
+    public String getLocalizedName() {
+        return GrcI18n.translate(getUnlocalizedName());
+    }
+
+    public String toString() {
+        return getName();
+    }
 }

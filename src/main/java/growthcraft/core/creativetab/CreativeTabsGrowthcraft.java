@@ -6,17 +6,14 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 
-public class CreativeTabsGrowthcraft extends CreativeTabs
-{
-	public CreativeTabsGrowthcraft(String name)
-	{
-		super(name);
-	}
+public class CreativeTabsGrowthcraft extends CreativeTabs {
+    public CreativeTabsGrowthcraft(String name) {
+        super(name);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Item getTabIconItem()
-	{
-		return Item.getItemFromBlock(Blocks.sapling);
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Item getTabIconItem() {
+        return Item.getItemFromBlock(Blocks.sapling);
+    }
 }

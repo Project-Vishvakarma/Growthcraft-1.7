@@ -23,35 +23,30 @@
  */
 package growthcraft.core.common.definition;
 
-import javax.annotation.Nonnull;
-
 import growthcraft.api.core.definition.IItemStackFactory;
 import growthcraft.api.core.definition.ISubItemStackFactory;
-
 import net.minecraft.item.ItemStack;
 
-public class ItemSubtypeDefinition implements IItemStackFactory
-{
-	public final int meta;
-	private final ISubItemStackFactory itemFactory;
+import javax.annotation.Nonnull;
 
-	public ItemSubtypeDefinition(@Nonnull ISubItemStackFactory fact, int met)
-	{
-		this.itemFactory = fact;
-		this.meta = met;
-	}
+public class ItemSubtypeDefinition implements IItemStackFactory {
+    public final int meta;
+    private final ISubItemStackFactory itemFactory;
 
-	@Override
-	@Nonnull
-	public ItemStack asStack(int size)
-	{
-		return itemFactory.asStack(size, meta);
-	}
+    public ItemSubtypeDefinition(@Nonnull ISubItemStackFactory fact, int met) {
+        this.itemFactory = fact;
+        this.meta = met;
+    }
 
-	@Override
-	@Nonnull
-	public ItemStack asStack()
-	{
-		return asStack(1);
-	}
+    @Override
+    @Nonnull
+    public ItemStack asStack(int size) {
+        return itemFactory.asStack(size, meta);
+    }
+
+    @Override
+    @Nonnull
+    public ItemStack asStack() {
+        return asStack(1);
+    }
 }

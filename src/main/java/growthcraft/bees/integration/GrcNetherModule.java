@@ -23,44 +23,36 @@
  */
 package growthcraft.bees.integration;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import growthcraft.bees.GrowthCraftBees;
 import growthcraft.bees.common.block.BlockBeeBoxNether;
 import growthcraft.bees.common.item.ItemBlockBeeBox;
-import growthcraft.bees.GrowthCraftBees;
 import growthcraft.core.integration.ModIntegrationBase;
-
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-public class GrcNetherModule extends ModIntegrationBase
-{
-	public GrcNetherModule()
-	{
-		super(GrowthCraftBees.MOD_ID, "Growthcraft|Nether");
-	}
+public class GrcNetherModule extends ModIntegrationBase {
+    public GrcNetherModule() {
+        super(GrowthCraftBees.MOD_ID, "Growthcraft|Nether");
+    }
 
-	@Override
-	protected void doPreInit()
-	{
-		GrowthCraftBees.blocks.beeBoxNether = GrowthCraftBees.blocks.newTypedDefinition(new BlockBeeBoxNether());
-		GrowthCraftBees.blocks.beeBoxNether.getBlock().setHarvestLevel("axe", 0);
-	}
+    @Override
+    protected void doPreInit() {
+        GrowthCraftBees.blocks.beeBoxNether = GrowthCraftBees.blocks.newTypedDefinition(new BlockBeeBoxNether());
+        GrowthCraftBees.blocks.beeBoxNether.getBlock().setHarvestLevel("axe", 0);
+    }
 
-	@Override
-	protected void doRegister()
-	{
-		if (GrowthCraftBees.blocks.beeBoxNether != null)
-		{
-			GameRegistry.registerBlock(GrowthCraftBees.blocks.beeBoxNether.getBlock(), ItemBlockBeeBox.class, "grc.BeeBox.Nether");
-		}
-	}
+    @Override
+    protected void doRegister() {
+        if (GrowthCraftBees.blocks.beeBoxNether != null) {
+            GameRegistry.registerBlock(GrowthCraftBees.blocks.beeBoxNether.getBlock(), ItemBlockBeeBox.class, "grc.BeeBox.Nether");
+        }
+    }
 
-	@Override
-	protected void doLateRegister()
-	{
-		if (GrowthCraftBees.blocks.beeBoxNether != null)
-		{
-			// plankMaliceWood is registered by the Growthcraft|Nether module, and is a non-flammable plank
-			GameRegistry.addRecipe(new ShapedOreRecipe(GrowthCraftBees.blocks.beeBoxNether.asStack(), " A ", "A A", "AAA", 'A', "plankMaliceWood"));
-		}
-	}
+    @Override
+    protected void doLateRegister() {
+        if (GrowthCraftBees.blocks.beeBoxNether != null) {
+            // plankMaliceWood is registered by the Growthcraft|Nether module, and is a non-flammable plank
+            GameRegistry.addRecipe(new ShapedOreRecipe(GrowthCraftBees.blocks.beeBoxNether.asStack(), " A ", "A A", "AAA", 'A', "plankMaliceWood"));
+        }
+    }
 }

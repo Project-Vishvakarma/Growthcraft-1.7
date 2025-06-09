@@ -23,25 +23,21 @@
  */
 package growthcraft.apples.integration;
 
+import cpw.mods.fml.common.Optional;
 import growthcraft.apples.GrowthCraftApples;
 import growthcraft.apples.integration.mfr.AppleBlockFactoryFruit;
 import growthcraft.core.integration.MFRModuleBase;
 
-import cpw.mods.fml.common.Optional;
+public class MFRModule extends MFRModuleBase {
+    public MFRModule() {
+        super(GrowthCraftApples.MOD_ID);
+    }
 
-public class MFRModule extends MFRModuleBase
-{
-	public MFRModule()
-	{
-		super(GrowthCraftApples.MOD_ID);
-	}
-
-	@Override
-	@Optional.Method(modid=MFRModuleBase.MOD_ID)
-	protected void integrate()
-	{
-		registerPickableFruit(new AppleBlockFactoryFruit());
-		registerHarvestableLeaves(GrowthCraftApples.blocks.appleLeaves.getBlock());
-		registerPlantableSapling(GrowthCraftApples.blocks.appleSapling.getBlock());
-	}
+    @Override
+    @Optional.Method(modid = MFRModuleBase.MOD_ID)
+    protected void integrate() {
+        registerPickableFruit(new AppleBlockFactoryFruit());
+        registerHarvestableLeaves(GrowthCraftApples.blocks.appleLeaves.getBlock());
+        registerPlantableSapling(GrowthCraftApples.blocks.appleSapling.getBlock());
+    }
 }

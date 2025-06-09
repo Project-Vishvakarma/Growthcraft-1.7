@@ -23,28 +23,26 @@
  */
 package growthcraft.api.cellar.pressing;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import growthcraft.api.cellar.common.Residue;
 import growthcraft.api.core.log.ILoggable;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-public interface IPressingRegistry extends ILoggable
-{
-	void addRecipe(@Nonnull PressingRecipe recipe);
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-	/**
-	 * @param stack - item stack to press
-	 * @param result - resultant fluid
-	 * @param time - how long it takes to press the item
-	 * @param residue - residue left behind after pressing
-	 */
-	void addRecipe(@Nonnull Object inputStack, @Nonnull FluidStack result, int time, @Nullable Residue residue);
+public interface IPressingRegistry extends ILoggable {
+    void addRecipe(@Nonnull PressingRecipe recipe);
 
-	boolean hasPressingRecipe(ItemStack itemstack);
+    /**
+     * @param stack   - item stack to press
+     * @param result  - resultant fluid
+     * @param time    - how long it takes to press the item
+     * @param residue - residue left behind after pressing
+     */
+    void addRecipe(@Nonnull Object inputStack, @Nonnull FluidStack result, int time, @Nullable Residue residue);
 
-	PressingRecipe getPressingRecipe(ItemStack itemstack);
+    boolean hasPressingRecipe(ItemStack itemstack);
+
+    PressingRecipe getPressingRecipe(ItemStack itemstack);
 }

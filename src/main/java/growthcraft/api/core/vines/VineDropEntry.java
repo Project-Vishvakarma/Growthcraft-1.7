@@ -23,23 +23,20 @@
  */
 package growthcraft.api.core.vines;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 
-public class VineDropEntry extends WeightedRandom.Item
-{
-	private final ItemStack item;
+import javax.annotation.Nonnull;
 
-	public VineDropEntry(@Nonnull ItemStack v, int weight)
-	{
-		super(weight);
-		this.item = v;
-	}
+public class VineDropEntry extends WeightedRandom.Item {
+    private final ItemStack item;
 
-	public ItemStack getItemStack()
-	{
-		return item;
-	}
+    public VineDropEntry(@Nonnull ItemStack v, int weight) {
+        super(weight);
+        this.item = v;
+    }
+
+    public ItemStack getItemStack() {
+        return item;
+    }
 }

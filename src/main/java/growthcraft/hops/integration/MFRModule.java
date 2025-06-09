@@ -23,23 +23,19 @@
  */
 package growthcraft.hops.integration;
 
+import cpw.mods.fml.common.Optional;
 import growthcraft.core.integration.MFRModuleBase;
 import growthcraft.hops.GrowthCraftHops;
 import growthcraft.hops.integration.mfr.HopFactoryFruit;
 
-import cpw.mods.fml.common.Optional;
+public class MFRModule extends MFRModuleBase {
+    public MFRModule() {
+        super(GrowthCraftHops.MOD_ID);
+    }
 
-public class MFRModule extends MFRModuleBase
-{
-	public MFRModule()
-	{
-		super(GrowthCraftHops.MOD_ID);
-	}
-
-	@Override
-	@Optional.Method(modid=MFRModuleBase.MOD_ID)
-	protected void integrate()
-	{
-		registerPickableFruit(new HopFactoryFruit());
-	}
+    @Override
+    @Optional.Method(modid = MFRModuleBase.MOD_ID)
+    protected void integrate() {
+        registerPickableFruit(new HopFactoryFruit());
+    }
 }

@@ -23,101 +23,82 @@
  */
 package growthcraft.core.registry;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import growthcraft.api.core.item.ItemKey;
+import growthcraft.api.core.util.BlockKey;
+import net.minecraft.block.Block;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
+public class FenceRopeRegistry {
+    private static final FenceRopeRegistry INSTANCE = new FenceRopeRegistry();
+    private final BiMap<BlockKey, FenceRopeEntry> entries = HashBiMap.create();
 
-import growthcraft.api.core.item.ItemKey;
-import growthcraft.api.core.util.BlockKey;
+    public static FenceRopeRegistry instance() {
+        return INSTANCE;
+    }
 
-import net.minecraft.block.Block;
+    public void addEntry(@Nonnull FenceRopeEntry entry) {
+        entries.put(entry.getFenceBlockKey(), entry);
+    }
 
-public class FenceRopeRegistry
-{
-	public static class FenceRopeEntry
-	{
-		private BlockKey fenceBlock;
-		private BlockKey fenceRopeBlock;
+    public void addEntry(@Nonnull BlockKey fence, @Nonnull BlockKey fenceRope) {
+        addEntry(new FenceRopeEntry(fence, fenceRope));
+    }
 
-		public FenceRopeEntry(BlockKey pFenceBlock, BlockKey pFenceRopeBlock)
-		{
-			this.fenceBlock = pFenceBlock;
-			this.fenceRopeBlock = pFenceRopeBlock;
-		}
+    public void addEntry(@Nonnull Block fence, @Nonnull Block fenceRope) {
+        addEntry(new BlockKey(fence, ItemKey.WILDCARD_VALUE), new BlockKey(fenceRope, ItemKey.WILDCARD_VALUE));
+    }
 
-		public BlockKey getFenceBlockKey()
-		{
-			return fenceBlock;
-		}
+    public FenceRopeEntry getEntry(@Nonnull BlockKey key) {
+        for (FenceRopeEntry entry : entries.values()) {
+            if (entry.matches(key)) return entry;
+        }
+        return null;
+    }
 
-		public BlockKey getFenceRopeBlockKey()
-		{
-			return fenceRopeBlock;
-		}
+    public FenceRopeEntry getEntry(@Nullable Block block, int meta) {
+        if (block == null) return null;
+        return getEntry(new BlockKey(block, meta));
+    }
 
-		public Block getFenceBlock()
-		{
-			return fenceBlock.getBlock();
-		}
+    public static class FenceRopeEntry {
+        private final BlockKey fenceBlock;
+        private final BlockKey fenceRopeBlock;
 
-		public int getFenceBlockMetadata()
-		{
-			return fenceBlock.getMetadata();
-		}
+        public FenceRopeEntry(BlockKey pFenceBlock, BlockKey pFenceRopeBlock) {
+            this.fenceBlock = pFenceBlock;
+            this.fenceRopeBlock = pFenceRopeBlock;
+        }
 
-		public Block getFenceRopeBlock()
-		{
-			return fenceRopeBlock.getBlock();
-		}
+        public BlockKey getFenceBlockKey() {
+            return fenceBlock;
+        }
 
-		public int getFenceRopeBlockMetadata()
-		{
-			return fenceRopeBlock.getMetadata();
-		}
+        public BlockKey getFenceRopeBlockKey() {
+            return fenceRopeBlock;
+        }
 
-		public boolean matches(BlockKey key)
-		{
-			return fenceBlock.matches(key);
-		}
-	}
+        public Block getFenceBlock() {
+            return fenceBlock.getBlock();
+        }
 
-	private static final FenceRopeRegistry INSTANCE = new FenceRopeRegistry();
-	private final BiMap<BlockKey, FenceRopeEntry> entries = HashBiMap.create();
+        public int getFenceBlockMetadata() {
+            return fenceBlock.getMetadata();
+        }
 
-	public void addEntry(@Nonnull FenceRopeEntry entry)
-	{
-		entries.put(entry.getFenceBlockKey(), entry);
-	}
+        public Block getFenceRopeBlock() {
+            return fenceRopeBlock.getBlock();
+        }
 
-	public void addEntry(@Nonnull BlockKey fence, @Nonnull BlockKey fenceRope)
-	{
-		addEntry(new FenceRopeEntry(fence, fenceRope));
-	}
+        public int getFenceRopeBlockMetadata() {
+            return fenceRopeBlock.getMetadata();
+        }
 
-	public void addEntry(@Nonnull Block fence, @Nonnull Block fenceRope)
-	{
-		addEntry(new BlockKey(fence, ItemKey.WILDCARD_VALUE), new BlockKey(fenceRope, ItemKey.WILDCARD_VALUE));
-	}
-
-	public FenceRopeEntry getEntry(@Nonnull BlockKey key)
-	{
-		for (FenceRopeEntry entry : entries.values())
-		{
-			if (entry.matches(key)) return entry;
-		}
-		return null;
-	}
-
-	public FenceRopeEntry getEntry(@Nullable Block block, int meta)
-	{
-		if (block == null) return null;
-		return getEntry(new BlockKey(block, meta));
-	}
-
-	public static FenceRopeRegistry instance()
-	{
-		return INSTANCE;
-	}
+        public boolean matches(BlockKey key) {
+            return fenceBlock.matches(key);
+        }
+    }
 }

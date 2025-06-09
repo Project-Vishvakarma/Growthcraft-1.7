@@ -23,40 +23,33 @@
  */
 package growthcraft.core.common.definition;
 
-import javax.annotation.Nonnull;
-
 import growthcraft.core.common.block.GrcBlockFluid;
 import growthcraft.core.common.item.ItemGrcBlockFluid;
-
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fluids.Fluid;
 
-public class GrcBlockFluidDefinition extends BlockTypeDefinition<GrcBlockFluid>
-{
-	public GrcBlockFluidDefinition(@Nonnull GrcBlockFluid fluid)
-	{
-		super(fluid);
-	}
+import javax.annotation.Nonnull;
 
-	@Override
-	public void register(String name)
-	{
-		super.register(name, ItemGrcBlockFluid.class);
-	}
+public class GrcBlockFluidDefinition extends BlockTypeDefinition<GrcBlockFluid> {
+    public GrcBlockFluidDefinition(@Nonnull GrcBlockFluid fluid) {
+        super(fluid);
+    }
 
-	public static GrcBlockFluidDefinition create(Fluid fluid, Material mat)
-	{
-		return new GrcBlockFluidDefinition(new GrcBlockFluid(fluid, mat));
-	}
+    public static GrcBlockFluidDefinition create(Fluid fluid, Material mat) {
+        return new GrcBlockFluidDefinition(new GrcBlockFluid(fluid, mat));
+    }
 
-	public static GrcBlockFluidDefinition create(Fluid fluid)
-	{
-		return create(fluid, Material.water);
-	}
+    public static GrcBlockFluidDefinition create(Fluid fluid) {
+        return create(fluid, Material.water);
+    }
 
-	@SuppressWarnings({"rawtypes"})
-	public static GrcBlockFluidDefinition create(FluidTypeDefinition def)
-	{
-		return create(def.getFluid());
-	}
+    @SuppressWarnings({"rawtypes"})
+    public static GrcBlockFluidDefinition create(FluidTypeDefinition def) {
+        return create(def.getFluid());
+    }
+
+    @Override
+    public void register(String name) {
+        super.register(name, ItemGrcBlockFluid.class);
+    }
 }

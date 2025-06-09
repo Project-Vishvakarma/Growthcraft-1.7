@@ -23,44 +23,36 @@
  */
 package growthcraft.bees.integration;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import growthcraft.bees.GrowthCraftBees;
-import growthcraft.core.integration.ModIntegrationBase;
 import growthcraft.bees.common.block.BlockBeeBoxBamboo;
 import growthcraft.bees.common.item.ItemBlockBeeBox;
-
-import cpw.mods.fml.common.registry.GameRegistry;
+import growthcraft.core.integration.ModIntegrationBase;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-public class GrcBambooModule extends ModIntegrationBase
-{
-	public GrcBambooModule()
-	{
-		super(GrowthCraftBees.MOD_ID, "Growthcraft|Bamboo");
-	}
+public class GrcBambooModule extends ModIntegrationBase {
+    public GrcBambooModule() {
+        super(GrowthCraftBees.MOD_ID, "Growthcraft|Bamboo");
+    }
 
-	@Override
-	protected void doPreInit()
-	{
-		GrowthCraftBees.blocks.beeBoxBamboo = GrowthCraftBees.blocks.newTypedDefinition(new BlockBeeBoxBamboo());
-		GrowthCraftBees.blocks.beeBoxBamboo.getBlock().setFlammability(20).setFireSpreadSpeed(5).setHarvestLevel("axe", 0);
-	}
+    @Override
+    protected void doPreInit() {
+        GrowthCraftBees.blocks.beeBoxBamboo = GrowthCraftBees.blocks.newTypedDefinition(new BlockBeeBoxBamboo());
+        GrowthCraftBees.blocks.beeBoxBamboo.getBlock().setFlammability(20).setFireSpreadSpeed(5).setHarvestLevel("axe", 0);
+    }
 
-	@Override
-	protected void doRegister()
-	{
-		if (GrowthCraftBees.blocks.beeBoxBamboo != null)
-		{
-			GameRegistry.registerBlock(GrowthCraftBees.blocks.beeBoxBamboo.getBlock(), ItemBlockBeeBox.class, "grc.BeeBox.Bamboo");
-		}
-	}
+    @Override
+    protected void doRegister() {
+        if (GrowthCraftBees.blocks.beeBoxBamboo != null) {
+            GameRegistry.registerBlock(GrowthCraftBees.blocks.beeBoxBamboo.getBlock(), ItemBlockBeeBox.class, "grc.BeeBox.Bamboo");
+        }
+    }
 
-	@Override
-	protected void doLateRegister()
-	{
-		// Bamboo
-		if (GrowthCraftBees.blocks.beeBoxBamboo != null)
-		{
-			GameRegistry.addRecipe(new ShapedOreRecipe(GrowthCraftBees.blocks.beeBoxBamboo.asStack(), " A ", "A A", "AAA", 'A', "plankBamboo"));
-		}
-	}
+    @Override
+    protected void doLateRegister() {
+        // Bamboo
+        if (GrowthCraftBees.blocks.beeBoxBamboo != null) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(GrowthCraftBees.blocks.beeBoxBamboo.asStack(), " A ", "A A", "AAA", 'A', "plankBamboo"));
+        }
+    }
 }

@@ -23,96 +23,81 @@
  */
 package growthcraft.api.milk.churn;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import growthcraft.api.core.log.ILogger;
-import growthcraft.api.core.log.NullLogger;
 import growthcraft.api.core.fluids.FluidKey;
 import growthcraft.api.core.fluids.FluidTest;
-
+import growthcraft.api.core.log.ILogger;
+import growthcraft.api.core.log.NullLogger;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public class ChurnRegistry implements IChurnRegistry
-{
-	protected ILogger logger = NullLogger.INSTANCE;
-	private Map<Fluid, IChurnRecipe> recipes = new HashMap<Fluid, IChurnRecipe>();
-	private Set<FluidKey> fluidIngredients = new HashSet<FluidKey>();
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-	@Override
-	public void setLogger(@Nonnull ILogger l)
-	{
-		this.logger = l;
-	}
+public class ChurnRegistry implements IChurnRegistry {
+    private final Map<Fluid, IChurnRecipe> recipes = new HashMap<Fluid, IChurnRecipe>();
+    private final Set<FluidKey> fluidIngredients = new HashSet<FluidKey>();
+    protected ILogger logger = NullLogger.INSTANCE;
 
-	@Override
-	public void addRecipe(@Nonnull IChurnRecipe recipe)
-	{
-		final FluidStack fluidStack = recipe.getInputFluidStack();
-		final Fluid fluid = fluidStack.getFluid();
-		if (recipes.containsKey(fluid))
-		{
-			logger.warn("Overwriting existing churn recipe for {%s} with {%s}", fluidStack, recipe);
-		}
-		else
-		{
-			logger.debug("Adding new churn recipe {%s}", recipe);
-		}
-		fluidIngredients.add(new FluidKey(fluidStack));
-		recipes.put(fluid, recipe);
-	}
+    @Override
+    public void setLogger(@Nonnull ILogger l) {
+        this.logger = l;
+    }
 
-	@Override
-	public void addRecipe(@Nonnull FluidStack inputFluid, @Nonnull FluidStack outputFluid, @Nullable ItemStack outputItem, int churns)
-	{
-		final Fluid fluid = inputFluid.getFluid();
-		if (fluid == null)
-		{
-			throw new IllegalArgumentException("The provided input fluid is invalid.");
-		}
+    @Override
+    public void addRecipe(@Nonnull IChurnRecipe recipe) {
+        final FluidStack fluidStack = recipe.getInputFluidStack();
+        final Fluid fluid = fluidStack.getFluid();
+        if (recipes.containsKey(fluid)) {
+            logger.warn("Overwriting existing churn recipe for {%s} with {%s}", fluidStack, recipe);
+        } else {
+            logger.debug("Adding new churn recipe {%s}", recipe);
+        }
+        fluidIngredients.add(new FluidKey(fluidStack));
+        recipes.put(fluid, recipe);
+    }
 
-		final IChurnRecipe recipe = new ChurnRecipe(inputFluid, outputFluid, outputItem, churns);
-		addRecipe(recipe);
-	}
+    @Override
+    public void addRecipe(@Nonnull FluidStack inputFluid, @Nonnull FluidStack outputFluid, @Nullable ItemStack outputItem, int churns) {
+        final Fluid fluid = inputFluid.getFluid();
+        if (fluid == null) {
+            throw new IllegalArgumentException("The provided input fluid is invalid.");
+        }
 
-	@Override
-	public boolean isFluidIngredient(@Nullable Fluid fluid)
-	{
-		if (fluid != null)
-		{
-			return fluidIngredients.contains(new FluidKey(fluid));
-		}
-		return false;
-	}
+        final IChurnRecipe recipe = new ChurnRecipe(inputFluid, outputFluid, outputItem, churns);
+        addRecipe(recipe);
+    }
 
-	@Override
-	public boolean isFluidIngredient(@Nullable FluidStack stack)
-	{
-		if (FluidTest.isValid(stack))
-		{
-			return fluidIngredients.contains(new FluidKey(stack));
-		}
-		return false;
-	}
+    @Override
+    public boolean isFluidIngredient(@Nullable Fluid fluid) {
+        if (fluid != null) {
+            return fluidIngredients.contains(new FluidKey(fluid));
+        }
+        return false;
+    }
 
-	@Override
-	@Nullable
-	public IChurnRecipe getRecipe(FluidStack stack)
-	{
-		if (stack == null) return null;
-		final Fluid fluid = stack.getFluid();
-		if (fluid == null) return null;
-		final IChurnRecipe recipe = recipes.get(fluid);
-		if (recipe != null)
-		{
-			if (recipe.isValidForRecipe(stack)) return recipe;
-		}
-		return null;
-	}
+    @Override
+    public boolean isFluidIngredient(@Nullable FluidStack stack) {
+        if (FluidTest.isValid(stack)) {
+            return fluidIngredients.contains(new FluidKey(stack));
+        }
+        return false;
+    }
+
+    @Override
+    @Nullable
+    public IChurnRecipe getRecipe(FluidStack stack) {
+        if (stack == null) return null;
+        final Fluid fluid = stack.getFluid();
+        if (fluid == null) return null;
+        final IChurnRecipe recipe = recipes.get(fluid);
+        if (recipe != null) {
+            if (recipe.isValidForRecipe(stack)) return recipe;
+        }
+        return null;
+    }
 }

@@ -23,26 +23,31 @@
  */
 package growthcraft.api.cellar.booze;
 
-import java.util.Collection;
-import javax.annotation.Nullable;
-import javax.annotation.Nonnull;
-
 import growthcraft.api.core.fluids.FluidTag;
 import growthcraft.api.core.log.ILoggable;
-
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public interface IBoozeRegistry extends ILoggable
-{
-	IModifierFunction getModifierFunction(@Nullable FluidTag fluid);
-	void setModifierFunction(@Nonnull FluidTag fluid, IModifierFunction func);
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Collection;
 
-	Collection<BoozeEntry> getBoozeEntries();
-	void registerBooze(@Nonnull Fluid fluid);
-	BoozeEntry getBoozeEntry(@Nullable Fluid fluid);
-	BoozeEntry fetchBoozeEntry(@Nullable Fluid fluid);
-	BoozeEffect getEffect(@Nullable Fluid fluid);
-	boolean isFluidBooze(@Nullable Fluid f);
-	boolean isFluidBooze(@Nullable FluidStack fluidStack);
+public interface IBoozeRegistry extends ILoggable {
+    IModifierFunction getModifierFunction(@Nullable FluidTag fluid);
+
+    void setModifierFunction(@Nonnull FluidTag fluid, IModifierFunction func);
+
+    Collection<BoozeEntry> getBoozeEntries();
+
+    void registerBooze(@Nonnull Fluid fluid);
+
+    BoozeEntry getBoozeEntry(@Nullable Fluid fluid);
+
+    BoozeEntry fetchBoozeEntry(@Nullable Fluid fluid);
+
+    BoozeEffect getEffect(@Nullable Fluid fluid);
+
+    boolean isFluidBooze(@Nullable Fluid f);
+
+    boolean isFluidBooze(@Nullable FluidStack fluidStack);
 }

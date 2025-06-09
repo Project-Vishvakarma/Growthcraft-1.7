@@ -24,58 +24,53 @@
 package growthcraft.rice.util;
 
 import growthcraft.rice.GrowthCraftRice;
-
 import net.minecraft.block.Block;
 import net.minecraft.world.IBlockAccess;
 
-public class RiceBlockCheck
-{
-	private RiceBlockCheck() {}
+public class RiceBlockCheck {
+    private RiceBlockCheck() {
+    }
 
-	/**
-	 * Determines if block is a normal dirt paddy block
-	 *
-	 * @param block - the block to check
-	 * @return true if the block is a Paddy, false otherwise
-	 */
-	public static boolean isPaddy(Block block)
-	{
-		return GrowthCraftRice.blocks.paddyField.equals(block);
-	}
+    /**
+     * Determines if block is a normal dirt paddy block
+     *
+     * @param block - the block to check
+     * @return true if the block is a Paddy, false otherwise
+     */
+    public static boolean isPaddy(Block block) {
+        return GrowthCraftRice.blocks.paddyField.equals(block);
+    }
 
-	/**
-	 * Determines if the block at the location is a paddy
-	 *
-	 * @param world - world to check the block
-	 * @param x - x coord
-	 * @param y - y coord
-	 * @param z - z coord
-	 * @return true, the block is a paddy, false otherwise
-	 */
-	public static boolean isPaddy(IBlockAccess world, int x, int y, int z)
-	{
-		final Block block = world.getBlock(x, y, z);
-		return isPaddy(block);
-	}
+    /**
+     * Determines if the block at the location is a paddy
+     *
+     * @param world - world to check the block
+     * @param x     - x coord
+     * @param y     - y coord
+     * @param z     - z coord
+     * @return true, the block is a paddy, false otherwise
+     */
+    public static boolean isPaddy(IBlockAccess world, int x, int y, int z) {
+        final Block block = world.getBlock(x, y, z);
+        return isPaddy(block);
+    }
 
-	/**
-	 * Determines if the block at the location is a paddy (with water)
-	 *
-	 * @param world - world to check the block
-	 * @param x - x coord
-	 * @param y - y coord
-	 * @param z - z coord
-	 * @param amount - metadata, how much water should be present
-	 * @return true, the block is a paddy, false otherwise
-	 */
-	public static boolean isPaddyWithWater(IBlockAccess world, int x, int y, int z, int amount)
-	{
-		final Block block = world.getBlock(x, y, z);
-		if (isPaddy(block))
-		{
-			final int meta = world.getBlockMetadata(x, y, z);
-			return meta >= amount;
-		}
-		return false;
-	}
+    /**
+     * Determines if the block at the location is a paddy (with water)
+     *
+     * @param world  - world to check the block
+     * @param x      - x coord
+     * @param y      - y coord
+     * @param z      - z coord
+     * @param amount - metadata, how much water should be present
+     * @return true, the block is a paddy, false otherwise
+     */
+    public static boolean isPaddyWithWater(IBlockAccess world, int x, int y, int z, int amount) {
+        final Block block = world.getBlock(x, y, z);
+        if (isPaddy(block)) {
+            final int meta = world.getBlockMetadata(x, y, z);
+            return meta >= amount;
+        }
+        return false;
+    }
 }
