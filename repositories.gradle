@@ -1,0 +1,33 @@
+// Add any additional repositories for your dependencies here.
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        name "applecore"
+        url "http://www.ryanliptak.com/maven/"
+    }
+    maven {
+        name "chickenbones"
+        url "http://chickenbones.net/maven/"
+    }
+    maven {
+        name = "forge"
+        url = "http://files.minecraftforge.net/maven"
+    }
+    maven {
+        name "mobius"
+        url "http://mobiusstrip.eu/maven"
+    }
+    maven {
+        name = "CurseMaven"
+        url = "https://cursemaven.com"
+    }
+    ivy {
+        name "buildcraft"
+        artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision]-[classifier].[ext]"
+    }
+    maven {
+        url "https://cursemaven.com"
+    }	
+}
