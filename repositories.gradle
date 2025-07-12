@@ -28,6 +28,12 @@ repositories {
         artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision]-[classifier].[ext]"
     }
     maven {
+        url "https://archive.naylahanegan.com/0:/"
+    }    
+    maven {
+        url "https://mcmodarchive.femtopedia.de/"
+    }        
+    maven {
         url "https://cursemaven.com"
     }	
 }
