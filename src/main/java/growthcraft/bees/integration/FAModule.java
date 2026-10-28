@@ -23,9 +23,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import growthcraft.bees.GrowthCraftBees;
 import growthcraft.bees.common.block.BlockBeeBoxFossilsAndArchaeology;
 import growthcraft.bees.common.item.ItemBlockBeeBox;
-import growthcraft.core.integration.FA.EnumFAWoodType;
-import growthcraft.core.integration.FA.FAPlatform;
 import growthcraft.core.integration.ModIntegrationBase;
+import growthcraft.core.integration.fa.EnumFAWoodType;
+import growthcraft.core.integration.fa.FAPlatform;
 import net.minecraft.item.ItemStack;
 
 public class FAModule extends ModIntegrationBase {
