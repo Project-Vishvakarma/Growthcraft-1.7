@@ -21,7 +21,7 @@ package growthcraft.bees.common.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import growthcraft.core.integration.FA.EnumFAWoodType;
+import growthcraft.core.integration.fa.EnumFAWoodType;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -50,17 +50,15 @@ public class BlockBeeBoxFossilsAndArchaeology extends BlockBeeBox {
     @SideOnly(Side.CLIENT)
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void getSubBlocks(Item block, CreativeTabs tab, List list) {
-        for (int i = 0; i < EnumFAWoodType.VALUES.length; ++i) {
-            list.add(new ItemStack(block, 1, i));
-        }
+        list.add(new ItemStack(block, 1, EnumBeeBoxFA.PALAEORAPHE.meta));
+        list.add(new ItemStack(block, 1, EnumBeeBoxFA.ANCIENT.meta));
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister reg) {
-        this.icons = new IIcon[4 * EnumFAWoodType.VALUES.length];
-        for (EnumFAWoodType type : EnumFAWoodType.VALUES) {
-            registerBeeBoxIcons(reg, String.format("/FA/%s/", type.name), type.meta);
-        }
+        this.icons = new IIcon[2 * 4];
+        registerBeeBoxIcons(reg, "/FA/palaeoraphe/", EnumBeeBoxFA.PALAEORAPHE.meta);
+        registerBeeBoxIcons(reg, "/FA/ancient/", EnumBeeBoxFA.ANCIENT.meta);
     }
 }

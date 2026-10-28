@@ -72,6 +72,15 @@ public class GrcBeesConfig extends ConfigBase
 	@ConfigOption(catergory="Integration", name="Enable Forestry Integration", desc="Should we integrate with Forestry (if available)?")
 	public boolean enableForestryIntegration = true;
 
-	@ConfigOption(catergory="Integration", name="Enable Thaumcraft Integration", desc="Should we integrate with Thaumcraft (if available)?")
+	@ConfigOption(catergory="Integration", name="Enable Thaumcraft Integration 4", desc="Should we integrate with Thaumcraft 4 (if available)?")
 	public boolean enableThaumcraftIntegration = true;
+
+    @ConfigOption(catergory="Integration", name="Enable Witchery Integration", desc="Should we integrate with Witchery (if available)?")
+    public boolean enableWitcheryIntegration = true;
+
+    @ConfigOption(catergory="Integration", name="Enable Fossils and Archaeology Integration", desc="Should we integrate with Fossils and Archaeology (if available)?")
+    public boolean enableFAIntegration = true;
+
+    @ConfigOption(catergory="Integration", name="Enable Totemic Integration", desc="Should we integrate with Totemic (if available)?")
+    public boolean enableTotemicIntegration = true;
 }
