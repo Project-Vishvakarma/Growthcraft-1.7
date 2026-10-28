@@ -41,7 +41,7 @@ public enum EnumAM2WoodType {
     }
 
     public ItemStack asPlanksItemStack(int size) {
-        final Block block = GameRegistry.findBlock(growthcraft.core.integration.AM2.AM2Platform.MOD_ID, "planksWitchwood");
+        final Block block = GameRegistry.findBlock(growthcraft.core.integration.am2.AM2Platform.MOD_ID, "planksWitchwood");
         if (block != null) {
             final ItemStack result = new ItemStack(block, size, meta);
             return result;
