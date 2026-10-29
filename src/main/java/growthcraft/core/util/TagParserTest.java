@@ -1,11 +1,7 @@
 package growthcraft.core.util;
 
-import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import growthcraft.api.core.util.TagParser;
 
 public class TagParserTest
 {

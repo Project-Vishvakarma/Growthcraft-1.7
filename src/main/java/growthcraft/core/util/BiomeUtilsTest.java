@@ -2,10 +2,6 @@ package growthcraft.core.util;
 
 import growthcraft.api.core.util.BiomeUtils;
 import growthcraft.api.core.util.TagParser;
-import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 import net.minecraft.world.biome.BiomeGenBase;
 
