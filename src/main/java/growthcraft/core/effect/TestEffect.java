@@ -3,6 +3,7 @@ package growthcraft.core.effect;
 import java.util.Random;
 import java.util.List;
 
+import growthcraft.api.core.effect.IEffect;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 import net.minecraft.nbt.NBTTagCompound;

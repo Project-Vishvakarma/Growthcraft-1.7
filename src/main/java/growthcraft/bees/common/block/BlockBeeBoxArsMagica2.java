@@ -21,7 +21,7 @@ package growthcraft.bees.common.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import growthcraft.core.integration.AM2.EnumAM2WoodType;
+import growthcraft.core.integration.am2.EnumAM2WoodType;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

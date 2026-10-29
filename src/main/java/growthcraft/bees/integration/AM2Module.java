@@ -23,8 +23,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import growthcraft.bees.GrowthCraftBees;
 import growthcraft.bees.common.block.BlockBeeBoxArsMagica2;
 import growthcraft.bees.common.item.ItemBlockBeeBox;
-import growthcraft.core.integration.AM2.AM2Platform;
-import growthcraft.core.integration.AM2.EnumAM2WoodType;
+import growthcraft.core.integration.am2.AM2Platform;
+import growthcraft.core.integration.am2.EnumAM2WoodType;
 import growthcraft.core.integration.ModIntegrationBase;
 import net.minecraft.item.ItemStack;
 
