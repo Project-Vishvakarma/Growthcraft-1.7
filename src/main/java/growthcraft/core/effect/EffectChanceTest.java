@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Random;
 
 import growthcraft.api.core.effect.EffectChance;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class EffectChanceTest
 {
@@ -17,7 +21,7 @@ public class EffectChanceTest
 		chance.setChance(1.0f);
 		chance.setEffect(testEffect);
 		chance.apply(null, null, random, null);
-		assertEquals(testEffect.touched, 1);
+		assertEquals(1, testEffect.touched);
 	}
 
 	@Test
@@ -29,6 +33,6 @@ public class EffectChanceTest
 		chance.setEffect(testEffect);
 		final List<String> list = new ArrayList<String>();
 		chance.getDescription(list);
-		assertTrue(list.size() > 0);
+		assertTrue(!list.isEmpty());
 	}
 }

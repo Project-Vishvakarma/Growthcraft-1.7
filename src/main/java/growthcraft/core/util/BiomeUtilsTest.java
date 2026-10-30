@@ -4,6 +4,10 @@ import growthcraft.api.core.util.BiomeUtils;
 import growthcraft.api.core.util.TagParser;
 
 import net.minecraft.world.biome.BiomeGenBase;
+import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class BiomeUtilsTest
 {

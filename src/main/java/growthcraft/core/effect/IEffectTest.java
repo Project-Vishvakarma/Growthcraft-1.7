@@ -1,5 +1,9 @@
 package growthcraft.core.effect;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
 public class IEffectTest
 {
 	@Test
@@ -7,6 +11,6 @@ public class IEffectTest
 	{
 		final TestEffect eff = new TestEffect();
 		eff.apply(null, null, null, null);
-		assertEquals(eff.touched, 1);
+		assertEquals(1, eff.touched);
 	}
 }

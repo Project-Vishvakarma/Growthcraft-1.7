@@ -1,6 +1,9 @@
 package growthcraft.core.util;
 
 import growthcraft.api.core.util.CuboidI;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class CuboidITest
 {

@@ -2,6 +2,9 @@ package growthcraft.core.util;
 
 
 import growthcraft.api.core.util.TagParser;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class TagParserTest
 {
@@ -17,19 +20,19 @@ public class TagParserTest
 	{
 		final TagParser.Tag[] tags = TagParser.csv.parse("1,2,+3,-4");
 		assertEquals(4, tags.length);
-		assertEquals(tags[0].value, "1");
+		assertEquals("1", tags[0].value);
 		assertFalse(tags[0].exclude);
 		assertFalse(tags[0].must);
 
-		assertEquals(tags[1].value, "2");
+		assertEquals("2", tags[1].value);
 		assertFalse(tags[1].exclude);
 		assertFalse(tags[1].must);
 
-		assertEquals(tags[2].value, "3");
+		assertEquals("3", tags[2].value);
 		assertFalse(tags[2].exclude);
 		assertTrue(tags[2].must);
 
-		assertEquals(tags[3].value, "4");
+		assertEquals("4", tags[3].value);
 		assertTrue(tags[3].exclude);
 		assertFalse(tags[3].must);
 	}
