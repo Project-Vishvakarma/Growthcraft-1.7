@@ -5,6 +5,7 @@ import growthcraft.core.common.inventory.GrcInternalInventory;
 import growthcraft.core.common.inventory.InventoryProcessor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import org.junit.runners.MethodSorters;
 
 public class InventoryProcessorTest
 {
